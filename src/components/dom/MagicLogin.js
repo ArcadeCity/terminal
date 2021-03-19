@@ -6,6 +6,10 @@ export const MagicLogin = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false)
   const [userMetadata, setUserMetadata] = useState()
 
+  const init = (metadata) => {
+    console.log('Initing with', metadata)
+  }
+
   useEffect(() => {
     // On mount, we check if a user is logged in.
     // If so, we'll retrieve the authenticated user's profile.
@@ -13,6 +17,7 @@ export const MagicLogin = () => {
       if (magicIsLoggedIn) {
         magic.user.getMetadata().then((metadata) => {
           setUserMetadata(metadata)
+          init(metadata)
         })
       }
     })
@@ -28,7 +33,7 @@ export const MagicLogin = () => {
         const metadata = await magic.user.getMetadata()
         setUserMetadata(metadata)
         console.log('Authed with Magic', metadata)
-        authCeramic(metadata)
+        init(metadata)
       } catch {
         setIsLoggingIn(false)
       }
