@@ -39,20 +39,20 @@ export const MagicLogin = () => {
   const logout = useCallback(() => {
     magic.user.logout().then(() => {
       setUserMetadata(null)
+      setEmail('')
     })
   }, [])
 
-  return (
+  return isLoggingIn ? (
+    <div style={container}>
+      <p className='mb-0'>Logging in...</p>
+    </div>
+  ) : (
     <div style={container}>
       {userMetadata ? (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <div className='flex flex-row items-center justify-center space-x-8'>
+          <p className='mb-0'>{userMetadata.issuer}</p>
+          <h6 className='mb-0'>{userMetadata.email}</h6>
           <button onClick={logout}>Log out</button>
         </div>
       ) : (
