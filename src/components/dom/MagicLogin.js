@@ -1,10 +1,15 @@
 import { useCallback, useEffect, useState } from 'react'
-import { magic } from '@/utilities'
+import { generateWallet, magic } from '@/utilities'
 
 export const MagicLogin = () => {
   const [email, setEmail] = useState()
   const [isLoggingIn, setIsLoggingIn] = useState(false)
   const [userMetadata, setUserMetadata] = useState()
+
+  const init = (metadata) => {
+    console.log('Initing with', metadata)
+    generateWallet()
+  }
 
   useEffect(() => {
     // On mount, we check if a user is logged in.
@@ -13,6 +18,7 @@ export const MagicLogin = () => {
       if (magicIsLoggedIn) {
         magic.user.getMetadata().then((metadata) => {
           setUserMetadata(metadata)
+          init(metadata)
         })
       }
     })
@@ -28,7 +34,7 @@ export const MagicLogin = () => {
         const metadata = await magic.user.getMetadata()
         setUserMetadata(metadata)
         console.log('Authed with Magic', metadata)
-        authCeramic(metadata)
+        init(metadata)
       } catch {
         setIsLoggingIn(false)
       }
