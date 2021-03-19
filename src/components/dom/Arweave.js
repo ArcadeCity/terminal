@@ -4,6 +4,7 @@ import { arweave, generateWallet } from '@/utilities'
 export const Arweave = () => {
   const [wallet, setWallet] = useState()
   const [address, setAddress] = useState()
+  const [balance, setBalance] = useState()
   const saveWallet = async (wallet) => {
     setWallet(wallet)
     const address1 = await arweave.wallets.jwkToAddress(wallet)
@@ -14,6 +15,7 @@ export const Arweave = () => {
       )}`
     )
     setAddress(address1)
+    setBalance(balance1)
   }
   const generate = async () => {
     const newWallet = await generateWallet()
@@ -36,17 +38,17 @@ export const Arweave = () => {
 
   return (
     <div className='p-32'>
-      <h1 className='mb-12'>Arweave</h1>
       {wallet ? (
         <>
-          <h6>Wallet loaded</h6>
+          <h5>Arweave wallet loaded</h5>
+          <p className='font-bold'>{balance} AR</p>
           <p>{address}</p>
         </>
       ) : (
         <button onClick={generate}>Generate wallet</button>
       )}
-      <div className='mt-12 w-72'>
-        <h6>Upload wallet</h6>
+      <div className='mt-16 w-72'>
+        <h5>Upload Arweave wallet</h5>
         <input type='file' onChange={onFileChange} />
       </div>
     </div>
