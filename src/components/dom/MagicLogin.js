@@ -1,0 +1,80 @@
+import { useCallback, useEffect, useState } from 'react'
+import { magic } from '@/utilities'
+
+export const MagicLogin = () => {
+  const [email, setEmail] = useState()
+  const [isLoggingIn, setIsLoggingIn] = useState(false)
+  const [userMetadata, setUserMetadata] = useState()
+
+  useEffect(() => {
+    // On mount, we check if a user is logged in.
+    // If so, we'll retrieve the authenticated user's profile.
+    magic.user.isLoggedIn().then((magicIsLoggedIn) => {
+      if (magicIsLoggedIn) {
+        magic.user.getMetadata().then((metadata) => {
+          setUserMetadata(metadata)
+        })
+      }
+    })
+  }, [])
+
+  const login = useCallback(
+    async (e) => {
+      e.preventDefault()
+      setIsLoggingIn(true)
+
+      try {
+        await magic.auth.loginWithMagicLink({ email })
+        const metadata = await magic.user.getMetadata()
+        setUserMetadata(metadata)
+        console.log('Authed with Magic', metadata)
+        authCeramic(metadata)
+      } catch {
+        setIsLoggingIn(false)
+      }
+    },
+    [email]
+  )
+
+  const logout = useCallback(() => {
+    magic.user.logout().then(() => {
+      setUserMetadata(null)
+    })
+  }, [])
+
+  return (
+    <div style={container}>
+      {userMetadata ? (
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <button onClick={logout}>Log out</button>
+        </div>
+      ) : (
+        <form onSubmit={login} className='flex flex-row'>
+          <input
+            type='email'
+            defaultValue={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className='mr-4'
+            placeholder='Enter your email'
+          />
+          <button type='submit' className='w-48'>
+            Log in
+          </button>
+        </form>
+      )}
+    </div>
+  )
+}
+
+const container = {
+  position: 'fixed',
+  right: 20,
+  top: 20,
+}
