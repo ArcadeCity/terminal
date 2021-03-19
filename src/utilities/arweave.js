@@ -11,7 +11,7 @@ export const arweave = Arweave.init({
 export const generateWallet = async () => {
   console.log('Generating wallet...')
   const wallet = await arweave.wallets.generate()
-  saveTemplateAsFile('ArcadeCityKey.json', wallet)
+  saveTemplateAsFile('ArcadeCityKey.json', JSON.stringify(wallet))
   return wallet
 }
 
