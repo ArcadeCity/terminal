@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { magic } from '@/utilities'
+import { initIpfs, magic } from '@/utilities'
 
 export const MagicLogin = () => {
   const [email, setEmail] = useState()
@@ -7,6 +7,8 @@ export const MagicLogin = () => {
   const [userMetadata, setUserMetadata] = useState()
 
   useEffect(() => {
+    initIpfs()
+
     // On mount, we check if a user is logged in.
     // If so, we'll retrieve the authenticated user's profile.
     magic.user.isLoggedIn().then((magicIsLoggedIn) => {

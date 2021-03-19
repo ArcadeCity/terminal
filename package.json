@@ -39,6 +39,7 @@
     "ipfs": "^0.54.4",
     "lerp": "^1.0.3",
     "magic-sdk": "^4.2.0",
+    "multiformats": "^4.6.2",
     "next": "^10.0.8",
     "postprocessing": "^6.20.3",
     "react": "^17.0.1",
