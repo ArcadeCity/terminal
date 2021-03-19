@@ -26,6 +26,10 @@ export const Arweave = () => {
 
     const fees = await community.getFees()
     console.log('Fees:', fees)
+
+    const contractState = await readContract(arweave, contractId)
+    console.log(contractState)
+    console.log(contractState.balances)
   }
   const generate = async () => {
     const newWallet = await generateWallet()
