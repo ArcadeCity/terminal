@@ -8,6 +8,9 @@ export const MagicLogin = () => {
 
   const init = (metadata) => {
     console.log('Initing with', metadata)
+  }
+
+  const download = () => {
     generateWallet()
   }
 
@@ -59,6 +62,7 @@ export const MagicLogin = () => {
         <div className='flex flex-row items-center justify-center space-x-8'>
           <p className='mb-0'>{userMetadata.issuer}</p>
           <h6 className='mb-0'>{userMetadata.email}</h6>
+          <button onClick={download}>Download wallet</button>
           <button onClick={logout}>Log out</button>
         </div>
       ) : (
