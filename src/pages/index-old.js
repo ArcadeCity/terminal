@@ -1,8 +1,8 @@
 import useStore from '@/helpers/store'
 import dynamic from 'next/dynamic'
-import { MagicLogin } from '@/components/dom/MagicLogin'
+import Go from '@/components/dom/go'
 
-const Home = dynamic(() => import('@/components/canvas/Home'), {
+const Sphere = dynamic(() => import('@/components/canvas/Sphere'), {
   ssr: false,
 })
 
@@ -10,8 +10,8 @@ const Page = ({ title }) => {
   useStore.setState({ title })
   return (
     <>
-      <MagicLogin />
-      <Home r3f />
+      <Sphere r3f />
+      <Go />
     </>
   )
 }
