@@ -6,20 +6,25 @@ export const MagicLogin = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false)
   const [userMetadata, setUserMetadata] = useState()
 
-  const connectIPFS = async () => {
+  const connectIPFS = async (metadata) => {
     const ipfs = await initIpfs()
     console.log('ipfs:', ipfs)
+
+    const encoder = new TextEncoder() // always utf-8
+    const sha = await sha256(metadata.issuer)
+    const seed = encoder.encode(sha)
+
+    console.log(seed)
   }
 
   useEffect(() => {
-    connectIPFS()
-
     // On mount, we check if a user is logged in.
     // If so, we'll retrieve the authenticated user's profile.
     magic.user.isLoggedIn().then((magicIsLoggedIn) => {
       if (magicIsLoggedIn) {
         magic.user.getMetadata().then((metadata) => {
           setUserMetadata(metadata)
+          connectIPFS(metadata)
         })
       }
     })
@@ -35,7 +40,7 @@ export const MagicLogin = () => {
         const metadata = await magic.user.getMetadata()
         setUserMetadata(metadata)
         console.log('Authed with Magic', metadata)
-        authCeramic(metadata)
+        connectIPFS(metadata)
       } catch {
         setIsLoggingIn(false)
       }
@@ -84,4 +89,21 @@ const container = {
   position: 'fixed',
   right: 20,
   top: 20,
+}
+
+async function sha256(message) {
+  // encode as UTF-8
+  const msgBuffer = new TextEncoder().encode(message)
+
+  // hash the message
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer)
+
+  // convert ArrayBuffer to Array
+  const hashArray = Array.from(new Uint8Array(hashBuffer))
+
+  // convert bytes to hex string
+  const hashHex = hashArray
+    .map((b) => ('00' + b.toString(16)).slice(-2))
+    .join('')
+  return hashHex
 }
