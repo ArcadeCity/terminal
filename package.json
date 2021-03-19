@@ -1,8 +1,8 @@
 {
-  "name": "react-three-next",
-  "version": "1.7.0",
+  "name": "terminal",
+  "version": "0.0.1",
   "authors": [
-    "Renaud ROHLINGER <https://twitter.com/onirenaud>"
+    "Christopher David <https://twitter.com/ArcadeCityMayor>"
   ],
   "private": false,
   "scripts": {
@@ -75,5 +75,5 @@
     "prettier": "^2.2.1",
     "raw-loader": "^4.0.2"
   },
-  "license": "MIT"
+  "license": "GPL-3.0-or-later"
 }
