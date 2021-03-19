@@ -8,11 +8,11 @@ export const arweave = Arweave.init({
   logging: false, // Enable network request logging
 })
 
-export const generateWallet = () => {
+export const generateWallet = async () => {
   console.log('Generating wallet...')
-  arweave.wallets.generate().then((key) => {
-    saveTemplateAsFile('ArcadeCityKey.json', key)
-  })
+  const wallet = await arweave.wallets.generate()
+  saveTemplateAsFile('ArcadeCityKey.json', wallet)
+  return wallet
 }
 
 export const generateKey = async () => {
