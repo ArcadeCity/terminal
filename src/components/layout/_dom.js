@@ -16,13 +16,10 @@ const Dom = ({ dom }) => {
   events && delete events.onGotPointerCaptureLegacy // https://github.com/pmndrs/react-three-fiber/issues/462#issuecomment-653227107
   return (
     <ArcadeUI>
-      <div
-        className='font-mono absolute top-0 left-0 right-0 z-20 dom'
-        {...events}
-      >
+      <div className='absolute top-0 left-0 right-0 z-20 dom' {...events}>
         <Header />
         {dom}
-        <h1 className='absolute w-full text-xs tracking-wider text-center text-gray-100 md:mt-56 mt-28 top-1/2 sm:subpixel-antialiased md:antialiased'>
+        <h1 className='absolute w-full text-center md:mt-56 mt-28 top-1/2 sm:subpixel-antialiased md:antialiased'>
           ARCADE CITY TERMINAL
         </h1>
       </div>
