@@ -9,6 +9,7 @@ const Header = () => {
     </Head>
   )
 }
+
 const Dom = ({ dom }) => {
   const events = useStore((s) => s.events)
   events && delete events.onGotPointerCaptureLegacy // https://github.com/pmndrs/react-three-fiber/issues/462#issuecomment-653227107
@@ -17,7 +18,7 @@ const Dom = ({ dom }) => {
       <Header />
       {dom}
       <h1 className='absolute w-full text-xs tracking-wider text-center text-gray-100 md:mt-56 mt-28 top-1/2 sm:subpixel-antialiased md:antialiased'>
-        REACT THREE NEXT STARTER
+        ARCADE CITY TERMINAL
       </h1>
     </div>
   )
