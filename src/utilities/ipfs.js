@@ -2,6 +2,7 @@ import IPFS from 'ipfs'
 import dagJose from 'dag-jose'
 
 export const initIpfs = async () => {
+  if (!process.browser) return false
   const { sha256 } = await import('multiformats/hashes/sha2')
   const legacy = (await import('multiformats/legacy')).default
   const hasher = {}

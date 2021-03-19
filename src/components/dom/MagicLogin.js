@@ -6,8 +6,13 @@ export const MagicLogin = () => {
   const [isLoggingIn, setIsLoggingIn] = useState(false)
   const [userMetadata, setUserMetadata] = useState()
 
+  const connectIPFS = async () => {
+    const ipfs = await initIpfs()
+    console.log('ipfs:', ipfs)
+  }
+
   useEffect(() => {
-    initIpfs()
+    connectIPFS()
 
     // On mount, we check if a user is logged in.
     // If so, we'll retrieve the authenticated user's profile.
