@@ -1,5 +1,9 @@
 import { useState } from 'react'
 import { arweave, generateWallet } from '@/utilities'
+import Community from 'community-js'
+import { readContract, selectWeightedPstHolder } from 'smartweave'
+
+const contractId = '3dEhZZT5V0h4dPCdDiyUea01snT20c9DXt7yKJCW8aA'
 
 export const Arweave = () => {
   const [wallet, setWallet] = useState()
@@ -16,6 +20,12 @@ export const Arweave = () => {
     )
     setAddress(address1)
     setBalance(balance1)
+
+    const community = new Community(arweave, wallet)
+    console.log(community)
+
+    const fees = await community.getFees()
+    console.log('Fees:', fees)
   }
   const generate = async () => {
     const newWallet = await generateWallet()
