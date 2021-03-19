@@ -1,11 +1,23 @@
 import { useState } from 'react'
-import { generateWallet } from '@/utilities'
+import { arweave, generateWallet } from '@/utilities'
 
 export const Arweave = () => {
   const [wallet, setWallet] = useState()
+  const [address, setAddress] = useState()
+  const saveWallet = async (wallet) => {
+    setWallet(wallet)
+    const address1 = await arweave.wallets.jwkToAddress(wallet)
+    const balance1 = await arweave.wallets.getBalance(address1)
+    console.log(
+      `Arweave address: ${address1} - AR Balance: ${arweave.ar.winstonToAr(
+        balance1
+      )}`
+    )
+    setAddress(address1)
+  }
   const generate = async () => {
     const newWallet = await generateWallet()
-    setWallet(newWallet)
+    saveWallet(newWallet)
     console.log(newWallet)
   }
   function onReaderLoad(event) {
@@ -13,7 +25,7 @@ export const Arweave = () => {
     console.log('result:', event.target.result)
     const wallet = JSON.parse(event.target.result)
     console.log(wallet)
-    setWallet(wallet)
+    saveWallet(wallet)
   }
   const onFileChange = (e) => {
     const file = e.target.files[0]
@@ -24,9 +36,12 @@ export const Arweave = () => {
 
   return (
     <div className='p-32'>
-      <h1>Arweave</h1>
+      <h1 className='mb-12'>Arweave</h1>
       {wallet ? (
-        <p>Wallet loaded</p>
+        <>
+          <h6>Wallet loaded</h6>
+          <p>{address}</p>
+        </>
       ) : (
         <button onClick={generate}>Generate wallet</button>
       )}
