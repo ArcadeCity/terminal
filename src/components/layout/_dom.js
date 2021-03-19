@@ -1,5 +1,4 @@
 import useStore from '@/helpers/store'
-import { Badge } from '@pmndrs/branding'
 import Head from 'next/head'
 
 const Header = () => {
@@ -20,9 +19,6 @@ const Dom = ({ dom }) => {
       <h1 className='absolute w-full text-xs tracking-wider text-center text-gray-100 md:mt-56 mt-28 top-1/2 sm:subpixel-antialiased md:antialiased'>
         REACT THREE NEXT STARTER
       </h1>
-      <div className='absolute p-2 m-2 right-4 z-index-30'>
-        <Badge />
-      </div>
     </div>
   )
 }
