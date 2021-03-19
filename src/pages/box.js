@@ -7,7 +7,7 @@ const Box = dynamic(() => import('@/components/canvas/Box'), {
 })
 
 const Page = () => {
-  useStore.setState({ title: 'Box' })
+  useStore.setState({ title: 'Arcade City' })
   return (
     <>
       <Box r3f />

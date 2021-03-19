@@ -2,8 +2,10 @@ import Link from 'next/link'
 
 const BackButton = () => {
   return (
-    <Link href='/' as={`/`} >
-      <a className='absolute z-20 p-2 m-2 text-white focus:outline-none focus:ring'>Previous page</a>
+    <Link href='/' as={`/`}>
+      <button className='absolute z-20 py-1 px-6 m-2 focus:outline-none focus:ring'>
+        Previous page
+      </button>
     </Link>
   )
 }
