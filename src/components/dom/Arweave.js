@@ -9,6 +9,7 @@ export const Arweave = () => {
   const [wallet, setWallet] = useState()
   const [address, setAddress] = useState()
   const [balance, setBalance] = useState()
+  const [contractState, setContractState] = useState()
   const saveWallet = async (wallet) => {
     setWallet(wallet)
     const address1 = await arweave.wallets.jwkToAddress(wallet)
@@ -27,9 +28,9 @@ export const Arweave = () => {
     const fees = await community.getFees()
     console.log('Fees:', fees)
 
-    const contractState = await readContract(arweave, contractId)
-    console.log(contractState)
-    console.log(contractState.balances)
+    const newContractState = await readContract(arweave, contractId)
+    setContractState(newContractState)
+    console.log(newContractState)
   }
   const generate = async () => {
     const newWallet = await generateWallet()
@@ -52,12 +53,19 @@ export const Arweave = () => {
 
   return (
     <div className='p-32'>
-      {wallet ? (
+      {contractState && (
         <>
+          <h5>PSC: {contractState.name}</h5>
+          <p>Ticker: {contractState.ticker}</p>
+          <p>Members: {Object.entries(contractState.balances).length}</p>
+        </>
+      )}
+      {wallet ? (
+        <div className='mt-16'>
           <h5>Your Arweave wallet</h5>
           <p>{address}</p>
           <p className='font-bold'>{balance} AR</p>
-        </>
+        </div>
       ) : (
         <button onClick={generate}>Generate wallet</button>
       )}
