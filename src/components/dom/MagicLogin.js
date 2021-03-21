@@ -56,7 +56,7 @@ export const MagicLogin = () => {
       {userMetadata ? (
         <div style={container}>
           <div className='flex flex-row items-center justify-center space-x-8'>
-            <p className='mb-0'>{userMetadata.issuer}</p>
+            <p className='mb-0'>{userMetadata.publicAddress}</p>
             <h6 className='mb-0'>{userMetadata.email}</h6>
             <button onClick={logout}>Log out</button>
           </div>
