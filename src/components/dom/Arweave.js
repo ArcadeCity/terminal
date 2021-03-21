@@ -63,7 +63,10 @@ export const Arweave = () => {
           <p className='font-bold'>{balance} AR</p>
         </div>
       ) : (
-        <button onClick={generate}>Generate wallet</button>
+        <div className='mt-4'>
+          <h5>Create Arweave wallet</h5>
+          <button onClick={generate}>Create wallet</button>
+        </div>
       )}
       <div className='mt-16 w-72'>
         <h5>Upload Arweave wallet</h5>
