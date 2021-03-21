@@ -63,8 +63,9 @@ export const MagicLogin = () => {
         </div>
       ) : (
         <div className='flex flex-col justify-center items-center w-full h-screen'>
-          <div className='max-w-xl'>
-            <form onSubmit={login} className='flex flex-row'>
+          <div className='max-w-xl text-center'>
+            <h1 className='mb-2'>Terminal</h1>
+            <form onSubmit={login} className='mt-8 flex flex-row'>
               <input
                 type='email'
                 defaultValue={email}
