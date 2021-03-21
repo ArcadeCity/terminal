@@ -24,3 +24,8 @@ export const addSignedObject = async (did, ipfs, payload) => {
   await ipfs.block.put(linkedBlock, { cid: jws.link })
   return jwsCid
 }
+
+export const addEncryptedObject = async (did, ipfs, cleartext, dids) => {
+  const jwe = await did.createDagJWE(cleartext, dids)
+  return ipfs.dag.put(jwe, { format: 'dag-jose', hashAlg: 'sha2-256' })
+}

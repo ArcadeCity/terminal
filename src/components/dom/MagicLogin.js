@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
-import { addSignedObject, authDid, initIpfs, magic } from '@/utilities'
+import {
+  addEncryptedObject,
+  addSignedObject,
+  authDid,
+  initIpfs,
+  magic,
+} from '@/utilities'
 
 export const MagicLogin = () => {
   const [email, setEmail] = useState()
@@ -53,6 +59,31 @@ export const MagicLogin = () => {
       .get(cid2, { path: '/link/prev/link' })
       .then((b) => console.log(b.value))
     // > { hello: 'world' }
+
+    const jws1 = await ipfs.dag.get(cid1)
+    console.log('jws1:', jws1)
+    const jws2 = await ipfs.dag.get(cid2)
+    console.log('jws2:', jws2)
+
+    const signingDID1 = await did.verifyJWS(jws1.value)
+    console.log('signingDID1:', signingDID1)
+    const signingDID2 = await did.verifyJWS(jws2.value)
+    console.log('signingDID2:', signingDID2)
+
+    const cid3 = await addEncryptedObject(did, ipfs, { hello: 'secret' }, [
+      did.id,
+    ])
+
+    console.log('cid3:', cid3)
+
+    const cid4 = await addEncryptedObject(
+      did,
+      ipfs,
+      { hello: 'cool!', prev: cid3 },
+      [did.id]
+    )
+
+    console.log('cid4:', cid4)
   }
 
   useEffect(() => {
