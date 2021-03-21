@@ -1,8 +1,14 @@
 import create from 'zustand'
 
+type MagicUser = {
+  email: string
+  issuer: string
+  publicAddress: string
+}
+
 type State = {
   title: string
-  user: any
+  magicUser: MagicUser | any
   router: any
   events: any
   setEvents: (events: any) => void
@@ -11,7 +17,7 @@ type State = {
 const useStore = create<State>((set) => {
   return {
     title: '',
-    user: null,
+    magicUser: null,
     router: {},
     events: null,
     setEvents: (events) => {
