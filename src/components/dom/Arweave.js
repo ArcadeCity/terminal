@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { arweave, generateWallet } from '@/utilities'
 import Community from 'community-js'
 import { readContract, selectWeightedPstHolder } from 'smartweave'
@@ -12,22 +12,24 @@ export const Arweave = () => {
   const [address, setAddress] = useState()
   const [balance, setBalance] = useState()
   const [contractState, setContractState] = useState()
+
+  const grabContractState = async () => {
+    const newContractState = await readContract(arweave, contractId)
+    setContractState(newContractState)
+  }
+
+  useEffect(grabContractState, [])
+
   const saveWallet = async (wallet) => {
     setWallet(wallet)
     const address1 = await arweave.wallets.jwkToAddress(wallet)
     const balance1 = await arweave.wallets.getBalance(address1)
-    console.log(
-      `Arweave address: ${address1} - AR Balance: ${arweave.ar.winstonToAr(
-        balance1
-      )}`
-    )
+    const readableBalance = arweave.ar.winstonToAr(balance1)
+    console.log(`Arweave address: ${address1} - AR Balance: ${readableBalance}`)
     setAddress(address1)
-    setBalance(balance1)
-
-    const newContractState = await readContract(arweave, contractId)
-    setContractState(newContractState)
-    console.log(newContractState)
+    setBalance(readableBalance)
   }
+
   const generate = async () => {
     const newWallet = await generateWallet()
     saveWallet(newWallet)
@@ -49,15 +51,8 @@ export const Arweave = () => {
 
   return (
     <div className='p-32'>
-      {contractState && (
-        <>
-          <h5>PSC: {contractState.name}</h5>
-          <p>Ticker: {contractState.ticker}</p>
-          <p>Members: {Object.entries(contractState.balances).length}</p>
-        </>
-      )}
       {wallet ? (
-        <div className='mt-16'>
+        <div className='mt-4'>
           <h5>Your Arweave wallet</h5>
           <p>{address}</p>
           <p className='font-bold'>{balance} AR</p>
@@ -72,6 +67,12 @@ export const Arweave = () => {
         <h5>Upload Arweave wallet</h5>
         <input type='file' onChange={onFileChange} />
       </div>
+      {contractState && (
+        <div className='mt-16'>
+          <h5>{contractState.name}</h5>
+          <p>PSC Members: {Object.entries(contractState.balances).length}</p>
+        </div>
+      )}
     </div>
   )
 }
