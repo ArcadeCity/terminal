@@ -2,11 +2,12 @@ import useStore from '@/helpers/store'
 import Head from 'next/head'
 import { ArcadeUI } from '@arcadecity/ui'
 
-const Header = () => {
+export const Header = () => {
   const title = useStore((s) => s.title)
   return (
     <Head>
       <title>{title}</title>
+      <link rel='shortcut icon' href='/icons/favicon.ico' />
       <link rel='preconnect' href='https://fonts.gstatic.com' />
       <link
         href='https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap'

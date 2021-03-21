@@ -1,19 +1,18 @@
+import { ArcadeUI } from '@arcadecity/ui'
 import useStore from '@/helpers/store'
-import dynamic from 'next/dynamic'
 import { Arweave, MagicLogin } from '@/components/dom'
-
-const Home = dynamic(() => import('@/components/canvas/Home'), {
-  ssr: false,
-})
+import { Header } from '@/components/layout/_dom'
 
 const Page = ({ title }) => {
   useStore.setState({ title })
+  const user = useStore((state) => state.user)
+  console.log('user:', user)
   return (
-    <>
+    <ArcadeUI>
+      <Header />
       <Arweave />
       <MagicLogin />
-      <Home r3f />
-    </>
+    </ArcadeUI>
   )
 }
 
