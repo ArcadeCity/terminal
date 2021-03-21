@@ -24,12 +24,6 @@ export const Arweave = () => {
     setAddress(address1)
     setBalance(balance1)
 
-    const community = new Community(arweave, wallet)
-    console.log(community)
-
-    const fees = await community.getFees()
-    console.log('Fees:', fees)
-
     const newContractState = await readContract(arweave, contractId)
     setContractState(newContractState)
     console.log(newContractState)

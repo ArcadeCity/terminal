@@ -6,7 +6,7 @@ import { Header } from '@/components/layout/_dom'
 const Page = ({ title }) => {
   useStore.setState({ title })
   const user = useStore((state) => state.user)
-  console.log('user:', user)
+  // console.log('user:', user)
   return (
     <ArcadeUI>
       <Header />

@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import {
-  authCeramic,
   addEncryptedObject,
   addSignedObject,
   authDid,
@@ -16,7 +15,6 @@ export const MagicLogin = () => {
 
   const initUser = async (metadata) => {
     if (!process.browser) return false
-    console.log('Initing user with', metadata)
     setUserMetadata(metadata)
     setIsLoggingIn(false)
     // await connectIPFS()
