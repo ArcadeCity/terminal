@@ -52,26 +52,32 @@ export const MagicLogin = () => {
       <p className='mb-0'>Logging in...</p>
     </div>
   ) : (
-    <div style={container}>
+    <div>
       {userMetadata ? (
-        <div className='flex flex-row items-center justify-center space-x-8'>
-          <p className='mb-0'>{userMetadata.issuer}</p>
-          <h6 className='mb-0'>{userMetadata.email}</h6>
-          <button onClick={logout}>Log out</button>
+        <div style={container}>
+          <div className='flex flex-row items-center justify-center space-x-8'>
+            <p className='mb-0'>{userMetadata.issuer}</p>
+            <h6 className='mb-0'>{userMetadata.email}</h6>
+            <button onClick={logout}>Log out</button>
+          </div>
         </div>
       ) : (
-        <form onSubmit={login} className='flex flex-row'>
-          <input
-            type='email'
-            defaultValue={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className='mr-4'
-            placeholder='Enter your email'
-          />
-          <button type='submit' className='w-48'>
-            Log in
-          </button>
-        </form>
+        <div className='flex flex-col justify-center items-center w-full h-screen'>
+          <div className='max-w-xl'>
+            <form onSubmit={login} className='flex flex-row'>
+              <input
+                type='email'
+                defaultValue={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className='mr-4'
+                placeholder='Enter your email'
+              />
+              <button type='submit' className='w-48'>
+                Log in
+              </button>
+            </form>
+          </div>
+        </div>
       )}
     </div>
   )
