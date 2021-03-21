@@ -67,6 +67,10 @@ export const MagicLogin = () => {
     if (!process.browser) return false
     console.log(metadata)
 
+    const bytes = Web3Utils.hexToBytes(metadata.publicAddress)
+    const seed = bytes.concat([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+    console.log(seed)
+
     // // See https://github.com/decentralized-identity/did-resolver
     // const did1 = new DID({ resolver: KeyResolver.getResolver() })
 
@@ -76,7 +80,6 @@ export const MagicLogin = () => {
     // )
     // console.log(wat)
 
-    return
     // const ipfs = await initIpfs()
     // console.log('ipfs:', ipfs)
 
@@ -105,38 +108,38 @@ export const MagicLogin = () => {
     // const seed = encoder.encode(bytes)
 
     // const seed = metadata.publicAddress
-    const seed = randomBytes(32)
-    console.log(seed)
+    // const seed = randomBytes(32)
+    // console.log(seed)
 
     // create did instance
-    // const provider = new Ed25519Provider(seed)
-    // console.log(provider)
-    // const did = new DID({ provider, resolver: KeyResolver.getResolver() })
-    // console.log(did)
-    // await did.authenticate()
-    // window.did = did
-    // console.log('Connected with DID:', did.id)
-
-    const threeParams = { getPermission, seed }
-    const threeId = await ThreeIdProvider.create(threeParams)
-    const provider = threeId.getDidProvider()
-    const did = new DID({ provider, resolver: KeyResolver.getResolver() }) //
-    console.log('Authenticating did...')
+    const provider = new Ed25519Provider(seed)
+    console.log(provider)
+    const did = new DID({ provider, resolver: KeyResolver.getResolver() })
+    console.log(did)
     await did.authenticate()
-    console.log('Authenticated')
+    window.did = did
+    console.log('Connected with DID:', did.id)
 
-    const payload = { hello: 'world' }
+    // const threeParams = { getPermission, seed }
+    // const threeId = await ThreeIdProvider.create(threeParams)
+    // const provider = threeId.getDidProvider()
+    // const did = new DID({ provider, resolver: KeyResolver.getResolver() }) //
+    // console.log('Authenticating did...')
+    // await did.authenticate()
+    // console.log('Authenticated')
 
-    const { jws, linkedBlock } = await did.createDagJWS(payload)
-    // put the JWS into the ipfs dag
-    const jwsCid = await ipfs.dag.put(jws, {
-      format: 'dag-jose',
-      hashAlg: 'sha2-256',
-    })
-    // put the payload into the ipfs dag
-    await ipfs.block.put(linkedBlock, { cid: jws.link })
-    console.log('DONE?', jwsCid)
-    return jwsCid
+    // const payload = { hello: 'world' }
+
+    // const { jws, linkedBlock } = await did.createDagJWS(payload)
+    // // put the JWS into the ipfs dag
+    // const jwsCid = await ipfs.dag.put(jws, {
+    //   format: 'dag-jose',
+    //   hashAlg: 'sha2-256',
+    // })
+    // // put the payload into the ipfs dag
+    // await ipfs.block.put(linkedBlock, { cid: jws.link })
+    // console.log('DONE?', jwsCid)
+    // return jwsCid
   }
 
   useEffect(() => {
@@ -146,7 +149,8 @@ export const MagicLogin = () => {
       if (magicIsLoggedIn) {
         magic.user.getMetadata().then((metadata) => {
           setUserMetadata(metadata)
-          getArWallet(metadata)
+          // getArWallet(metadata)
+          connectIPFS2(metadata)
         })
       }
     })

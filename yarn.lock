@@ -4408,7 +4408,7 @@ did-jwt@^4.8.0:
     js-sha3 "^0.8.0"
     uint8arrays "^2.0.0"
 
-did-jwt@^5.0.0, did-jwt@^5.0.1:
+did-jwt@^5.0.1:
   version "5.0.1"
   resolved "https://registry.npmjs.org/did-jwt/-/did-jwt-5.0.1.tgz#4bdd4f500c3bcf70bc1f0e6252fb55ab88c87ab7"
   integrity sha512-lGpAUUguGx5LSvCMkhXh8WKUprD9xMkKeo2ZPg91Eu7YLrf6W/U8nUqmjtQFHDPFN9rkpUcroFgIl5epiC/RoA==
@@ -4434,7 +4434,7 @@ did-resolver@^3.0.1:
   resolved "https://registry.npmjs.org/did-resolver/-/did-resolver-3.0.2.tgz#c44750b1b6536d8ea30298d1cfb3fba9eb97e5a9"
   integrity sha512-1RpCnyjHrCNuUuMwJusuKtl9K7DX61uP3PHZ1qyKWflCBA9Tec+wrTDhJsCA3wQyWNRVfRn0tlhEn3z6tS53lg==
 
-dids@^1.1.1:
+dids@^1.0.0, dids@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/dids/-/dids-1.1.1.tgz#2430fd35a9217bea15add026303f1bc422eeba2a"
   integrity sha512-4xm1ku1s5OZE2lFi2/521rIE3CHI3RgnA2uCnzcbvvnYq3nxlPPW97aSH4LWyul8jYxTuB566ZKesdU1Ol6sew==
@@ -4444,19 +4444,6 @@ dids@^1.1.1:
     dag-jose-utils "^0.1.0"
     did-jwt "^4.8.0"
     did-resolver "^2.1.2"
-    rpc-utils "^0.1.3"
-    uint8arrays "^1.1.0"
-
-dids@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/dids/-/dids-2.0.0.tgz#bf167073f0c412bc340ff7e2543fcd0522536730"
-  integrity sha512-Fjz4FFja6k98XN3J4rsDMbaBuX4Nex3z9TgFFjUZUUHuJcbkuOTZz+a+Yki9iQm0O10gufYmcZ9iOOSqcu4++Q==
-  dependencies:
-    "@stablelib/random" "^1.0.0"
-    cids "^1.0.0"
-    dag-jose-utils "^0.1.0"
-    did-jwt "^5.0.0"
-    did-resolver "^3.0.1"
     rpc-utils "^0.1.3"
     uint8arrays "^1.1.0"
 
