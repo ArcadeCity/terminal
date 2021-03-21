@@ -48,7 +48,7 @@ export const MagicLogin = () => {
   }, [])
 
   return isLoggingIn ? (
-    <div style={container}>
+    <div className='flex flex-col justify-center items-center w-full h-screen'>
       <p className='mb-0'>Logging in...</p>
     </div>
   ) : (
