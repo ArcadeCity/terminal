@@ -30,7 +30,10 @@
     ]
   },
   "dependencies": {
+    "3id-did-provider": "^0.5.1",
     "@arcadecity/ui": "^0.0.1-alpha.10",
+    "@ceramicnetwork/http-client": "^0.9.6",
+    "@ceramicstudio/idx": "^0.8.0",
     "@react-spring/three": "^9.0.0-rc.3",
     "@react-three/a11y": "1.0.1",
     "@react-three/drei": "^4.0.0-beta.4",
@@ -39,6 +42,7 @@
     "community-js": "^1.1.36",
     "lerp": "^1.0.3",
     "magic-sdk": "^4.2.0",
+    "multicodec": "2.0.4",
     "next": "^10.0.8",
     "postprocessing": "^6.20.3",
     "react": "^17.0.1",
