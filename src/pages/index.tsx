@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { ArcadeUI } from '@arcadecity/ui'
 import useStore from '@/helpers/store'
 import { Arweave, MagicLogin } from '@/components/dom'
@@ -5,8 +6,11 @@ import { Header } from '@/components/layout/_dom'
 
 const Page = ({ title }) => {
   useStore.setState({ title })
-  const user = useStore((state) => state.user)
-  // console.log('user:', user)
+  const user = useStore((state) => state.magicUser)
+  useEffect(() => {
+    if (!process.browser) return
+    console.log('user:', user)
+  }, [user])
   return (
     <ArcadeUI>
       <Header />

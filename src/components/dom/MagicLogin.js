@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { connectIPFS, magic } from '@/utilities'
+import useStore from '@/helpers/store'
 
 export const MagicLogin = () => {
   const [email, setEmail] = useState()
@@ -9,6 +10,7 @@ export const MagicLogin = () => {
   const initUser = async (metadata) => {
     if (!process.browser) return false
     setUserMetadata(metadata)
+    useStore.setState({ magicUser: metadata })
     setIsLoggingIn(false)
     await connectIPFS()
   }
