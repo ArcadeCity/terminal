@@ -42,6 +42,7 @@ export const MagicLogin = () => {
   const logout = useCallback(() => {
     magic.user.logout().then(() => {
       setUserMetadata(null)
+      // useStore.setState({ magicUser: null })
       setEmail('')
     })
   }, [])

@@ -8,13 +8,18 @@ const Page = ({ title }) => {
   useStore.setState({ title })
   const user = useStore((state) => state.magicUser)
   useEffect(() => {
-    if (!process.browser) return
+    if (!process.browser || !user) return
     console.log('user:', user)
   }, [user])
-  return (
+  return user ? (
     <ArcadeUI>
       <Header />
+      <MagicLogin />
       <Arweave />
+    </ArcadeUI>
+  ) : (
+    <ArcadeUI>
+      <Header />
       <MagicLogin />
     </ArcadeUI>
   )
