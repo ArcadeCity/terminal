@@ -31,14 +31,12 @@ export const MagicLogin = () => {
     // >   link: CID(bafyreidykglsfhoixmivffc5uwhcgshx4j465xwqntbmu43nb2dzqwfvae)
     // > }
 
-    return
-
     // Log the payload:
     ipfs.dag.get(cid1, { path: '/link' }).then((b) => console.log(b.value))
     // > { hello: 'world' }
 
     // Create another signed object that links to the previous one
-    const cid2 = addSignedObject(did, ipfs, {
+    const cid2 = await addSignedObject(did, ipfs, {
       hello: 'getting the hang of this',
       prev: cid1,
     })
