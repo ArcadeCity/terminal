@@ -54,15 +54,19 @@ export const MagicLogin = () => {
 
     const signer = magicProvider.getSigner()
 
-    const originalMessage = 'YOUR_MESSAGE'
-
+    const originalMessage = 'flampo'
+    // yo - 0xf964962b7464e6ac5a0115b5494d853711e4345ae24b7d19d2e806950e612cba75c70c53978f11c79ff544fd56f02c4b8444e0c836f398ba35aaf7613875442b1b
+    // flampo - 0x11ba6fbb30cf1003f93dcfc9416dea934ccc5224458dcc4853549f13a92e96a210a0918622f2ec1bce9e7415a2ce62792f0547ba97bd7db60aea04f1021e763d1c
+    // '' - 0x0281f812d65756d5409c895426bbe56da9190de29187429f114c7170a3d71a184ec210b93faefea29a702218060cef174e6e8f94910b89d341d02c4216707d251c
+    // yo123 - 0xbcbb3031aa21717752de539440d195753756d5c353c2e80f48c921e238a282be4c4a9219aa3c7ac4b82e3b13ce03521061ea7a5a562a9c4b9dc8ae30084142591c
     const signedMessage = await signer.signMessage(originalMessage)
 
     console.log('signedMessage:', signedMessage)
+    const bytes = Web3Utils.hexToBytes(signedMessage)
+    console.log(bytes)
 
     return
 
-    const bytes = Web3Utils.hexToBytes(metadata.publicAddress)
     const seed = bytes.concat([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
     console.log(seed)
 
