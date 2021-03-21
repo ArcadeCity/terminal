@@ -40,6 +40,7 @@
     "@stablelib/random": "^1.0.0",
     "dag-jose": "^0.3.0",
     "dids": "^1.0.0",
+    "ethers": "^5.0.32",
     "ipfs": "^0.54.4",
     "key-did-provider-ed25519": "^1.0.1",
     "lerp": "^1.0.3",
