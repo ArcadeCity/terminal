@@ -36,8 +36,8 @@ export const Arweave = () => {
     console.log(newWallet)
   }
   function onReaderLoad(event) {
-    console.log('event:', event)
-    console.log('result:', event.target.result)
+    // console.log('event:', event)
+    // console.log('result:', event.target.result)
     const wallet = JSON.parse(event.target.result)
     console.log(wallet)
     saveWallet(wallet)
