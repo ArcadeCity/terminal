@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { magic } from '@/utilities'
+import { authCeramic, magic } from '@/utilities'
 
 export const MagicLogin = () => {
   const [email, setEmail] = useState()
@@ -8,6 +8,7 @@ export const MagicLogin = () => {
 
   const init = (metadata) => {
     console.log('Initing with', metadata)
+    authCeramic(metadata)
   }
 
   useEffect(() => {

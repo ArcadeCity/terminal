@@ -3,7 +3,8 @@ import { arweave, generateWallet } from '@/utilities'
 import Community from 'community-js'
 import { readContract, selectWeightedPstHolder } from 'smartweave'
 
-const contractId = '3dEhZZT5V0h4dPCdDiyUea01snT20c9DXt7yKJCW8aA'
+// const contractId = '3dEhZZT5V0h4dPCdDiyUea01snT20c9DXt7yKJCW8aA' // JUST TESTING
+const contractId = 'uWGepCxO-lN-APdNMBGK5uuIp4ubo8cT2_ufPfo6q1Y' // STILL TESTING
 
 export const Arweave = () => {
   const [wallet, setWallet] = useState()
