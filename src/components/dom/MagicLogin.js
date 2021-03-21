@@ -9,12 +9,10 @@ import {
   magic,
 } from '@/utilities'
 
-
 export const MagicLogin = () => {
   const [email, setEmail] = useState()
   const [isLoggingIn, setIsLoggingIn] = useState(false)
   const [userMetadata, setUserMetadata] = useState()
-
 
   const initUser = async (metadata) => {
     if (!process.browser) return false
@@ -94,7 +92,7 @@ export const MagicLogin = () => {
 
     // Retrive multiple linked objects
     await followSecretPath(did, ipfs, cid4)
-
+  }
 
   useEffect(() => {
     magic.user.isLoggedIn().then((magicIsLoggedIn) => {
