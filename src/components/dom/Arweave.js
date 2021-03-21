@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
 import { arweave, generateWallet } from '@/utilities'
-import Community from 'community-js'
-import { readContract, selectWeightedPstHolder } from 'smartweave'
+import { readContract } from 'smartweave'
 
-// const contractId = '3dEhZZT5V0h4dPCdDiyUea01snT20c9DXt7yKJCW8aA' // JUST TESTING
-// const contractId = 'uWGepCxO-lN-APdNMBGK5uuIp4ubo8cT2_ufPfo6q1Y' // STILL TESTING
 const contractId = '7hVrRtwjs7XLPtpZsQMr6RPz19QjtTqQYpHy3rPEy-4' // ARCADE CITY
 
 export const Arweave = () => {
@@ -25,7 +22,6 @@ export const Arweave = () => {
     const address1 = await arweave.wallets.jwkToAddress(wallet)
     const balance1 = await arweave.wallets.getBalance(address1)
     const readableBalance = arweave.ar.winstonToAr(balance1)
-    console.log(`Arweave address: ${address1} - AR Balance: ${readableBalance}`)
     setAddress(address1)
     setBalance(readableBalance)
   }
@@ -36,8 +32,6 @@ export const Arweave = () => {
     console.log(newWallet)
   }
   function onReaderLoad(event) {
-    // console.log('event:', event)
-    // console.log('result:', event.target.result)
     const wallet = JSON.parse(event.target.result)
     console.log(wallet)
     saveWallet(wallet)
