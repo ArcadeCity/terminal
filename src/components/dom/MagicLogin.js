@@ -6,6 +6,7 @@ import KeyResolver from '@ceramicnetwork/key-did-resolver'
 import { initIpfs, magic } from '@/utilities'
 import Web3Utils from 'web3-utils'
 import { randomBytes } from '@stablelib/random'
+import { ethers } from 'ethers'
 
 const getPermission = async (request) => {
   console.log('Granting permission')
@@ -47,8 +48,19 @@ export const MagicLogin = () => {
     if (!process.browser) return false
     console.log(metadata)
 
-    const ipfs = await initIpfs()
-    console.log('ipfs:', ipfs)
+    const magicProvider = new ethers.providers.Web3Provider(magic.rpcProvider)
+
+    // ⭐️ After user is successfully authenticated
+
+    const signer = magicProvider.getSigner()
+
+    const originalMessage = 'YOUR_MESSAGE'
+
+    const signedMessage = await signer.signMessage(originalMessage)
+
+    console.log('signedMessage:', signedMessage)
+
+    return
 
     const bytes = Web3Utils.hexToBytes(metadata.publicAddress)
     const seed = bytes.concat([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
@@ -63,8 +75,10 @@ export const MagicLogin = () => {
     window.did = did
     console.log('Connected with DID:', did.id)
 
+    return
     const payload = { hello: 'world' }
-
+    const ipfs = await initIpfs()
+    console.log('ipfs:', ipfs)
     const { jws, linkedBlock } = await did.createDagJWS(payload)
     // put the JWS into the ipfs dag
     const jwsCid = await ipfs.dag.put(jws, {
