@@ -11,3 +11,16 @@ export const initIpfs = async () => {
   const ipfs = await IPFS.create({ ipld: { formats: [dagJoseFormat] } })
   return ipfs
 }
+
+export const addSignedObject = async (did, ipfs, payload) => {
+  // sign the payload as dag-jose
+  const { jws, linkedBlock } = await did.createDagJWS(payload)
+  // put the JWS into the ipfs dag
+  const jwsCid = await ipfs.dag.put(jws, {
+    format: 'dag-jose',
+    hashAlg: 'sha2-256',
+  })
+  // put the payload into the ipfs dag
+  await ipfs.block.put(linkedBlock, { cid: jws.link })
+  return jwsCid
+}

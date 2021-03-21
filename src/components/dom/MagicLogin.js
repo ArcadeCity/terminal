@@ -1,54 +1,31 @@
 import { useCallback, useEffect, useState } from 'react'
-import { DID } from 'dids'
-import { Ed25519Provider } from 'key-did-provider-ed25519'
-import KeyResolver from '@ceramicnetwork/key-did-resolver'
-import { initIpfs, magic } from '@/utilities'
-import Web3Utils from 'web3-utils'
-import { ethers } from 'ethers'
+import { addSignedObject, authDid, initIpfs, magic } from '@/utilities'
 
 export const MagicLogin = () => {
   const [email, setEmail] = useState()
   const [isLoggingIn, setIsLoggingIn] = useState(false)
   const [userMetadata, setUserMetadata] = useState()
 
-  const connectIPFS = async (metadata) => {
+  const initUser = async (metadata) => {
     if (!process.browser) return false
-    console.log(metadata)
+    console.log('Initing user with', metadata)
+    setUserMetadata(metadata)
+    await connectIPFS()
+  }
 
-    const magicProvider = new ethers.providers.Web3Provider(magic.rpcProvider)
-    const signer = magicProvider.getSigner()
-    const originalMessage = 'Arcade City Terminal Authentication Signature'
-    const signedMessage = await signer.signMessage(originalMessage)
-    const bytes = Web3Utils.hexToBytes(signedMessage)
-    const seed = bytes.slice(0, 32)
-    const provider = new Ed25519Provider(seed)
-    const did = new DID({ provider, resolver: KeyResolver.getResolver() })
-    await did.authenticate()
-    console.log('Authenticated with DID:', did.id)
-
-    return
-    const payload = { hello: 'world' }
+  const connectIPFS = async () => {
+    const did = await authDid()
     const ipfs = await initIpfs()
-    console.log('ipfs:', ipfs)
-    const { jws, linkedBlock } = await did.createDagJWS(payload)
-    // put the JWS into the ipfs dag
-    const jwsCid = await ipfs.dag.put(jws, {
-      format: 'dag-jose',
-      hashAlg: 'sha2-256',
-    })
-    // put the payload into the ipfs dag
-    await ipfs.block.put(linkedBlock, { cid: jws.link })
-    console.log('DONE?', jwsCid)
-    return jwsCid
+    const payload = { hello: 'world' }
+
+    const obj = await addSignedObject(did, ipfs, payload)
+    console.log('Obj added:', obj)
   }
 
   useEffect(() => {
     magic.user.isLoggedIn().then((magicIsLoggedIn) => {
       if (magicIsLoggedIn) {
-        magic.user.getMetadata().then((metadata) => {
-          setUserMetadata(metadata)
-          connectIPFS(metadata)
-        })
+        magic.user.getMetadata().then(initUser)
       }
     })
   }, [])
@@ -61,9 +38,7 @@ export const MagicLogin = () => {
       try {
         await magic.auth.loginWithMagicLink({ email })
         const metadata = await magic.user.getMetadata()
-        setUserMetadata(metadata)
-        console.log('Authed with Magic', metadata)
-        connectIPFS(metadata)
+        initUser(metadata)
       } catch {
         setIsLoggingIn(false)
       }
