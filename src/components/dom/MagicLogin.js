@@ -3,6 +3,7 @@ import {
   addEncryptedObject,
   addSignedObject,
   authDid,
+  followSecretPath,
   initIpfs,
   magic,
 } from '@/utilities'
@@ -84,6 +85,12 @@ export const MagicLogin = () => {
     )
 
     console.log('cid4:', cid4)
+
+    await followSecretPath(did, ipfs, cid3)
+    // > { hello: 'secret' }
+
+    // Retrive multiple linked objects
+    await followSecretPath(did, ipfs, cid4)
   }
 
   useEffect(() => {

@@ -29,3 +29,12 @@ export const addEncryptedObject = async (did, ipfs, cleartext, dids) => {
   const jwe = await did.createDagJWE(cleartext, dids)
   return ipfs.dag.put(jwe, { format: 'dag-jose', hashAlg: 'sha2-256' })
 }
+
+export const followSecretPath = async (did, ipfs, cid) => {
+  const jwe = (await ipfs.dag.get(cid)).value
+  const cleartext = await did.decryptDagJWE(jwe)
+  console.log('Decrypted:', cleartext)
+  if (cleartext.prev) {
+    followSecretPath(did, ipfs, cleartext.prev)
+  }
+}
