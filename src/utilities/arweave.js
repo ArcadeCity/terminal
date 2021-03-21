@@ -35,3 +35,4 @@ const saveTemplateAsFile = (filename, jsonToWrite) => {
 
   link.dispatchEvent(evt)
 }
+
