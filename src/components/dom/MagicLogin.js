@@ -12,7 +12,7 @@ export const MagicLogin = () => {
     setUserMetadata(metadata)
     useStore.setState({ magicUser: metadata })
     setIsLoggingIn(false)
-    await connectIPFS()
+    // await connectIPFS()
   }
 
   useEffect(() => {
