@@ -1,7 +1,7 @@
+import { ArcadeUI } from '@arcadecity/ui'
 import useStore from '@/helpers/store'
 import { Arweave, MagicLogin } from '@/components/dom'
 import { Header } from '@/components/layout/_dom'
-import { ArcadeUI } from '@arcadecity/ui'
 
 const Page = ({ title }) => {
   useStore.setState({ title })
