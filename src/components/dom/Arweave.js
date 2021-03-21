@@ -69,8 +69,10 @@ export const Arweave = () => {
       </div>
       {contractState && (
         <div className='mt-16'>
-          <h5>{contractState.name}</h5>
-          <p>PSC Members: {Object.entries(contractState.balances).length}</p>
+          <h5>{contractState.name} PSC Members</h5>
+          <p className='text-lg font-bold'>
+            {Object.entries(contractState.balances).length}
+          </p>
         </div>
       )}
     </div>
