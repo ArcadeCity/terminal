@@ -18,7 +18,8 @@ export const MagicLogin = () => {
     if (!process.browser) return false
     console.log('Initing user with', metadata)
     setUserMetadata(metadata)
-    await connectIPFS()
+    setIsLoggingIn(false)
+    // await connectIPFS()
   }
 
   const connectIPFS = async () => {
