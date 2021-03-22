@@ -17,6 +17,10 @@ export const Arweave = () => {
 
   useEffect(grabContractState, [])
 
+  const attach = async () => {
+    console.log('Attaching wallet')
+  }
+
   const saveWallet = async (wallet) => {
     setWallet(wallet)
     const address1 = await arweave.wallets.jwkToAddress(wallet)
@@ -50,6 +54,7 @@ export const Arweave = () => {
           <h5>Your Arweave wallet</h5>
           <p>{address}</p>
           <p className='font-bold'>{balance} AR</p>
+          <button onClick={attach}>Attach</button>
         </div>
       ) : (
         <div className='mt-4'>
