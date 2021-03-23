@@ -16,6 +16,7 @@ export const Arweave = () => {
   const grabContractState = async () => {
     const newContractState = await readContract(arweave, contractId)
     setContractState(newContractState)
+    getAddressBalance()
   }
 
   const getAddressBalance = () => {
@@ -32,14 +33,13 @@ export const Arweave = () => {
       }
     }
 
-    const balance = unlocked && locked ? unlocked + locked : 0
+    const balance = unlocked ? unlocked + locked : 0
     setArcadeBalance(balance)
     return { balance: unlocked + locked, unlocked, vault: locked }
   }
 
   useEffect(() => {
     grabContractState()
-    getAddressBalance()
   }, [wallet])
 
   const saveWallet = async (wallet) => {
