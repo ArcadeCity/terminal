@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import { magic } from '@/utilities'
 import useStore from '@/helpers/store'
+import { Eth } from '@/helpers/eth'
+
+const eth = new Eth()
 
 export const MagicLogin = () => {
   const [email, setEmail] = useState()
@@ -13,6 +16,8 @@ export const MagicLogin = () => {
     setUserMetadata(metadata)
     useStore.setState({ magicUser: metadata })
     setIsLoggingIn(false)
+    const balances = await eth.fetchBalances(metadata.publicAddress)
+    console.log(balances)
   }
 
   useEffect(() => {
