@@ -69,7 +69,7 @@ export const Arweave = () => {
           <h5>Your Arweave wallet</h5>
           <p>{address}</p>
           <p className='font-bold'>{balance} AR</p>
-          <button onClick={attach}>Attach</button>
+          {/* <button onClick={attach}>Attach</button> */}
         </div>
       ) : (
         <div className='mt-4'>
