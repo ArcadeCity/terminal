@@ -5,11 +5,10 @@ import { Arweave, MagicLogin } from '@/components/dom'
 import { Header } from '@/components/layout/_dom'
 
 const Page = ({ title }) => {
-  useStore.setState({ title })
   const user = useStore((state) => state.magicUser)
   useEffect(() => {
     if (!process.browser || !user) return
-    console.log('user:', user)
+    useStore.setState({ title })
   }, [user])
   return user ? (
     <ArcadeUI>

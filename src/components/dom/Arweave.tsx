@@ -1,33 +1,54 @@
 import { useEffect, useState } from 'react'
 import { arweave, generateWallet } from '@/utilities'
+import { readContract } from 'smartweave'
 import Community from 'community-js'
-import { readContract, selectWeightedPstHolder } from 'smartweave'
+import { BalancesInterface, VaultInterface } from 'community-js/lib/faces'
 
-// const contractId = '3dEhZZT5V0h4dPCdDiyUea01snT20c9DXt7yKJCW8aA' // JUST TESTING
-// const contractId = 'uWGepCxO-lN-APdNMBGK5uuIp4ubo8cT2_ufPfo6q1Y' // STILL TESTING
 const contractId = '7hVrRtwjs7XLPtpZsQMr6RPz19QjtTqQYpHy3rPEy-4' // ARCADE CITY
 
 export const Arweave = () => {
   const [wallet, setWallet] = useState()
-  const [address, setAddress] = useState()
-  const [balance, setBalance] = useState()
-  const [contractState, setContractState] = useState()
+  const [address, setAddress] = useState<string>()
+  const [balance, setBalance] = useState<string>()
+  const [arcadeBalance, setArcadeBalance] = useState<number>()
+  const [contractState, setContractState] = useState<any>()
 
   const grabContractState = async () => {
     const newContractState = await readContract(arweave, contractId)
     setContractState(newContractState)
+    getAddressBalance()
   }
 
-  useEffect(grabContractState, [])
+  const getAddressBalance = () => {
+    if (!address) return
+    const balances: BalancesInterface = contractState.balances
+    const vault: VaultInterface = contractState.vault
+    const unlocked = balances[address]
+
+    let locked = 0
+    const userVault = vault[address]
+    if (userVault) {
+      for (let i = 0, j = userVault.length; i < j; i++) {
+        locked += userVault[i].balance
+      }
+    }
+
+    const balance = unlocked ? unlocked + locked : 0
+    setArcadeBalance(balance)
+    return { balance: unlocked + locked, unlocked, vault: locked }
+  }
+
+  useEffect(() => {
+    grabContractState()
+  }, [wallet])
 
   const saveWallet = async (wallet) => {
-    setWallet(wallet)
     const address1 = await arweave.wallets.jwkToAddress(wallet)
     const balance1 = await arweave.wallets.getBalance(address1)
     const readableBalance = arweave.ar.winstonToAr(balance1)
-    console.log(`Arweave address: ${address1} - AR Balance: ${readableBalance}`)
     setAddress(address1)
     setBalance(readableBalance)
+    setWallet(wallet)
   }
 
   const generate = async () => {
@@ -36,8 +57,6 @@ export const Arweave = () => {
     console.log(newWallet)
   }
   function onReaderLoad(event) {
-    console.log('event:', event)
-    console.log('result:', event.target.result)
     const wallet = JSON.parse(event.target.result)
     console.log(wallet)
     saveWallet(wallet)
@@ -56,6 +75,8 @@ export const Arweave = () => {
           <h5>Your Arweave wallet</h5>
           <p>{address}</p>
           <p className='font-bold'>{balance} AR</p>
+          <p className='font-bold'>{arcadeBalance ?? 0} ARCADE</p>
+          {/* <button onClick={attach}>Attach</button> */}
         </div>
       ) : (
         <div className='mt-4'>

@@ -6,6 +6,7 @@ export const MagicLogin = () => {
   const [email, setEmail] = useState()
   const [isLoggingIn, setIsLoggingIn] = useState(false)
   const [userMetadata, setUserMetadata] = useState()
+  const [confirmedNoUser, setConfirmedNoUser] = useState(false)
 
   const initUser = async (metadata) => {
     if (!process.browser) return false
@@ -19,6 +20,8 @@ export const MagicLogin = () => {
     magic.user.isLoggedIn().then((magicIsLoggedIn) => {
       if (magicIsLoggedIn) {
         magic.user.getMetadata().then(initUser)
+      } else {
+        setConfirmedNoUser(true)
       }
     })
   }, [])
@@ -42,10 +45,18 @@ export const MagicLogin = () => {
   const logout = useCallback(() => {
     magic.user.logout().then(() => {
       setUserMetadata(null)
-      // useStore.setState({ magicUser: null })
+      useStore.setState({ magicUser: null })
       setEmail('')
     })
   }, [])
+
+  if (!confirmedNoUser && !userMetadata) {
+    return (
+      <div className='flex flex-col justify-center items-center w-full h-screen'>
+        <p className='mb-0'>Loading</p>
+      </div>
+    )
+  }
 
   return isLoggingIn ? (
     <div className='flex flex-col justify-center items-center w-full h-screen'>
