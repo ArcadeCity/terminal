@@ -17,7 +17,7 @@ export const MagicLogin = () => {
     useStore.setState({ magicUser: metadata })
     setIsLoggingIn(false)
     const balances = await eth.fetchBalances(metadata.publicAddress)
-    console.log(balances)
+    useStore.setState({ balances })
   }
 
   useEffect(() => {
