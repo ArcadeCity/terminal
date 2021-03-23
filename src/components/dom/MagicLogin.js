@@ -45,12 +45,12 @@ export const MagicLogin = () => {
   const logout = useCallback(() => {
     magic.user.logout().then(() => {
       setUserMetadata(null)
-      // useStore.setState({ magicUser: null })
+      useStore.setState({ magicUser: null })
       setEmail('')
     })
   }, [])
 
-  if (!confirmedNoUser) {
+  if (!confirmedNoUser && !userMetadata) {
     return (
       <div className='flex flex-col justify-center items-center w-full h-screen'>
         <p className='mb-0'>Loading</p>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { arweave, generateWallet } from '@/utilities'
 import { readContract } from 'smartweave'
+import Community from 'community-js'
 
 const contractId = '7hVrRtwjs7XLPtpZsQMr6RPz19QjtTqQYpHy3rPEy-4' // ARCADE CITY
 
@@ -15,7 +16,21 @@ export const Arweave = () => {
     setContractState(newContractState)
   }
 
+  const grabWalletBalance = async () => {
+    if (!wallet) {
+      console.log("No wallet, can't grab balance...")
+      return
+    }
+    const community = new Community(arweave, wallet)
+    try {
+      const balance = await community.balance()
+      console.log('ARCADE Balance:', balance)
+    } catch (e) {
+      console.log('Balance query error - probably not community member')
+    }
+  }
   useEffect(grabContractState, [])
+  useEffect(grabWalletBalance, [wallet])
 
   const attach = async () => {
     console.log('Attaching wallet')
