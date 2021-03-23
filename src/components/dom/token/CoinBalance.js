@@ -19,7 +19,7 @@ export const CoinBalance = ({ balance, price = 0.004, symbol }) => {
       <div className='flex flex-row'>
         <div className='w-16 mr-6 flex justify-center items-center'>
           <img
-            className='border-0 h-16 object-contain'
+            className='border-0 mb-0 h-16 object-contain'
             src={`/img/${symbol}.png`}
           />
         </div>
