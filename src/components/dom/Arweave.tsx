@@ -9,15 +9,13 @@ const contractId = '7hVrRtwjs7XLPtpZsQMr6RPz19QjtTqQYpHy3rPEy-4' // ARCADE CITY
 export const Arweave = () => {
   const [wallet, setWallet] = useState()
   const [address, setAddress] = useState<string>()
-  const [balance, setBalance] = useState()
+  const [balance, setBalance] = useState<string>()
+  const [arcadeBalance, setArcadeBalance] = useState<number>()
   const [contractState, setContractState] = useState<any>()
 
   const grabContractState = async () => {
     const newContractState = await readContract(arweave, contractId)
     setContractState(newContractState)
-
-    // console.log(newContractState.balances)
-    // console.log(newContractState.vault)
   }
 
   const getAddressBalance = () => {
@@ -34,35 +32,15 @@ export const Arweave = () => {
       }
     }
 
-    console.log({ balance: unlocked + locked, unlocked, vault: locked })
+    const balance = unlocked && locked ? unlocked + locked : 0
+    setArcadeBalance(balance)
     return { balance: unlocked + locked, unlocked, vault: locked }
   }
 
-  const grabWalletBalance = async () => {
-    if (!wallet) {
-      console.log("No wallet, can't grab balance...")
-      return
-    }
-    const community = new Community(arweave, wallet)
-    try {
-      const balance = await community.getBalance(address)
-      console.log('ARCADE Balance:', balance)
-    } catch (e) {
-      console.log('Balance query error...')
-      console.error(e)
-    }
-  }
   useEffect(() => {
     grabContractState()
-  }, [])
-  useEffect(() => {
-    // grabWalletBalance()
     getAddressBalance()
   }, [wallet])
-
-  const attach = async () => {
-    console.log('Attaching wallet')
-  }
 
   const saveWallet = async (wallet) => {
     const address1 = await arweave.wallets.jwkToAddress(wallet)
@@ -97,6 +75,7 @@ export const Arweave = () => {
           <h5>Your Arweave wallet</h5>
           <p>{address}</p>
           <p className='font-bold'>{balance} AR</p>
+          <p className='font-bold'>{arcadeBalance ?? 0} ARCADE</p>
           {/* <button onClick={attach}>Attach</button> */}
         </div>
       ) : (
