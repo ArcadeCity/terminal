@@ -23,10 +23,11 @@ export const Arweave = () => {
     }
     const community = new Community(arweave, wallet)
     try {
-      const balance = await community.balance()
+      const balance = await community.getBalance()
       console.log('ARCADE Balance:', balance)
     } catch (e) {
       console.log('Balance query error - probably not community member')
+      console.log(e)
     }
   }
   useEffect(grabContractState, [])
