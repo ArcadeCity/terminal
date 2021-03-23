@@ -2,18 +2,40 @@ import { useEffect, useState } from 'react'
 import { arweave, generateWallet } from '@/utilities'
 import { readContract } from 'smartweave'
 import Community from 'community-js'
+import { BalancesInterface, VaultInterface } from 'community-js/lib/faces'
 
 const contractId = '7hVrRtwjs7XLPtpZsQMr6RPz19QjtTqQYpHy3rPEy-4' // ARCADE CITY
 
 export const Arweave = () => {
   const [wallet, setWallet] = useState()
-  const [address, setAddress] = useState()
+  const [address, setAddress] = useState<string>()
   const [balance, setBalance] = useState()
-  const [contractState, setContractState] = useState()
+  const [contractState, setContractState] = useState<any>()
 
   const grabContractState = async () => {
     const newContractState = await readContract(arweave, contractId)
     setContractState(newContractState)
+
+    // console.log(newContractState.balances)
+    // console.log(newContractState.vault)
+  }
+
+  const getAddressBalance = () => {
+    if (!address) return
+    const balances: BalancesInterface = contractState.balances
+    const vault: VaultInterface = contractState.vault
+    const unlocked = balances[address]
+
+    let locked = 0
+    const userVault = vault[address]
+    if (userVault) {
+      for (let i = 0, j = userVault.length; i < j; i++) {
+        locked += userVault[i].balance
+      }
+    }
+
+    console.log({ balance: unlocked + locked, unlocked, vault: locked })
+    return { balance: unlocked + locked, unlocked, vault: locked }
   }
 
   const grabWalletBalance = async () => {
@@ -23,27 +45,32 @@ export const Arweave = () => {
     }
     const community = new Community(arweave, wallet)
     try {
-      const balance = await community.getBalance()
+      const balance = await community.getBalance(address)
       console.log('ARCADE Balance:', balance)
     } catch (e) {
-      console.log('Balance query error - probably not community member')
-      console.log(e)
+      console.log('Balance query error...')
+      console.error(e)
     }
   }
-  useEffect(grabContractState, [])
-  useEffect(grabWalletBalance, [wallet])
+  useEffect(() => {
+    grabContractState()
+  }, [])
+  useEffect(() => {
+    // grabWalletBalance()
+    getAddressBalance()
+  }, [wallet])
 
   const attach = async () => {
     console.log('Attaching wallet')
   }
 
   const saveWallet = async (wallet) => {
-    setWallet(wallet)
     const address1 = await arweave.wallets.jwkToAddress(wallet)
     const balance1 = await arweave.wallets.getBalance(address1)
     const readableBalance = arweave.ar.winstonToAr(balance1)
     setAddress(address1)
     setBalance(readableBalance)
+    setWallet(wallet)
   }
 
   const generate = async () => {
