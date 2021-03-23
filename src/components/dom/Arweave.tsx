@@ -69,7 +69,7 @@ export const Arweave = () => {
   }
 
   return (
-    <div className='mt-32 flex flex-col items-center h-screen w-full text-center'>
+    <div className='mt-8 flex flex-col items-center w-full text-center'>
       {wallet ? (
         <div className='mt-4'>
           <h5>Your Arweave wallet</h5>

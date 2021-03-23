@@ -7,6 +7,7 @@ type MagicUser = {
 }
 
 type State = {
+  balances: any
   title: string
   magicUser: MagicUser | any
   router: any
@@ -16,6 +17,7 @@ type State = {
 
 const useStore = create<State>((set) => {
   return {
+    balances: null,
     title: '',
     magicUser: null,
     router: {},

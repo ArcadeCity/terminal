@@ -7,7 +7,12 @@ module.exports = {
   ], // remove unused styles in production
   darkMode: 'media', // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        purple: '#1C133A',
+        minsk: '#46367C',
+      },
+    },
   },
   variants: {
     extend: {},

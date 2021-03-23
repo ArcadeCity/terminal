@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
-import { connectIPFS, magic } from '@/utilities'
+import { magic } from '@/utilities'
 import useStore from '@/helpers/store'
+import { Eth } from '@/helpers/eth'
+
+const eth = new Eth()
 
 export const MagicLogin = () => {
   const [email, setEmail] = useState()
@@ -13,7 +16,8 @@ export const MagicLogin = () => {
     setUserMetadata(metadata)
     useStore.setState({ magicUser: metadata })
     setIsLoggingIn(false)
-    // await connectIPFS()
+    const balances = await eth.fetchBalances(metadata.publicAddress)
+    useStore.setState({ balances })
   }
 
   useEffect(() => {

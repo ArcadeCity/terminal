@@ -3,9 +3,11 @@ import { ArcadeUI } from '@arcadecity/ui'
 import useStore from '@/helpers/store'
 import { Arweave, MagicLogin } from '@/components/dom'
 import { Header } from '@/components/layout/_dom'
+import { MyBalances } from '@/components/dom/token/MyBalances'
 
 const Page = ({ title }) => {
-  const user = useStore((state) => state.magicUser)
+  const user = useStore((s) => s.magicUser)
+  const balances = useStore((s) => s.balances)
   useEffect(() => {
     if (!process.browser || !user) return
     useStore.setState({ title })
@@ -14,6 +16,9 @@ const Page = ({ title }) => {
     <ArcadeUI>
       <Header />
       <MagicLogin />
+      <div className='mt-16'>
+        <MyBalances balances={balances} />
+      </div>
       <Arweave />
     </ArcadeUI>
   ) : (
