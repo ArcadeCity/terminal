@@ -3,7 +3,6 @@ import useStore from '@/helpers/store'
 
 export const Ramp = () => {
   const magicUser = useStore((s) => s.magicUser)
-  console.log(magicUser)
   if (!magicUser) return
 
   const buy = () => {
