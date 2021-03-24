@@ -21,6 +21,10 @@ const Page = ({ title }) => {
       </div>
       <Ramp />
       <Arweave />
+      <p className='mt-8 text-center italic'>
+        This is alpha software. Please do not store large amounts in connected
+        wallets.
+      </p>
     </ArcadeUI>
   ) : (
     <ArcadeUI>
