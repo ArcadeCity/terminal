@@ -20,8 +20,8 @@ export const Ramp = () => {
   }
   return (
     <div className='mt-8 flex flex-col items-center w-full text-center'>
-      <h5>Buy Crypto with Ramp</h5>
-      <button onClick={buy}>Buy crypto</button>
+      <h5>Buy ETH</h5>
+      <button onClick={buy}>Buy ETH via Ramp</button>
     </div>
   )
 }
