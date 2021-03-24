@@ -6,7 +6,7 @@
   * {
     box-sizing: border-box;
   }
-  
+
   html,
   body,
   #__next {
@@ -14,10 +14,8 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
   }
   html {
     background-color: #000;
   }
-  
 }
