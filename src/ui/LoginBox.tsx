@@ -25,10 +25,8 @@ export const LoginBox = () => {
       }}
     >
       <div className='bg-purple bg-opacity-80 p-12 text-center rounded-lg flex flex-col justify-center items-center'>
-        <h1>Terminal Login</h1>
-        <Link href='/box'>
-          <button>Dummy login</button>
-        </Link>
+        {/* <h1>Terminal Login</h1> */}
+        <button>Dummy login</button>
       </div>
     </a.div>
   )

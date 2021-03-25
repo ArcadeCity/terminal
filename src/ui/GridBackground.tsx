@@ -4,7 +4,7 @@ import { A11y } from '@react-three/a11y'
 
 function Plane({ x }) {
   if (!x) return <></>
-  const color = x.to([0, 1], ['#7fffd4', '#c72f46'])
+  const color = x.to([0, 1], ['#004646', '#c72f46'])
   return (
     <mesh receiveShadow>
       <planeBufferGeometry attach='geometry' args={[1000, 1000]} />
@@ -39,13 +39,13 @@ export const GridBackground = () => {
         penumbra={1}
         castShadow
       />
-      <A11y
+      {/* <A11y
         actionCall={() => {
           onClick()
         }}
-      >
-        <Plane x={x} />
-      </A11y>
+      > */}
+      <Plane x={x} />
+      {/* </A11y> */}
     </>
   )
 }
