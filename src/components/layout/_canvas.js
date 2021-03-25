@@ -19,7 +19,7 @@ const LCanvas = ({ children }) => {
   return (
     <Canvas
       style={{
-        backgroundColor: '#051114',
+        backgroundColor: '#021114',
         position: 'absolute',
         top: 0,
       }}

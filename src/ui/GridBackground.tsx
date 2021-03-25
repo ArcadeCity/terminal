@@ -1,7 +1,7 @@
 import { a, useSpring } from '@react-spring/three'
 
 const Plane = ({ x }) => {
-  const color = x.to([0, 1], ['#051114', '#004646'])
+  const color = x.to([0, 1], ['#021114', '#004646'])
   return (
     <a.mesh receiveShadow>
       <a.meshStandardMaterial attach='material' color={color} />
