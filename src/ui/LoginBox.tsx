@@ -13,6 +13,7 @@ export const LoginBox = () => {
       precision: 0.0001,
       clamp: true,
     },
+    delay: 500,
     // loop: { reverse: true },
   })
   return (
