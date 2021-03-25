@@ -21,8 +21,9 @@ const LCanvas = ({ children }) => {
         top: 0,
       }}
       onCreated={({ events, gl }) => {
-        useStore.setState({ events })
         // gl.setClearColor('#051114')
+        console.log('created.')
+        useStore.setState({ events })
       }}
     >
       <A11yUserPreferences>
