@@ -13,7 +13,7 @@ export const LoginBox = () => {
       friction: 50,
       precision: 0.0001,
       clamp: true,
-      duration: 2000,
+      duration: 1500,
     },
   })
   const loginEmail = (e) => {

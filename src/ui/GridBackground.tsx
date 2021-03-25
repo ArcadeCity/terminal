@@ -13,7 +13,7 @@ const Plane = ({ x }) => {
 export const GridBackground = () => {
   const { point, spot, x } = useSpring({
     from: { point: 0, spot: 0, x: 0 },
-    to: { point: 0.45, spot: 0.3, x: 1 },
+    to: { point: 0.35, spot: 0.25, x: 1 }, // when in: point: 0.45, spot: 0.3
     config: {
       mass: 5,
       tension: 1000,
