@@ -18,7 +18,7 @@ export const GridBackground = () => {
         penumbra={1}
         castShadow
       />
-      <Plane />
+      {/* <Plane /> */}
     </>
   )
 }

@@ -25,7 +25,7 @@ const LCanvas = ({ children }) => {
     >
       <A11yUserPreferences>
         <Preload all />
-        {/* <Bg /> */}
+        <Bg />
         <OrbitControls />
         <EffectComposer>
           <Vignette eskil={false} offset={0.1} darkness={1.1} />
