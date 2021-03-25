@@ -4,7 +4,7 @@ import { A11y } from '@react-three/a11y'
 
 function Plane({ x }) {
   if (!x) return <></>
-  const color = x.to([0, 1], ['#7fffd4', '#1c133a'])
+  const color = x.to([0, 1], ['#7fffd4', '#c72f46'])
   return (
     <mesh receiveShadow>
       <planeBufferGeometry attach='geometry' args={[1000, 1000]} />
@@ -18,7 +18,13 @@ export const GridBackground = () => {
   const [{ x }] = useSpring(
     {
       x: toggle,
-      config: { mass: 5, tension: 1000, friction: 50, precision: 0.0001 },
+      config: {
+        mass: 5,
+        tension: 1000,
+        friction: 50,
+        precision: 0.0001,
+        clamp: true,
+      },
     },
     [toggle]
   )
