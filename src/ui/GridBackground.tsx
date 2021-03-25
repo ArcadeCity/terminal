@@ -2,38 +2,34 @@ import { useCallback, useState } from 'react'
 import { a, useSpring } from '@react-spring/three'
 import { A11y } from '@react-three/a11y'
 
-function Plane({ x }) {
-  if (!x) return <></>
-  const color = x.to([0, 1], ['#004646', '#c72f46'])
-  return (
-    <mesh receiveShadow>
-      <planeBufferGeometry attach='geometry' args={[1000, 1000]} />
-      <a.meshStandardMaterial attach='material' color={color} />
-    </mesh>
-  )
-}
+const Plane = () => (
+  <a.mesh receiveShadow>
+    <a.meshStandardMaterial attach='material' color={'#004646'} />
+    <planeBufferGeometry attach='geometry' args={[1000, 1000]} />
+  </a.mesh>
+)
 
 export const GridBackground = () => {
   const [toggle, set] = useState(0)
-  const [{ x }] = useSpring(
-    {
-      x: toggle,
-      config: {
-        mass: 5,
-        tension: 1000,
-        friction: 50,
-        precision: 0.0001,
-        clamp: true,
-      },
+  const { x } = useSpring({
+    // x: toggle,
+    from: { x: 0 },
+    to: { x: 0.55 },
+    config: {
+      mass: 5,
+      tension: 1000,
+      friction: 50,
+      precision: 0.0001,
+      clamp: true,
     },
-    [toggle]
-  )
+    delay: 500,
+  })
   const onClick = useCallback(() => set((toggle) => Number(!toggle)), [set])
   return (
     <>
-      <pointLight position={[-10, -10, 30]} intensity={0.25} />
-      <spotLight
-        intensity={0.3}
+      <a.pointLight position={[-10, -10, 30]} intensity={x} />
+      <a.spotLight
+        intensity={x}
         position={[30, 30, 50]}
         angle={0.2}
         penumbra={1}
