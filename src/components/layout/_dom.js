@@ -1,21 +1,18 @@
-import useStore from '@/helpers/store'
 import Head from 'next/head'
+import useStore from '@/helpers/store'
 import { ArcadeUI } from '@arcadecity/ui'
 
-export const Header = () => {
-  const title = useStore((s) => s.title)
-  return (
-    <Head>
-      <title>{title}</title>
-      <link rel='shortcut icon' href='/icons/favicon.ico' />
-      <link rel='preconnect' href='https://fonts.gstatic.com' />
-      <link
-        href='https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap'
-        rel='stylesheet'
-      />
-    </Head>
-  )
-}
+export const Header = () => (
+  <Head>
+    <title>Arcade City Terminal</title>
+    <link rel='shortcut icon' href='/icons/favicon.ico' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' />
+    <link
+      href='https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;700&display=swap'
+      rel='stylesheet'
+    />
+  </Head>
+)
 
 const Dom = ({ dom }) => {
   const events = useStore((s) => s.events)
