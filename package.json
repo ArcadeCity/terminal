@@ -72,6 +72,7 @@
     "@next/bundle-analyzer": "^10.0.7",
     "@types/node": "^14.14.35",
     "@types/react": "^17.0.3",
+    "@types/styled-components": "^5.1.9",
     "autoprefixer": "^10.2.4",
     "babel-eslint": "^10.0.0",
     "babel-plugin-glsl": "^1.0.0",

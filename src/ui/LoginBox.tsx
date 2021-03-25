@@ -1,22 +1,12 @@
-import Link from 'next/link'
+import { FormEvent } from 'react'
 import { useSpring } from '@react-spring/core'
 import { a } from '@react-spring/web'
 import styled from 'styled-components'
+import { mainSpring } from '@/helpers/springs'
 
 export const LoginBox = () => {
-  const spring = useSpring({
-    from: { x: 0 },
-    to: { x: 1 },
-    config: {
-      mass: 5,
-      tension: 1000,
-      friction: 50,
-      precision: 0.0001,
-      clamp: true,
-      duration: 1500,
-    },
-  })
-  const loginEmail = (e) => {
+  const spring = useSpring(mainSpring)
+  const loginEmail = (e: FormEvent) => {
     e.preventDefault()
     console.log('Login')
   }
@@ -29,6 +19,8 @@ export const LoginBox = () => {
       }}
     >
       <div className='text-center rounded-lg flex flex-col justify-center items-center'>
+        <LogoText>Terminal</LogoText>
+        <Text>Your gateway to Arcade City</Text>
         <form onSubmit={loginEmail}>
           <InputContainer>
             <EmailInput placeholder='Email' />
@@ -63,6 +55,7 @@ const EmailInput = styled.input`
   font-size: 20px;
   line-height: 24px;
   color: white;
+  letter-spacing: 1px;
   border-radius: 100px;
   padding: 14px 60px 14px 25px;
   background: rgb(24, 24, 24);
@@ -92,4 +85,21 @@ const InputIconCircle = styled.button`
   position: absolute;
   top: 7px;
   right: 7px;
+`
+
+const LogoText = styled.h1`
+  font-size: 54px;
+  line-height: normal;
+  color: white;
+  font-weight: 700;
+`
+
+const Text = styled.p`
+  margin-bottom: 30px;
+  margin-top: 6px;
+  font-size: 20px;
+  line-height: normal;
+  color: rgb(153, 153, 153);
+  font-weight: 400;
+  text-align: center;
 `
