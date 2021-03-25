@@ -20,7 +20,7 @@ export const GridBackground = () => {
       friction: 50,
       precision: 0.0001,
       clamp: true,
-      duration: 3000,
+      duration: 1500,
     },
   })
   return (
