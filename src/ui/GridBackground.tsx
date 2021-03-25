@@ -1,12 +1,14 @@
 import { useCallback, useState } from 'react'
-import { useSpring } from '@react-spring/core'
+import { a, useSpring } from '@react-spring/three'
 import { A11y } from '@react-three/a11y'
 
-function Plane() {
+function Plane({ x }) {
+  if (!x) return <></>
+  const color = x.to([0, 1], ['#7fffd4', '#1c133a'])
   return (
     <mesh receiveShadow>
       <planeBufferGeometry attach='geometry' args={[1000, 1000]} />
-      <meshStandardMaterial attach='material' color='#ffffff' />
+      <a.meshStandardMaterial attach='material' color={color} />
     </mesh>
   )
 }
@@ -36,7 +38,7 @@ export const GridBackground = () => {
           onClick()
         }}
       >
-        <Plane />
+        <Plane x={x} />
       </A11y>
     </>
   )
