@@ -78,7 +78,7 @@ const InputIconCircle = styled.button`
   padding: 0;
   border: none;
   border-radius: 50%;
-  background: linear-gradient(rgb(83, 75, 177) 0%, rgb(85, 27, 249) 100%);
+  background: linear-gradient(#05c6c1 0%, #15333c 100%);
   box-shadow: rgb(0 0 0 / 20%) 0px 2px 4px;
   display: flex;
   -webkit-box-align: center;
