@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Canvas } from 'react-three-fiber'
 import useStore from '@/helpers/store'
 import { OrbitControls, Preload } from '@react-three/drei'
@@ -12,7 +13,9 @@ const Bg = () => {
   })
   return <a.color attach='background' r={bg} g={bg} b={bg} />
 }
+
 const LCanvas = ({ children }) => {
+  const [vignette, showVignette] = useState(false)
   return (
     <Canvas
       style={{
@@ -24,15 +27,20 @@ const LCanvas = ({ children }) => {
         // gl.setClearColor('#051114')
         console.log('created.')
         useStore.setState({ events })
+        setTimeout(() => {
+          showVignette(true)
+        }, 1000)
       }}
     >
       <A11yUserPreferences>
         <Preload all />
         {/* <Bg /> */}
         <OrbitControls />
-        <EffectComposer>
-          <Vignette eskil={false} offset={0.1} darkness={1.1} />
-        </EffectComposer>
+        {vignette && (
+          <EffectComposer>
+            <Vignette eskil={false} offset={0.1} darkness={1.1} />
+          </EffectComposer>
+        )}
         {children}
       </A11yUserPreferences>
     </Canvas>

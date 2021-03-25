@@ -24,6 +24,7 @@ export const GridBackground = () => {
     },
     // delay: 500,
   })
+  // return <></>
   return (
     <>
       <a.pointLight position={[-10, -10, 30]} intensity={point} />
