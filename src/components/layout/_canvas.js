@@ -23,9 +23,7 @@ const LCanvas = ({ children }) => {
         position: 'absolute',
         top: 0,
       }}
-      onCreated={({ events, gl }) => {
-        // gl.setClearColor('#051114')
-        console.log('created.')
+      onCreated={({ events }) => {
         useStore.setState({ events })
         setTimeout(() => {
           showVignette(true)

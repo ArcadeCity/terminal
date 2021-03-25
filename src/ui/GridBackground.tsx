@@ -20,11 +20,9 @@ export const GridBackground = () => {
       friction: 50,
       precision: 0.0001,
       clamp: true,
-      duration: 4000,
+      duration: 3000,
     },
-    // delay: 500,
   })
-  // return <></>
   return (
     <>
       <a.pointLight position={[-10, -10, 30]} intensity={point} />
