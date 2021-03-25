@@ -1,45 +1,21 @@
-import { useEffect } from 'react'
+import { ComponentType } from 'react'
+import dynamic from 'next/dynamic'
 import { ArcadeUI } from '@arcadecity/ui'
-import useStore from '@/helpers/store'
-import { Arweave, MagicLogin, Ramp } from '@/components/dom'
-import { Header } from '@/components/layout/_dom'
-import { MyBalances } from '@/components/dom/token/MyBalances'
 
-const Page = ({ title }) => {
-  const user = useStore((s) => s.magicUser)
-  const balances = useStore((s) => s.balances)
-  useEffect(() => {
-    if (!process.browser || !user) return
-    useStore.setState({ title })
-  }, [user])
-  return user ? (
+const GridBackground: ComponentType<{ r3f: boolean }> = dynamic(
+  () => import('@/ui/GridBackground'),
+  {
+    ssr: false,
+  }
+)
+
+const Page = () => {
+  return (
     <ArcadeUI>
-      <Header />
-      <MagicLogin />
-      <div className='mt-16'>
-        <MyBalances balances={balances} />
-      </div>
-      <Ramp />
-      <Arweave />
-      <p className='mt-8 text-center italic'>
-        This is alpha software. Please do not store large amounts in connected
-        wallets.
-      </p>
-    </ArcadeUI>
-  ) : (
-    <ArcadeUI>
-      <Header />
-      <MagicLogin />
+      <GridBackground r3f />
+      <h1>Test</h1>
     </ArcadeUI>
   )
 }
 
 export default Page
-
-export async function getStaticProps() {
-  return {
-    props: {
-      title: 'Arcade City',
-    },
-  }
-}
