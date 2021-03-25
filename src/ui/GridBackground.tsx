@@ -1,6 +1,4 @@
-import { useCallback, useState } from 'react'
 import { a, useSpring } from '@react-spring/three'
-import { A11y } from '@react-three/a11y'
 
 const Plane = () => (
   <a.mesh receiveShadow>
@@ -10,38 +8,31 @@ const Plane = () => (
 )
 
 export const GridBackground = () => {
-  const [toggle, set] = useState(0)
-  const { x } = useSpring({
-    // x: toggle,
-    from: { x: 0 },
-    to: { x: 0.55 },
+  const { point, spot } = useSpring({
+    from: { point: 0, spot: 0 },
+    to: { point: 0.45, spot: 0.3 },
     config: {
       mass: 5,
       tension: 1000,
       friction: 50,
       precision: 0.0001,
       clamp: true,
+      duration: 4000,
     },
-    delay: 500,
+    // delay: 500,
   })
-  const onClick = useCallback(() => set((toggle) => Number(!toggle)), [set])
   return (
     <>
-      <a.pointLight position={[-10, -10, 30]} intensity={x} />
+      <a.pointLight position={[-10, -10, 30]} intensity={point} />
       <a.spotLight
-        intensity={x}
+        intensity={spot}
         position={[30, 30, 50]}
         angle={0.2}
         penumbra={1}
         castShadow
       />
-      {/* <A11y
-        actionCall={() => {
-          onClick()
-        }}
-      > */}
-      <Plane x={x} />
-      {/* </A11y> */}
+
+      <Plane />
     </>
   )
 }
