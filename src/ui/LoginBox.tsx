@@ -73,6 +73,10 @@ const EmailInput = styled.input`
 `
 
 const InputIconCircle = styled.button`
+  &:focus {
+    outline: none;
+    box-shadow: 0px 0px 2px #3efbfb;
+  }
   width: 40px;
   height: 40px;
   padding: 0;
