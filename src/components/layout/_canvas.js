@@ -16,16 +16,18 @@ const LCanvas = ({ children }) => {
   return (
     <Canvas
       style={{
+        backgroundColor: '#051114',
         position: 'absolute',
         top: 0,
       }}
-      onCreated={({ events }) => {
+      onCreated={({ events, gl }) => {
         useStore.setState({ events })
+        // gl.setClearColor('#051114')
       }}
     >
       <A11yUserPreferences>
         <Preload all />
-        <Bg />
+        {/* <Bg /> */}
         <OrbitControls />
         <EffectComposer>
           <Vignette eskil={false} offset={0.1} darkness={1.1} />
