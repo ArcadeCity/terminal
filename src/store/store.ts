@@ -39,6 +39,7 @@ export const useStore = create<State>((set, get) => {
     },
     actions: {
       initUser: async (magicUser: MagicUser) => {
+        set({ magicUser })
         const balances = await eth.fetchBalances(magicUser.publicAddress)
         set({ balances })
       },
@@ -47,7 +48,6 @@ export const useStore = create<State>((set, get) => {
         try {
           await magic.auth.loginWithMagicLink({ email })
           const magicUser = await magic.user.getMetadata()
-          set({ magicUser })
           get().actions.initUser(magicUser)
         } catch (e) {
           console.log('THAT DID NOT WORK', e)

@@ -11,7 +11,6 @@ export const LoginBox = () => {
   const spring = useSpring(mainSpring)
   const { loginEmail } = useStore((s) => s.actions)
   const magicUser = useStore((s) => s.magicUser)
-  console.log('magicUser', magicUser)
   return (
     <a.div
       // @ts-ignore
