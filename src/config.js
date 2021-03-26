@@ -1,10 +1,9 @@
 import Head from 'next/head'
 
-const title = 'Threejs Next Starter'
-const url = 'http://r3f-next-starter.vercel.app/'
-const description =
-  'The easiest and fastest way to create a 3D website using React Three Fiber and NextJS'
-const author = 'Author'
+const title = 'Arcade City Terminal'
+const url = 'https://terminal.arcade.city'
+const description = 'Your gateway to Arcade City'
+const author = 'Arcade City'
 
 const Header = () => {
   return (
@@ -27,7 +26,7 @@ const Header = () => {
         />
         <meta name='robots' content='index,follow' />
         <meta name='distribution' content='web' />
-        {/* 
+        {/*
       Facebook Open Graph meta tags
         documentation: https://developers.facebook.com/docs/sharing/opengraph */}
         <meta name='og:title' content={title} />
@@ -71,12 +70,12 @@ const Header = () => {
         <meta name='theme-color' content='#000' />
         <link rel='shortcut icon' href='/icons/favicon.ico' />
 
-        {/* 
+        {/*
       Twitter Summary card
         documentation: https://dev.twitter.com/cards/getting-started
         Be sure validate your Twitter card markup on the documentation site. */}
         <meta name='twitter:card' content='summary' />
-        <meta name='twitter:site' content='@onirenaud' />
+        <meta name='twitter:site' content='@ArcadeCityHall' />
       </Head>
     </>
   )
