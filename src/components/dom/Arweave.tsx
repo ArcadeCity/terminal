@@ -54,11 +54,9 @@ export const Arweave = () => {
   const generate = async () => {
     const newWallet = await generateWallet()
     saveWallet(newWallet)
-    console.log(newWallet)
   }
   function onReaderLoad(event) {
     const wallet = JSON.parse(event.target.result)
-    console.log(wallet)
     saveWallet(wallet)
   }
   const onFileChange = (e) => {
