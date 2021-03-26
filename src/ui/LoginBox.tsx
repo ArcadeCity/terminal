@@ -4,13 +4,13 @@ import styled from 'styled-components'
 import { mainSpring } from '@/helpers/springs'
 import { Arrow } from '@/helpers/icons'
 import { useForm } from 'react-hook-form'
-import { useStore } from '@/store'
 
-export const LoginBox = () => {
+export const LoginBox = ({ useStore }) => {
   const { handleSubmit, register } = useForm()
   const spring = useSpring(mainSpring)
   const { loginEmail } = useStore((s) => s.actions)
   const magicUser = useStore((s) => s.magicUser)
+  const balances = useStore((s) => s.balances)
   return (
     <a.div
       // @ts-ignore
@@ -20,6 +20,7 @@ export const LoginBox = () => {
       {magicUser ? (
         <div className='text-center rounded-lg flex flex-col justify-center items-center'>
           <LogoText>{magicUser.email}</LogoText>
+          <Text>{JSON.stringify(balances)}</Text>
         </div>
       ) : (
         <div className='text-center rounded-lg flex flex-col justify-center items-center'>
