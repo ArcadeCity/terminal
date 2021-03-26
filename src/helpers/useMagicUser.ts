@@ -8,9 +8,6 @@ export const useMagicUser = () => {
     magic.user.isLoggedIn().then((magicIsLoggedIn) => {
       if (magicIsLoggedIn) {
         magic.user.getMetadata().then(initUser)
-      } else {
-        // console.log('setConfirmedNoUser(true)')
-        // setConfirmedNoUser(true)
       }
     })
   }, [])
