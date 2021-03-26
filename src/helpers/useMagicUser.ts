@@ -6,7 +6,6 @@ export const useMagicUser = () => {
   const { initUser } = useStore((s) => s.actions)
   useEffect(() => {
     magic.user.isLoggedIn().then((magicIsLoggedIn) => {
-      console.log('magicIsLoggedIn:', magicIsLoggedIn)
       if (magicIsLoggedIn) {
         magic.user.getMetadata().then(initUser)
       } else {

@@ -1,3 +1,3 @@
 export * from './Arweave'
-export * from './MagicLogin'
+export * from './Navbar'
 export * from './Ramp'

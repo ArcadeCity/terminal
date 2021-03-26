@@ -1,5 +1,5 @@
 import { ArcadeUI } from '@arcadecity/ui'
-import { Arweave, MagicLogin, Ramp } from '@/components/dom'
+import { Arweave, Navbar, Ramp } from '@/components/dom'
 import { Header } from '@/components/layout/_dom'
 import { MyBalances } from '@/components/dom/token/MyBalances'
 import { useStore } from '@/store'
@@ -9,7 +9,7 @@ export const Dashboard = () => {
   return (
     <ArcadeUI>
       <Header />
-      <MagicLogin />
+      <Navbar />
       <div className='mt-16'>
         <MyBalances balances={balances} />
       </div>
