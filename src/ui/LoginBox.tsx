@@ -4,38 +4,38 @@ import styled from 'styled-components'
 import { mainSpring } from '@/helpers/springs'
 import { Arrow } from '@/helpers/icons'
 import { useForm } from 'react-hook-form'
+import { useStore } from '@/store'
 
-// What can a ui package expect from user store?
-interface AppStore {
-  store: {
-    actions: {
-      loginEmail: () => void
-    }
-  }
-}
-
-export const LoginBox = ({ store }: AppStore) => {
+export const LoginBox = () => {
   const { handleSubmit, register } = useForm()
   const spring = useSpring(mainSpring)
-  const { loginEmail } = store.actions
+  const { loginEmail } = useStore((s) => s.actions)
+  const magicUser = useStore((s) => s.magicUser)
+  console.log('magicUser', magicUser)
   return (
     <a.div
       // @ts-ignore
       style={{ opacity: spring.x }}
       className='h-screen w-screen flex flex-col justify-center items-center'
     >
-      <div className='text-center rounded-lg flex flex-col justify-center items-center'>
-        <LogoText>Terminal</LogoText>
-        <Text>Your gateway to Arcade City</Text>
-        <form onSubmit={handleSubmit(loginEmail)}>
-          <InputContainer>
-            <EmailInput ref={register} name='email' placeholder='Email' />
-            <InputIconCircle type='submit'>
-              <Arrow />
-            </InputIconCircle>
-          </InputContainer>
-        </form>
-      </div>
+      {magicUser ? (
+        <div className='text-center rounded-lg flex flex-col justify-center items-center'>
+          <LogoText>{magicUser.email}</LogoText>
+        </div>
+      ) : (
+        <div className='text-center rounded-lg flex flex-col justify-center items-center'>
+          <LogoText>Terminal</LogoText>
+          <Text>Your gateway to Arcade City</Text>
+          <form onSubmit={handleSubmit(loginEmail)}>
+            <InputContainer>
+              <EmailInput ref={register} name='email' placeholder='Email' />
+              <InputIconCircle type='submit'>
+                <Arrow />
+              </InputIconCircle>
+            </InputContainer>
+          </form>
+        </div>
+      )}
     </a.div>
   )
 }

@@ -1,5 +1,8 @@
 import create from 'zustand'
 import { magic } from '@/utilities'
+import { Eth } from '@/helpers/eth'
+
+const eth = new Eth()
 
 type MagicUser = {
   email: string
@@ -7,19 +10,24 @@ type MagicUser = {
   publicAddress: string
 }
 
+type LoginEmailProps = {
+  email: string
+}
+
 type State = {
+  actions: {
+    initUser: (magicUser: MagicUser) => void
+    loginEmail: (props: LoginEmailProps) => void
+  }
   balances: any
   title: string
   magicUser: MagicUser | any
   router: any
   events: any
   setEvents: (events: any) => void
-  actions: {
-    loginEmail: (e: FormEvent) => void
-  }
 }
 
-const useStore = create<State>((set) => {
+export const useStore = create<State>((set, get) => {
   return {
     balances: null,
     title: '',
@@ -30,13 +38,17 @@ const useStore = create<State>((set) => {
       set({ events })
     },
     actions: {
-      loginEmail: async ({ email }: { email: string }) => {
+      initUser: async (magicUser: MagicUser) => {
+        const balances = await eth.fetchBalances(magicUser.publicAddress)
+        set({ balances })
+      },
+      loginEmail: async ({ email }: LoginEmailProps) => {
         console.log(`Logging in with email ${email}`)
         try {
           await magic.auth.loginWithMagicLink({ email })
-          const metadata = await magic.user.getMetadata()
-          console.log(metadata)
-          // initUser(metadata)
+          const magicUser = await magic.user.getMetadata()
+          set({ magicUser })
+          get().actions.initUser(magicUser)
         } catch (e) {
           console.log('THAT DID NOT WORK', e)
           // setIsLoggingIn(false)
@@ -45,5 +57,3 @@ const useStore = create<State>((set) => {
     },
   }
 })
-
-export default useStore

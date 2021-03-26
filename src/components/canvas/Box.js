@@ -3,7 +3,7 @@ import { Environment, MeshDistortMaterial } from '@react-three/drei'
 import { a, useSpring } from '@react-spring/three'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry'
 import { extend } from 'react-three-fiber'
-import useStore from '@/helpers/store'
+import { useStore } from '@/store'
 import { A11y, useA11y, useUserPreferences } from '@react-three/a11y'
 
 const M = a(MeshDistortMaterial)

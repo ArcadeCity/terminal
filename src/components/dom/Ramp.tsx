@@ -1,5 +1,5 @@
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk'
-import useStore from '@/helpers/store'
+import { useStore } from '@/store'
 
 export const Ramp = () => {
   const magicUser = useStore((s) => s.magicUser)

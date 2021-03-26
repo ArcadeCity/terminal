@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Canvas } from 'react-three-fiber'
-import useStore from '@/helpers/store'
+import { useStore } from '@/store'
 import { OrbitControls, Preload } from '@react-three/drei'
 import { a, useSpring } from '@react-spring/three'
 import { EffectComposer, Vignette } from '@react-three/postprocessing'

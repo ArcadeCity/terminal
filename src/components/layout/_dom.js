@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import useStore from '@/helpers/store'
+import { useStore } from '@/store'
 import { ArcadeUI } from '@arcadecity/ui'
 
 export const Header = () => (

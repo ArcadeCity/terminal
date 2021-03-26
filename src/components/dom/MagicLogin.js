@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { magic } from '@/utilities'
-import useStore from '@/helpers/store'
+import { useStore } from '@/store'
 import { Eth } from '@/helpers/eth'
 
 const eth = new Eth()

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { ArcadeUI } from '@arcadecity/ui'
-import useStore from '@/helpers/store'
+import { useStore } from '@/store'
 import { Arweave, MagicLogin, Ramp } from '@/components/dom'
 import { Header } from '@/components/layout/_dom'
 import { MyBalances } from '@/components/dom/token/MyBalances'
