@@ -1,4 +1,4 @@
-import useStore from '@/helpers/store'
+import { useStore } from '@/store'
 import dynamic from 'next/dynamic'
 import BackButton from '@/components/dom/back'
 

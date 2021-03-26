@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { Canvas } from 'react-three-fiber'
-import useStore from '@/helpers/store'
+import { useStore } from '@/store'
 import { OrbitControls, Preload } from '@react-three/drei'
 import { a, useSpring } from '@react-spring/three'
 import { EffectComposer, Vignette } from '@react-three/postprocessing'
@@ -12,24 +13,32 @@ const Bg = () => {
   })
   return <a.color attach='background' r={bg} g={bg} b={bg} />
 }
+
 const LCanvas = ({ children }) => {
+  const [vignette, showVignette] = useState(false)
   return (
     <Canvas
       style={{
+        backgroundColor: '#021114',
         position: 'absolute',
         top: 0,
       }}
       onCreated={({ events }) => {
         useStore.setState({ events })
+        setTimeout(() => {
+          showVignette(true)
+        }, 1000)
       }}
     >
       <A11yUserPreferences>
         <Preload all />
         {/* <Bg /> */}
         <OrbitControls />
-        <EffectComposer>
-          <Vignette eskil={false} offset={0.1} darkness={1.1} />
-        </EffectComposer>
+        {vignette && (
+          <EffectComposer>
+            <Vignette eskil={false} offset={0.1} darkness={1.1} />
+          </EffectComposer>
+        )}
         {children}
       </A11yUserPreferences>
     </Canvas>
