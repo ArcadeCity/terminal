@@ -15,6 +15,7 @@ interface LoginEmailProps {
 }
 
 type State = {
+  loggingIn: boolean
   actions: {
     initUser: (magicUser: MagicUser) => void
     loginEmail: (props: LoginEmailProps) => void
@@ -29,6 +30,7 @@ type State = {
 
 export const useStore = create<State>((set, get) => {
   return {
+    loggingIn: false,
     balances: null,
     title: '',
     magicUser: null,
@@ -44,6 +46,7 @@ export const useStore = create<State>((set, get) => {
         set({ balances })
       },
       loginEmail: async ({ email }: LoginEmailProps) => {
+        set({ loggingIn: true })
         console.log(`Logging in with email ${email}`)
         try {
           await magic.auth.loginWithMagicLink({ email })
@@ -53,6 +56,7 @@ export const useStore = create<State>((set, get) => {
           console.log('THAT DID NOT WORK', e)
           // setIsLoggingIn(false)
         }
+        set({ loggingIn: false })
       },
     },
   }

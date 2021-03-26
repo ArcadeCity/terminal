@@ -9,33 +9,28 @@ export const LoginBox = ({ useStore }) => {
   const { handleSubmit, register } = useForm()
   const spring = useSpring(mainSpring)
   const { loginEmail } = useStore((s: ExpectedStore) => s.actions)
-  const magicUser = useStore((s: ExpectedStore) => s.magicUser)
-  const balances = useStore((s: ExpectedStore) => s.balances)
+  const loggingIn = useStore((s: ExpectedStore) => s.loggingIn)
   return (
     <a.div
       // @ts-ignore
       style={{ opacity: spring.x }}
       className='h-screen w-screen flex flex-col justify-center items-center'
     >
-      {magicUser ? (
-        <div className='text-center rounded-lg flex flex-col justify-center items-center'>
-          <LogoText>{magicUser.email}</LogoText>
-          <Text>{JSON.stringify(balances)}</Text>
-        </div>
-      ) : (
-        <div className='text-center rounded-lg flex flex-col justify-center items-center'>
-          <LogoText>Terminal</LogoText>
-          <Text>Your gateway to Arcade City</Text>
-          <form onSubmit={handleSubmit(loginEmail)}>
-            <InputContainer>
-              <EmailInput ref={register} name='email' placeholder='Email' />
-              <InputIconCircle type='submit'>
-                <Arrow />
-              </InputIconCircle>
-            </InputContainer>
-          </form>
-        </div>
-      )}
+      <div className='text-center rounded-lg flex flex-col justify-center items-center'>
+        <LogoText>Terminal</LogoText>
+        <Text>Your gateway to Arcade City</Text>
+        <form
+          onSubmit={handleSubmit(loginEmail)}
+          className={loggingIn ? 'opacity-0' : ''}
+        >
+          <InputContainer>
+            <EmailInput ref={register} name='email' placeholder='Email' />
+            <InputIconCircle type='submit'>
+              <Arrow />
+            </InputIconCircle>
+          </InputContainer>
+        </form>
+      </div>
     </a.div>
   )
 }
@@ -106,6 +101,7 @@ interface MagicUser {
 }
 
 interface ExpectedStore {
+  loggingIn: boolean
   magicUser: MagicUser | null
   balances: {
     ARCD: string
