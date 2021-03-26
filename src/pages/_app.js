@@ -4,8 +4,9 @@ import { useEffect, Children } from 'react'
 import Header from '../config'
 import dynamic from 'next/dynamic'
 import Dom from '@/components/layout/_dom'
-
 import '@/styles/index.css'
+
+import { useMagicUser } from '@/helpers/useMagicUser'
 
 let LCanvas = null
 if (process.env.NODE_ENV === 'production') {
@@ -42,6 +43,8 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     useStore.setState({ router })
   }, [router])
+
+  useMagicUser()
 
   return r3fArr.length > 0 ? (
     <SplitApp canvas={r3fArr} dom={compArr} />

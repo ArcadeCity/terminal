@@ -1,7 +1,6 @@
 import { ComponentType } from 'react'
 import dynamic from 'next/dynamic'
 import { LoginBox } from '@/ui'
-import { useMagicUser } from '@/helpers/useMagicUser'
 import { useStore } from '@/store'
 
 const GridBackground: ComponentType<{ r3f: boolean }> = dynamic(
@@ -12,7 +11,6 @@ const GridBackground: ComponentType<{ r3f: boolean }> = dynamic(
 )
 
 const Page = () => {
-  useMagicUser()
   return (
     <>
       <GridBackground r3f />
