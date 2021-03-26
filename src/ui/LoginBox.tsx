@@ -1,16 +1,23 @@
-import { FormEvent } from 'react'
 import { useSpring } from '@react-spring/core'
 import { a } from '@react-spring/web'
 import styled from 'styled-components'
 import { mainSpring } from '@/helpers/springs'
 import { Arrow } from '@/helpers/icons'
+import { useForm } from 'react-hook-form'
 
-export const LoginBox = () => {
-  const spring = useSpring(mainSpring)
-  const loginEmail = (e: FormEvent) => {
-    e.preventDefault()
-    console.log('Login')
+// What can a ui package expect from user store?
+interface AppStore {
+  store: {
+    actions: {
+      loginEmail: () => void
+    }
   }
+}
+
+export const LoginBox = ({ store }: AppStore) => {
+  const { handleSubmit, register } = useForm()
+  const spring = useSpring(mainSpring)
+  const { loginEmail } = store.actions
   return (
     <a.div
       // @ts-ignore
@@ -20,9 +27,9 @@ export const LoginBox = () => {
       <div className='text-center rounded-lg flex flex-col justify-center items-center'>
         <LogoText>Terminal</LogoText>
         <Text>Your gateway to Arcade City</Text>
-        <form onSubmit={loginEmail}>
+        <form onSubmit={handleSubmit(loginEmail)}>
           <InputContainer>
-            <EmailInput placeholder='Email' />
+            <EmailInput ref={register} name='email' placeholder='Email' />
             <InputIconCircle type='submit'>
               <Arrow />
             </InputIconCircle>

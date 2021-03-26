@@ -1,4 +1,5 @@
 import create from 'zustand'
+import { magic } from '@/utilities'
 
 type MagicUser = {
   email: string
@@ -13,6 +14,9 @@ type State = {
   router: any
   events: any
   setEvents: (events: any) => void
+  actions: {
+    loginEmail: (e: FormEvent) => void
+  }
 }
 
 const useStore = create<State>((set) => {
@@ -24,6 +28,20 @@ const useStore = create<State>((set) => {
     events: null,
     setEvents: (events) => {
       set({ events })
+    },
+    actions: {
+      loginEmail: async ({ email }: { email: string }) => {
+        console.log(`Logging in with email ${email}`)
+        try {
+          await magic.auth.loginWithMagicLink({ email })
+          const metadata = await magic.user.getMetadata()
+          console.log(metadata)
+          // initUser(metadata)
+        } catch (e) {
+          console.log('THAT DID NOT WORK', e)
+          // setIsLoggingIn(false)
+        }
+      },
     },
   }
 })
