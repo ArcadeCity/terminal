@@ -12,6 +12,8 @@ export const Navbar = () => {
     })
   }, [])
 
+  if (!magicUser) return <></>
+
   return (
     <div style={container}>
       <div className='flex flex-row items-center justify-center space-x-8'>
