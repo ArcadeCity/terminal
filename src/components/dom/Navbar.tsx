@@ -15,7 +15,12 @@ export const Navbar = () => {
   return (
     <div style={container}>
       <div className='flex flex-row items-center justify-center space-x-8'>
-        <p className='mb-0'>{magicUser.publicAddress}</p>
+        <a
+          href={`https://etherscan.io/address/${magicUser.publicAddress}`}
+          target='_blank'
+        >
+          <p className='mb-0'>{magicUser.publicAddress}</p>
+        </a>
         <h6 className='mb-0'>{magicUser.email}</h6>
         <button onClick={logout}>Log out</button>
       </div>
