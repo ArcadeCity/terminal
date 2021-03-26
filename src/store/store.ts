@@ -42,8 +42,15 @@ export const useStore = create<State>((set, get) => {
     actions: {
       initUser: async (magicUser: MagicUser) => {
         set({ magicUser })
-        const balances = await eth.fetchBalances(magicUser.publicAddress)
-        set({ balances })
+        try {
+          const balances = await eth.fetchBalances(magicUser.publicAddress)
+          set({ balances })
+        } catch (e) {
+          console.log(e)
+          alert(
+            'Error fetching balances. Click your address at the top to view balances on Etherscan.'
+          )
+        }
       },
       loginEmail: async ({ email }: LoginEmailProps) => {
         set({ loggingIn: true })
