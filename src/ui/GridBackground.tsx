@@ -1,4 +1,5 @@
 import { a, useSpring } from '@react-spring/three'
+import { useStore } from '@/store'
 
 const Plane = ({ x }) => {
   const color = x.to([0, 1], ['#021114', '#004646'])
@@ -11,9 +12,12 @@ const Plane = ({ x }) => {
 }
 
 export const GridBackground = () => {
+  const magicUser = useStore((s) => s.magicUser)
   const { point, spot, x } = useSpring({
     from: { point: 0, spot: 0, x: 0 },
-    to: { point: 0.35, spot: 0.25, x: 1 }, // when in: point: 0.45, spot: 0.3
+    to: magicUser
+      ? { point: 0.6, spot: 0.4, x: 1 }
+      : { point: 0.3, spot: 0.2, x: 1 }, // when in: point: 0.45, spot: 0.3
     config: {
       mass: 5,
       tension: 1000,
