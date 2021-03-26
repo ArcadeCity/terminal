@@ -4,13 +4,13 @@ import { Eth } from '@/helpers/eth'
 
 const eth = new Eth()
 
-type MagicUser = {
+interface MagicUser {
   email: string
   issuer: string
   publicAddress: string
 }
 
-type LoginEmailProps = {
+interface LoginEmailProps {
   email: string
 }
 

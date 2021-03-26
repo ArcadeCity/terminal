@@ -8,9 +8,9 @@ import { useForm } from 'react-hook-form'
 export const LoginBox = ({ useStore }) => {
   const { handleSubmit, register } = useForm()
   const spring = useSpring(mainSpring)
-  const { loginEmail } = useStore((s) => s.actions)
-  const magicUser = useStore((s) => s.magicUser)
-  const balances = useStore((s) => s.balances)
+  const { loginEmail } = useStore((s: ExpectedStore) => s.actions)
+  const magicUser = useStore((s: ExpectedStore) => s.magicUser)
+  const balances = useStore((s: ExpectedStore) => s.balances)
   return (
     <a.div
       // @ts-ignore
@@ -98,3 +98,22 @@ const Text = styled.p`
   font-weight: 400;
   text-align: center;
 `
+
+interface MagicUser {
+  email: string
+  issuer: string
+  publicAddress: string
+}
+
+interface ExpectedStore {
+  magicUser: MagicUser | null
+  balances: {
+    ARCD: string
+    ETH: string
+    ethPrice: string
+    arcdPrice: string
+  }
+  actions: {
+    loginEmail: ({ email }: { email: string }) => void
+  }
+}

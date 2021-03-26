@@ -4,7 +4,6 @@ import { magic } from '@/utilities'
 
 export const useMagicUser = () => {
   const { initUser } = useStore((s) => s.actions)
-  console.log('so lets see w', initUser)
   useEffect(() => {
     magic.user.isLoggedIn().then((magicIsLoggedIn) => {
       console.log('magicIsLoggedIn:', magicIsLoggedIn)
