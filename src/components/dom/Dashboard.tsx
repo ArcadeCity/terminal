@@ -1,4 +1,4 @@
-import { ArcadeUI, Button, Card } from '@arcadecity/ui'
+import { ArcadeUI, Blockquote, Button, Card } from '@arcadecity/ui'
 import { Arweave, Navbar, Ramp } from '@/components/dom'
 import { Header } from '@/components/layout/_dom'
 import { MyBalances } from '@/components/dom/token/MyBalances'
@@ -10,7 +10,19 @@ export const Dashboard = () => {
     <ArcadeUI>
       <Header />
       <Navbar />
-      <div className='mt-16'>
+
+      <div className='mt-12 flex flex-col items-center'>
+        <div className='max-w-2xl'>
+          <Blockquote>
+            <p className='mt-6 italic'>
+              This is alpha software. Please do not store large amounts in
+              connected wallets.
+            </p>
+          </Blockquote>
+        </div>
+      </div>
+
+      <div className='mt-8'>
         <MyBalances balances={balances} />
       </div>
 
@@ -18,7 +30,7 @@ export const Dashboard = () => {
 
       <Ramp />
 
-      <div className='flex flex-col mt-12 text-center items-center'>
+      <div className='flex flex-col my-12 text-center items-center'>
         <Card title='Export ETH private key' style={{ maxWidth: 800 }}>
           <a
             className='mb-12'
@@ -28,11 +40,6 @@ export const Dashboard = () => {
             <Button>Export key</Button>
           </a>
         </Card>
-
-        <p className='mt-8 italic'>
-          This is alpha software. Please do not store large amounts in connected
-          wallets.
-        </p>
       </div>
     </ArcadeUI>
   )
