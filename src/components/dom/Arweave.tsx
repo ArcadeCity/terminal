@@ -74,7 +74,7 @@ export const Arweave = () => {
           <Card title='Your Arweave wallet'>
             <p>{address}</p>
             <p className='font-bold'>{balance} AR</p>
-            <p className='font-bold'>{arcadeBalance ?? 0} ARCADE</p>
+            <p className='mb-0 font-bold'>{arcadeBalance ?? 0} ARCADE</p>
           </Card>
         </div>
       ) : (
@@ -84,13 +84,18 @@ export const Arweave = () => {
           </Card>
         </div>
       )}
-      <div className='mt-16 w-72'>
+      <div className='mt-12 w-72'>
         <Card title='Upload Arweave wallet'>
-          <input type='file' onChange={onFileChange} />
+          <input
+            type='file'
+            onChange={onFileChange}
+            className='w-64 cursor-pointer absolute'
+          />
+          <div className='mt-12' />
         </Card>
       </div>
       {contractState && (
-        <div className='mt-16'>
+        <div className='mt-12'>
           <Card title={`${contractState.name} PSC Members`}>
             <p className='text-lg font-bold'>
               {Object.entries(contractState.balances).length}
