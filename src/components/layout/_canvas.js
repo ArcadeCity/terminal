@@ -20,7 +20,7 @@ const LCanvas = ({ children }) => {
     <Canvas
       style={{
         backgroundColor: '#021114',
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
       }}
       onCreated={({ events }) => {
