@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "3id-did-provider": "^0.5.1",
-    "@arcadecity/ui": "^0.0.1-alpha.10",
+    "@arcadecity/ui": "^0.0.1-alpha.11",
     "@ceramicnetwork/http-client": "^0.9.6",
     "@ceramicnetwork/key-did-resolver": "^0.2.2",
     "@ceramicstudio/idx": "^0.8.0",

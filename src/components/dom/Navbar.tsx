@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { CSSProperties } from 'styled-components'
+import { Button } from '@arcadecity/ui'
 import { useStore } from '@/store'
 import { magic } from '@/utilities'
 
@@ -24,7 +25,7 @@ export const Navbar = () => {
           <p className='mb-0'>{magicUser.publicAddress}</p>
         </a>
         <h6 className='mb-0'>{magicUser.email}</h6>
-        <button onClick={logout}>Log out</button>
+        <Button onClick={logout}>Log out</Button>
       </div>
     </div>
   )

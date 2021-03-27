@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Button } from '@arcadecity/ui'
 import { arweave, generateWallet } from '@/utilities'
 import { readContract } from 'smartweave'
 import Community from 'community-js'
@@ -79,7 +80,7 @@ export const Arweave = () => {
       ) : (
         <div className='mt-4'>
           <h5>Create Arweave wallet</h5>
-          <button onClick={generate}>Create wallet</button>
+          <Button onClick={generate}>Create wallet</Button>
         </div>
       )}
       <div className='mt-16 w-72'>

@@ -1,4 +1,4 @@
-import { ArcadeUI } from '@arcadecity/ui'
+import { ArcadeUI, Button } from '@arcadecity/ui'
 import { Arweave, Navbar, Ramp } from '@/components/dom'
 import { Header } from '@/components/layout/_dom'
 import { MyBalances } from '@/components/dom/token/MyBalances'
@@ -25,7 +25,7 @@ export const Dashboard = () => {
           href='https://reveal.magic.link/arcadecity'
           target='_blank'
         >
-          <button>Export key</button>
+          <Button>Export key</Button>
         </a>
         <p className='italic'>
           This is alpha software. Please do not store large amounts in connected

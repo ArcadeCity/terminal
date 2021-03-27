@@ -37,10 +37,10 @@
   resolved "https://registry.yarnpkg.com/@alloc/types/-/types-1.3.0.tgz#904245b8d3260a4b7d8a801c12501968f64fac08"
   integrity sha512-mH7LiFiq9g6rX2tvt1LtwsclfG5hnsmtIfkZiauAGrm1AwXhoRS0sF2WrN9JGN7eV5vFXqNaB0eXZ3IvMsVi9g==
 
-"@arcadecity/ui@^0.0.1-alpha.10":
-  version "0.0.1-alpha.10"
-  resolved "https://npm.pkg.github.com/download/@arcadecity/ui/0.0.1-alpha.10/87f7ba8d1eb84524e1ae4a495ee5d3e791829ab04c81230f4ba0ad30772ad645#2560341c5475ad0c1d38c6b4393eb48f2c28898a"
-  integrity sha512-N7qbtuqvJBRgVNXw+9fcbwEt/+i9mogt6Y6oSTQzPXJCcEMQnJOJfWeBt5L1/h4cw31XMX6CZ0rDlbyhLH+FoA==
+"@arcadecity/ui@^0.0.1-alpha.11":
+  version "0.0.1-alpha.11"
+  resolved "https://npm.pkg.github.com/download/@arcadecity/ui/0.0.1-alpha.11/14a022ff5bc3e57bf18bec2cfb987f008441c88b5505bf9b9f0078b9167e8785#85d217ed6a89b4df6ff9f695c0cc0bc8e0f24b95"
+  integrity sha512-Q3K9/H8nYPtZKYGeDhao8a5ntW95OFYfjGHVWPPsIpPP1OAby7LGa/UZXNWqTkRqq2N/xm1nwxcP/1GEBiRksw==
   dependencies:
     "@emotion/css" "^11.1.3"
     "@emotion/react" "^11.1.5"
