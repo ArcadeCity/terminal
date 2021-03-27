@@ -1,3 +1,4 @@
+import { Button } from '@arcadecity/ui'
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk'
 import { useStore } from '@/store'
 
@@ -21,7 +22,7 @@ export const Ramp = () => {
   return (
     <div className='mt-4 flex flex-col items-center w-full text-center'>
       <h5>Buy ETH</h5>
-      <button onClick={buy}>Buy ETH via Ramp</button>
+      <Button onClick={buy}>Buy ETH via Ramp</Button>
     </div>
   )
 }
