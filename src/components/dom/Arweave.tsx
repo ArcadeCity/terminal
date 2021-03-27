@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button } from '@arcadecity/ui'
+import { Button, Card, Text } from '@arcadecity/ui'
 import { arweave, generateWallet } from '@/utilities'
 import { readContract } from 'smartweave'
 import Community from 'community-js'
@@ -71,28 +71,37 @@ export const Arweave = () => {
     <div className='mt-8 flex flex-col items-center w-full text-center'>
       {wallet ? (
         <div className='mt-4'>
-          <h5>Your Arweave wallet</h5>
-          <p>{address}</p>
-          <p className='font-bold'>{balance} AR</p>
-          <p className='font-bold'>{arcadeBalance ?? 0} ARCADE</p>
-          {/* <button onClick={attach}>Attach</button> */}
+          <Card title='Your Arweave wallet'>
+            <p>{address}</p>
+            <p className='font-bold'>{balance} AR</p>
+            <p className='mb-0 font-bold'>{arcadeBalance ?? 0} ARCADE</p>
+          </Card>
         </div>
       ) : (
         <div className='mt-4'>
-          <h5>Create Arweave wallet</h5>
-          <Button onClick={generate}>Create wallet</Button>
+          <Card title='Create Arweave wallet'>
+            <Button onClick={generate}>Create wallet</Button>
+          </Card>
         </div>
       )}
-      <div className='mt-16 w-72'>
-        <h5>Upload Arweave wallet</h5>
-        <input type='file' onChange={onFileChange} />
+      <div className='mt-12 w-72'>
+        <Card title='Upload Arweave wallet'>
+          <input
+            type='file'
+            onChange={onFileChange}
+            className='w-64 cursor-pointer absolute'
+          />
+          <div className='mt-12' />
+        </Card>
       </div>
       {contractState && (
-        <div className='mt-16'>
-          <h5>{contractState.name} PSC Members</h5>
-          <p className='text-lg font-bold'>
-            {Object.entries(contractState.balances).length}
-          </p>
+        <div className='mt-12'>
+          <Card title={`${contractState.name} PSC Members`}>
+            <p className='text-lg font-bold'>
+              {Object.entries(contractState.balances).length}
+            </p>
+            <Text>Profit-sharing community.</Text>
+          </Card>
         </div>
       )}
     </div>

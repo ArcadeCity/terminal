@@ -1,3 +1,4 @@
+import { Button, Card } from '@arcadecity/ui'
 import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk'
 import { useStore } from '@/store'
 
@@ -19,9 +20,10 @@ export const Ramp = () => {
       .show()
   }
   return (
-    <div className='mt-4 flex flex-col items-center w-full text-center'>
-      <h5>Buy ETH</h5>
-      <button onClick={buy}>Buy ETH via Ramp</button>
+    <div className='mt-12 flex flex-col items-center w-full text-center'>
+      <Card title='Buy ETH'>
+        <Button onClick={buy}>Buy ETH via Ramp</Button>
+      </Card>
     </div>
   )
 }

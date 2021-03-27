@@ -1,4 +1,4 @@
-import { ArcadeUI, Button } from '@arcadecity/ui'
+import { ArcadeUI, Blockquote, Button, Card } from '@arcadecity/ui'
 import { Arweave, Navbar, Ramp } from '@/components/dom'
 import { Header } from '@/components/layout/_dom'
 import { MyBalances } from '@/components/dom/token/MyBalances'
@@ -10,7 +10,19 @@ export const Dashboard = () => {
     <ArcadeUI>
       <Header />
       <Navbar />
-      <div className='mt-16'>
+
+      <div className='mt-12 flex flex-col items-center'>
+        <div className='max-w-2xl'>
+          <Blockquote>
+            <p className='mt-6 italic'>
+              This is alpha software. Please do not store large amounts in
+              connected wallets.
+            </p>
+          </Blockquote>
+        </div>
+      </div>
+
+      <div className='mt-8'>
         <MyBalances balances={balances} />
       </div>
 
@@ -18,20 +30,17 @@ export const Dashboard = () => {
 
       <Ramp />
 
-      <p className='flex flex-col mt-12 text-center'>
-        <h5>Export ETH private key</h5>
-        <a
-          className='mb-12'
-          href='https://reveal.magic.link/arcadecity'
-          target='_blank'
-        >
-          <Button>Export key</Button>
-        </a>
-        <p className='italic'>
-          This is alpha software. Please do not store large amounts in connected
-          wallets.
-        </p>
-      </p>
+      <div className='flex flex-col my-12 text-center items-center'>
+        <Card title='Export ETH private key' style={{ maxWidth: 800 }}>
+          <a
+            className='mb-12'
+            href='https://reveal.magic.link/arcadecity'
+            target='_blank'
+          >
+            <Button>Export key</Button>
+          </a>
+        </Card>
+      </div>
     </ArcadeUI>
   )
 }
