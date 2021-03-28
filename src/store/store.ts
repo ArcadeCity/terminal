@@ -20,7 +20,12 @@ type State = {
     initUser: (magicUser: MagicUser) => void
     loginEmail: (props: LoginEmailProps) => void
   }
-  balances: any
+  balances: {
+    ARCD: number
+    ETH: string
+    ethPrice: number
+    arcdPrice: number
+  } | null
   title: string
   magicUser: MagicUser | null
   arAddress: string | null

@@ -1,14 +1,14 @@
-import { ArcadeUI, Card, List, Text } from '@arcadecity/ui'
-import { Arweave, Navbar } from '@/components/dom'
-import { Header } from '@/components/layout/_dom'
+import { Card, List, Text } from '@arcadecity/ui'
 import { useStore } from '@/store'
 
 export const Checklist = () => {
   const magicUser = useStore((s) => s.magicUser)
+  const arAddress = useStore((s) => s.arAddress)
+  const balances = useStore((s) => s.balances)
+
   const verifiedEmail = magicUser && magicUser.email
   const ethWalletConnected = magicUser && magicUser.publicAddress
-
-  const arAddress = useStore((s) => s.arAddress)
+  const hasArcd = balances && balances.ARCD > 0
 
   const doneClasses = 'opacity-50 line-through'
   return (
@@ -36,7 +36,11 @@ export const Checklist = () => {
           </Text>
         </li>
         <li>
-          <Text>Get Arcade Tokens</Text>
+          <Text>
+            <span className={hasArcd ? doneClasses : ''}>
+              Get Arcade Tokens
+            </span>
+          </Text>
         </li>
         <li>
           <Text>Complete intro quest</Text>

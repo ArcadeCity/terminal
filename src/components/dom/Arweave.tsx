@@ -22,7 +22,7 @@ export const Arweave = () => {
   }
 
   const getAddressBalance = () => {
-    if (!address) return
+    if (!address || !contractState) return
     const balances: BalancesInterface = contractState.balances
     const vault: VaultInterface = contractState.vault
     const unlocked = balances[address]
