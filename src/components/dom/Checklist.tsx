@@ -1,5 +1,5 @@
 import { ArcadeUI, Card, List, Text } from '@arcadecity/ui'
-import { Navbar } from '@/components/dom'
+import { Arweave, Navbar } from '@/components/dom'
 import { Header } from '@/components/layout/_dom'
 import { useStore } from '@/store'
 
@@ -7,7 +7,9 @@ export const Checklist = () => {
   const magicUser = useStore((s) => s.magicUser)
   const verifiedEmail = magicUser && magicUser.email
   const ethWalletConnected = magicUser && magicUser.publicAddress
-  const arWalletConnected = false
+
+  const arAddress = useStore((s) => s.arAddress)
+
   const doneClasses = 'opacity-50 line-through'
   return (
     <ArcadeUI>
@@ -32,7 +34,7 @@ export const Checklist = () => {
             </li>
             <li>
               <Text>
-                <span className={arWalletConnected ? doneClasses : ''}>
+                <span className={arAddress ? doneClasses : ''}>
                   Connect AR wallet
                 </span>
               </Text>
@@ -48,6 +50,7 @@ export const Checklist = () => {
             </li>
           </List>
         </Card>
+        {/* <Arweave /> */}
       </div>
     </ArcadeUI>
   )

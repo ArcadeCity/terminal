@@ -23,6 +23,7 @@ type State = {
   balances: any
   title: string
   magicUser: MagicUser | null
+  arAddress: string | null
   router: any
   events: any
   setEvents: (events: any) => void
@@ -30,6 +31,7 @@ type State = {
 
 export const useStore = create<State>((set, get) => {
   return {
+    arAddress: null,
     loggingIn: false,
     balances: null,
     title: '',
