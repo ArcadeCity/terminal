@@ -1,8 +1,14 @@
-import { ArcadeUI, Blockquote, Button, Card, List, Text } from '@arcadecity/ui'
+import { ArcadeUI, Card, List, Text } from '@arcadecity/ui'
 import { Navbar } from '@/components/dom'
 import { Header } from '@/components/layout/_dom'
+import { useStore } from '@/store'
 
 export const Checklist = () => {
+  const magicUser = useStore((s) => s.magicUser)
+  const verifiedEmail = magicUser && magicUser.email
+  const ethWalletConnected = magicUser && magicUser.publicAddress
+  const arWalletConnected = false
+  const doneClasses = 'opacity-50 line-through'
   return (
     <ArcadeUI>
       <Header />
@@ -11,19 +17,31 @@ export const Checklist = () => {
         <Card title='Onboarding' className='max-w-md '>
           <List className='mb-0 px-12 space-y-1 text-lg'>
             <li>
-              <Text>Verify email address</Text>
+              <Text>
+                <span className={verifiedEmail ? doneClasses : ''}>
+                  Verify email address
+                </span>
+              </Text>
             </li>
             <li>
-              <Text>Connect ETH wallet</Text>
+              <Text>
+                <span className={ethWalletConnected ? doneClasses : ''}>
+                  Connect ETH wallet
+                </span>
+              </Text>
             </li>
             <li>
-              <Text>Connect AR wallet</Text>
+              <Text>
+                <span className={arWalletConnected ? doneClasses : ''}>
+                  Connect AR wallet
+                </span>
+              </Text>
             </li>
             <li>
               <Text>Get Arcade Tokens</Text>
             </li>
             <li>
-              <Text>Select username</Text>
+              <Text>Complete intro quest</Text>
             </li>
             <li>
               <Text>Say hello in chat</Text>

@@ -22,7 +22,7 @@ type State = {
   }
   balances: any
   title: string
-  magicUser: MagicUser | any
+  magicUser: MagicUser | null
   router: any
   events: any
   setEvents: (events: any) => void
