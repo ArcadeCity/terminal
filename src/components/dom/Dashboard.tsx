@@ -1,5 +1,5 @@
 import { ArcadeUI, Blockquote, Button, Card } from '@arcadecity/ui'
-import { Arweave, Navbar, Ramp } from '@/components/dom'
+import { Arweave, Checklist, Navbar, Ramp } from '@/components/dom'
 import { Header } from '@/components/layout/_dom'
 import { MyBalances } from '@/components/dom/token/MyBalances'
 import { useStore } from '@/store'
@@ -20,6 +20,10 @@ export const Dashboard = () => {
             </p>
           </Blockquote>
         </div>
+      </div>
+
+      <div className='flex flex-col mt-8 mb-12 items-center'>
+        <Checklist />
       </div>
 
       <div className='mt-8'>

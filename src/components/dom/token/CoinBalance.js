@@ -23,7 +23,7 @@ export const CoinBalance = ({ balance, price = 0.004, symbol }) => {
             src={`/img/${symbol}.png`}
           />
         </div>
-        <div className='flex flex-col justify-center'>
+        <div className='flex flex-col justify-center text-left'>
           <div className='font-bold text-moonraker'>{coin.name}</div>
           <div className='text-moonraker'>{`$${price}`}</div>
         </div>

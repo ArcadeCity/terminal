@@ -3,6 +3,7 @@ import { Button, Card, Text } from '@arcadecity/ui'
 import { arweave, generateWallet } from '@/utilities'
 import { readContract } from 'smartweave'
 import Community from 'community-js'
+import { useStore } from '@/store'
 import { BalancesInterface, VaultInterface } from 'community-js/lib/faces'
 
 const contractId = '7hVrRtwjs7XLPtpZsQMr6RPz19QjtTqQYpHy3rPEy-4' // ARCADE CITY
@@ -21,7 +22,7 @@ export const Arweave = () => {
   }
 
   const getAddressBalance = () => {
-    if (!address) return
+    if (!address || !contractState) return
     const balances: BalancesInterface = contractState.balances
     const vault: VaultInterface = contractState.vault
     const unlocked = balances[address]
@@ -48,6 +49,7 @@ export const Arweave = () => {
     const balance1 = await arweave.wallets.getBalance(address1)
     const readableBalance = arweave.ar.winstonToAr(balance1)
     setAddress(address1)
+    useStore.setState({ arAddress: address1 })
     setBalance(readableBalance)
     setWallet(wallet)
   }

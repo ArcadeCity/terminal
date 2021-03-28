@@ -20,9 +20,15 @@ type State = {
     initUser: (magicUser: MagicUser) => void
     loginEmail: (props: LoginEmailProps) => void
   }
-  balances: any
+  balances: {
+    ARCD: number
+    ETH: string
+    ethPrice: number
+    arcdPrice: number
+  } | null
   title: string
-  magicUser: MagicUser | any
+  magicUser: MagicUser | null
+  arAddress: string | null
   router: any
   events: any
   setEvents: (events: any) => void
@@ -30,6 +36,7 @@ type State = {
 
 export const useStore = create<State>((set, get) => {
   return {
+    arAddress: null,
     loggingIn: false,
     balances: null,
     title: '',

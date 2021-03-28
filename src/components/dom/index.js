@@ -1,3 +1,4 @@
 export * from './Arweave'
+export * from './Checklist'
 export * from './Navbar'
 export * from './Ramp'
