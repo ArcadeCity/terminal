@@ -84,7 +84,7 @@ export class Eth {
     const ethPrice = await this.provider.getEtherPrice()
 
     const pair = await this.loadPair('ARCD', 'ETH')
-    if (!pair) return false
+    if (!pair) return null
 
     const { midPriceInverted: arcdPriceEth } = pair
     const arcdPrice = parseFloat(arcdPriceEth) * ethPrice
