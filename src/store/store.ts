@@ -25,7 +25,7 @@ type State = {
   actions: {
     initUser: (magicUser: MagicUser) => void
     loginEmail: (props: LoginEmailProps) => void
-    swapEthForArcd: (props: SwapProps) => void
+    swapEthForArcd: (props: SwapProps) => Promise<void>
   }
   balances: {
     ARCD: number
@@ -61,12 +61,12 @@ export const useStore = create<State>((set, get) => {
         console.log(`Swapping ${eth} ETH for ARCD`)
         const balances = get().balances
         const ethBalance = parseFloat(balances.ETH)
-        if (eth > ethBalance) {
-          alert(`Not enough ETH. Your balance is ${ethBalance}`)
-          return false
-        }
+        // if (eth > ethBalance) {
+        //   alert(`Not enough ETH. Your balance is ${ethBalance}`)
+        //   return false
+        // }
         const wat = await get().uniswap.tradePair('ETH', 'ARCD')
-        console.log('wat:', wat)
+        return wat
       },
       initUser: async (magicUser: MagicUser) => {
         const uniswap = new Uniswap(eth.provider, magicUser.publicAddress)

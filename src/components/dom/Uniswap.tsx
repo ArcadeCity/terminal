@@ -8,11 +8,14 @@ import {} from '@/utilities/'
 
 export const Uniswap = () => {
   const [value, setValue] = useState<number>(0.05)
+  const [submitting, setSubmitting] = useState<boolean>(false)
   const balances = useStore((s) => s.balances)
   const uniswapTx = useStore((s) => s.uniswapTx)
   const actions = useStore((s) => s.actions)
   const attemptSwap = async () => {
-    actions.swapEthForArcd({ eth: value })
+    setSubmitting(true)
+    await actions.swapEthForArcd({ eth: value })
+    setSubmitting(false)
   }
 
   const ethInUsd = balances ? Math.round(value * balances.ethPrice) : '--'
@@ -59,9 +62,14 @@ export const Uniswap = () => {
             renderTrack={Track}
             renderThumb={Thumb}
           />
-          <Button onClick={attemptSwap}>
-            Swap {value} ETH {`(~$${ethInUsd})`} for ARCD
-          </Button>
+          {submitting ? (
+            <p>Submitting...</p>
+          ) : (
+            <Button onClick={attemptSwap}>
+              Swap {value} ETH {`(~$${ethInUsd})`} for ARCD
+            </Button>
+          )}
+
           <p className='my-4'>or</p>
           <a
             href='https://info.uniswap.org/pair/0xa2e10137dbe88a10dd197f24efa403f0036e4f70'
