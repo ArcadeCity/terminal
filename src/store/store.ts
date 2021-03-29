@@ -19,12 +19,22 @@ interface SwapProps {
   eth: number
 }
 
+interface User {
+  email: string | null
+  authType: 'magic' | 'metamask'
+}
+
 type State = {
+  user: User | null
+  arAddress: string | null
+  ethAddress: string | null
   uniswapTx: string | null
   loggingIn: boolean
   actions: {
-    initUser: (magicUser: MagicUser) => void
+    fetchBalances: () => void
+    initMagicUser: (magicUser: MagicUser) => void
     loginEmail: (props: LoginEmailProps) => void
+    loginMetamask: () => void
     swapEthForArcd: (props: SwapProps) => Promise<void>
   }
   balances: {
@@ -35,7 +45,6 @@ type State = {
   } | null
   title: string
   magicUser: MagicUser | null
-  arAddress: string | null
   router: any
   events: any
   setEvents: (events: any) => void
@@ -44,8 +53,10 @@ type State = {
 
 export const useStore = create<State>((set, get) => {
   return {
-    uniswapTx: null,
+    user: null,
     arAddress: null,
+    ethAddress: null,
+    uniswapTx: null,
     loggingIn: false,
     balances: null,
     title: '',
@@ -61,18 +72,17 @@ export const useStore = create<State>((set, get) => {
         console.log(`Swapping ${eth} ETH for ARCD`)
         const balances = get().balances
         const ethBalance = parseFloat(balances.ETH)
-        if (eth > ethBalance) {
-          alert(`Not enough ETH. Your balance is ${ethBalance}`)
-          return false
-        }
+        // if (eth > ethBalance) {
+        //   alert(`Not enough ETH. Your balance is ${ethBalance}`)
+        //   return false
+        // }
         const wat = await get().uniswap.tradePair('ETH', 'ARCD', eth)
         return wat
       },
-      initUser: async (magicUser: MagicUser) => {
-        const uniswap = new Uniswap(eth.provider, magicUser.publicAddress)
-        set({ magicUser, uniswap })
+      fetchBalances: async () => {
+        const ethAddress = get().ethAddress
         try {
-          const balances = await eth.fetchBalances(magicUser.publicAddress)
+          const balances = await eth.fetchBalances(ethAddress)
           set({ balances })
         } catch (e) {
           console.log(e)
@@ -81,18 +91,45 @@ export const useStore = create<State>((set, get) => {
           )
         }
       },
+      initMagicUser: async (magicUser: MagicUser) => {
+        const ethAddress = magicUser.publicAddress
+        const uniswap = new Uniswap(eth.provider, ethAddress)
+        const user: User = {
+          email: magicUser.email,
+          authType: 'magic',
+        }
+        set({ ethAddress, magicUser, uniswap, user })
+        setTimeout(() => {
+          get().actions.fetchBalances()
+        }, 500)
+      },
       loginEmail: async ({ email }: LoginEmailProps) => {
         set({ loggingIn: true })
         console.log(`Logging in with email ${email}`)
         try {
           await magic.auth.loginWithMagicLink({ email })
           const magicUser = await magic.user.getMetadata()
-          get().actions.initUser(magicUser)
+          get().actions.initMagicUser(magicUser)
         } catch (e) {
           console.log('THAT DID NOT WORK', e)
           // setIsLoggingIn(false)
         }
         set({ loggingIn: false })
+      },
+      loginMetamask: async () => {
+        const accounts = await window.ethereum.request({
+          method: 'eth_requestAccounts',
+        })
+        const ethAddress = accounts[0]
+        const user: User = {
+          email: '',
+          authType: 'metamask',
+        }
+        const uniswap = new Uniswap(eth.provider, ethAddress)
+        set({ ethAddress, uniswap, user })
+        setTimeout(() => {
+          get().actions.fetchBalances()
+        }, 500)
       },
     },
   }

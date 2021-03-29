@@ -5,6 +5,7 @@ export const Arrow = () => {
       height='16'
       viewBox='0 0 17 16'
       fill='none'
+      className='inline-block mb-1'
       xmlns='http://www.w3.org/2000/svg'
     >
       <path

@@ -1,37 +1,72 @@
+import { useEffect, useState } from 'react'
 import { useSpring } from '@react-spring/core'
 import { a } from '@react-spring/web'
 import styled from 'styled-components'
+import { ArcadeUI, Button, Card, Text } from '@arcadecity/ui'
 import { mainSpring } from '@/helpers/springs'
 import { Arrow } from '@/helpers/icons'
 import { useForm } from 'react-hook-form'
 
+declare global {
+  interface Window {
+    ethereum: any
+  }
+}
+
 export const LoginBox = ({ useStore }) => {
+  const [showMetamaskButton, setMetamask] = useState<boolean>(false)
   const { handleSubmit, register } = useForm()
   const spring = useSpring(mainSpring)
-  const { loginEmail } = useStore((s: ExpectedStore) => s.actions)
+  const { loginEmail, loginMetamask } = useStore(
+    (s: ExpectedStore) => s.actions
+  )
   const loggingIn = useStore((s: ExpectedStore) => s.loggingIn)
+  useEffect(() => {
+    if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
+      setMetamask(true)
+    }
+  }, [])
+
   return (
-    <a.div
-      // @ts-ignore
-      style={{ opacity: spring.x }}
-      className='h-screen w-screen flex flex-col justify-center items-center'
-    >
-      <div className='text-center rounded-lg flex flex-col justify-center items-center'>
-        <LogoText>Terminal</LogoText>
-        <Text>Your gateway to Arcade City</Text>
-        <form
-          onSubmit={handleSubmit(loginEmail)}
-          className={loggingIn ? 'opacity-0' : ''}
-        >
-          <InputContainer>
-            <EmailInput ref={register} name='email' placeholder='Email' />
-            <InputIconCircle type='submit'>
-              <Arrow />
-            </InputIconCircle>
-          </InputContainer>
-        </form>
-      </div>
-    </a.div>
+    <ArcadeUI>
+      <a.div
+        // @ts-ignore
+        style={{ opacity: spring.x }}
+        className='h-screen w-screen flex flex-col justify-center items-center'
+      >
+        <div className='text-center rounded-lg flex flex-col justify-center items-center'>
+          <LogoText>
+            <Text>Terminal</Text>
+          </LogoText>
+          <Text className='mb-12 text-amber'>Your gateway to Arcade City</Text>
+
+          <form
+            onSubmit={handleSubmit(loginEmail)}
+            className={loggingIn ? 'opacity-0' : ''}
+            autoComplete='off'
+          >
+            <InputContainer>
+              <EmailInput
+                ref={register}
+                name='email'
+                placeholder='Enter your email'
+              />
+              <InputIconCircle type='submit'>
+                <Arrow />
+              </InputIconCircle>
+            </InputContainer>
+          </form>
+          {showMetamaskButton && (
+            <>
+              <Text className='mt-4 text-amber italic opacity-75'>or</Text>
+              <Button className='mt-4 mb-4' onClick={loginMetamask}>
+                log in with Metamask
+              </Button>
+            </>
+          )}
+        </div>
+      </a.div>
+    </ArcadeUI>
   )
 }
 
@@ -44,7 +79,6 @@ const InputContainer = styled.div`
 const EmailInput = styled.input`
   font-size: 20px;
   line-height: 24px;
-  color: white;
   letter-spacing: 1px;
   border-radius: 100px;
   padding: 14px 60px 14px 25px;
@@ -80,19 +114,18 @@ const InputIconCircle = styled.button`
 const LogoText = styled.h1`
   font-size: 54px;
   line-height: normal;
-  color: white;
   font-weight: 700;
 `
 
-const Text = styled.p`
-  margin-bottom: 30px;
-  margin-top: 6px;
-  font-size: 20px;
-  line-height: normal;
-  color: rgb(153, 153, 153);
-  font-weight: 400;
-  text-align: center;
-`
+// const Text = styled.p`
+//   margin-bottom: 30px;
+//   margin-top: 6px;
+//   font-size: 20px;
+//   line-height: normal;
+//   color: rgb(153, 153, 153);
+//   font-weight: 400;
+//   text-align: center;
+// `
 
 interface MagicUser {
   email: string
