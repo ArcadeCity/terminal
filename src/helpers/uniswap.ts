@@ -160,6 +160,7 @@ export class Uniswap {
       )
 
       console.log(tx)
+      console.log(`https://etherscan.io/tx/${tx}`)
     } catch (e) {
       console.log('horrible error')
       console.error(e)

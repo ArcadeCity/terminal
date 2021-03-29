@@ -59,10 +59,10 @@ export const useStore = create<State>((set, get) => {
         console.log(`Swapping ${eth} ETH for ARCD`)
         const balances = get().balances
         const ethBalance = parseFloat(balances.ETH)
-        // if (eth > ethBalance) {
-        //   alert(`Not enough ETH. Your balance is ${ethBalance}`)
-        //   return false
-        // }
+        if (eth > ethBalance) {
+          alert(`Not enough ETH. Your balance is ${ethBalance}`)
+          return false
+        }
         const wat = await get().uniswap.tradePair('ETH', 'ARCD')
         console.log('wat:', wat)
       },
