@@ -20,6 +20,7 @@ interface SwapProps {
 }
 
 type State = {
+  uniswapTx: string | null
   loggingIn: boolean
   actions: {
     initUser: (magicUser: MagicUser) => void
@@ -43,6 +44,7 @@ type State = {
 
 export const useStore = create<State>((set, get) => {
   return {
+    uniswapTx: null,
     arAddress: null,
     loggingIn: false,
     balances: null,

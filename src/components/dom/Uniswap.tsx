@@ -9,6 +9,7 @@ import {} from '@/utilities/'
 export const Uniswap = () => {
   const [value, setValue] = useState<number>(0.05)
   const balances = useStore((s) => s.balances)
+  const uniswapTx = useStore((s) => s.uniswapTx)
   const actions = useStore((s) => s.actions)
   const attemptSwap = async () => {
     actions.swapEthForArcd({ eth: value })
@@ -19,38 +20,57 @@ export const Uniswap = () => {
   return (
     <Card
       title='Swap ETH for ARCD'
-      className='mt-12 w-128 text-center flex flex-col items-center justify-center'
+      className='mt-12 w-128 text-center'
       style={{ width: 500 }}
+      options={
+        <a href={`https://etherscan.io/tx/${uniswapTx}`} target='_blank'>
+          <Button>View on Etherscan</Button>
+        </a>
+      }
     >
-      <Text className='mb-8'>
-        Drag the slider to select how much ETH to swap for ARCD. Trades are made
-        via the ARCD-ETH pool on Uniswap. ETH gas prices are not included in the
-        dollar estimate and could cost ~$50 or more depending on network
-        congestion.
-      </Text>
-      <StyledSlider
-        value={value}
-        onChange={(val) => {
-          if (typeof val !== 'number') return
-          setValue(val)
-        }}
-        defaultValue={0.025}
-        step={0.025}
-        min={0.025}
-        max={1}
-        renderTrack={Track}
-        renderThumb={Thumb}
-      />
-      <Button onClick={attemptSwap}>
-        Swap {value} ETH {`(~$${ethInUsd})`} for ARCD
-      </Button>
-      <p className='my-4'>or</p>
-      <a
-        href='https://info.uniswap.org/pair/0xa2e10137dbe88a10dd197f24efa403f0036e4f70'
-        target='_blank'
-      >
-        <Button>Trade on Uniswap</Button>
-      </a>
+      {uniswapTx ? (
+        <div className='flex flex-col items-center justify-center'>
+          <Text>Transaction ID:</Text>
+          <Text className='text-xs mb-4'>{uniswapTx}</Text>
+
+          <Text className='text-sm'>
+            Check the transaction status on Etherscan. After it succeeds,
+            refresh this page to see your updated balances.
+          </Text>
+        </div>
+      ) : (
+        <div className='flex flex-col items-center justify-center'>
+          <Text className='mb-8'>
+            Drag the slider to select how much ETH to swap for ARCD. Trades are
+            made via the ARCD-ETH pool on Uniswap. ETH gas prices are not
+            included in the dollar estimate and could cost ~$50 or more
+            depending on network congestion.
+          </Text>
+          <StyledSlider
+            value={value}
+            onChange={(val) => {
+              if (typeof val !== 'number') return
+              setValue(val)
+            }}
+            defaultValue={0.025}
+            step={0.025}
+            min={0.025}
+            max={1}
+            renderTrack={Track}
+            renderThumb={Thumb}
+          />
+          <Button onClick={attemptSwap}>
+            Swap {value} ETH {`(~$${ethInUsd})`} for ARCD
+          </Button>
+          <p className='my-4'>or</p>
+          <a
+            href='https://info.uniswap.org/pair/0xa2e10137dbe88a10dd197f24efa403f0036e4f70'
+            target='_blank'
+          >
+            <Button>Trade on Uniswap</Button>
+          </a>
+        </div>
+      )}
     </Card>
   )
 }

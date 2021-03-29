@@ -12,6 +12,7 @@ import {
 } from '@uniswap/sdk'
 import uniswapAbi from '@uniswap/v2-periphery/build/IUniswapV2Router02.json'
 import { magic } from '@/utilities/magic'
+import { useStore } from '@/store'
 
 const gasPriceGwei = '3' // in GWEI
 const gasPriceWei = ethers.utils.parseUnits(gasPriceGwei, 'gwei')
@@ -159,8 +160,11 @@ export class Uniswap {
         { gasLimit, nonce, value: amountIn }
       )
 
-      console.log(tx)
-      console.log(`https://etherscan.io/tx/${tx}`)
+      if (tx && tx.hash) {
+        useStore.setState({ uniswapTx: tx.hash })
+        console.log(tx)
+        console.log(`https://etherscan.io/tx/${tx.hash}`)
+      }
     } catch (e) {
       console.log('horrible error')
       console.error(e)
