@@ -31,8 +31,10 @@ type State = {
   uniswapTx: string | null
   loggingIn: boolean
   actions: {
+    fetchBalances: () => void
     initMagicUser: (magicUser: MagicUser) => void
     loginEmail: (props: LoginEmailProps) => void
+    loginMetamask: () => void
     swapEthForArcd: (props: SwapProps) => Promise<void>
   }
   balances: {
@@ -77,14 +79,8 @@ export const useStore = create<State>((set, get) => {
         const wat = await get().uniswap.tradePair('ETH', 'ARCD', eth)
         return wat
       },
-      initMagicUser: async (magicUser: MagicUser) => {
-        const ethAddress = magicUser.publicAddress
-        const uniswap = new Uniswap(eth.provider, ethAddress)
-        const user: User = {
-          email: magicUser.email,
-          authType: 'magic',
-        }
-        set({ ethAddress, magicUser, uniswap, user })
+      fetchBalances: async () => {
+        const ethAddress = get().ethAddress
         try {
           const balances = await eth.fetchBalances(ethAddress)
           set({ balances })
@@ -94,6 +90,16 @@ export const useStore = create<State>((set, get) => {
             'Error fetching balances. Click your address at the top to view balances on Etherscan.'
           )
         }
+      },
+      initMagicUser: async (magicUser: MagicUser) => {
+        const ethAddress = magicUser.publicAddress
+        const uniswap = new Uniswap(eth.provider, ethAddress)
+        const user: User = {
+          email: magicUser.email,
+          authType: 'magic',
+        }
+        set({ ethAddress, magicUser, uniswap, user })
+        get().actions.fetchBalances()
       },
       loginEmail: async ({ email }: LoginEmailProps) => {
         set({ loggingIn: true })
@@ -119,6 +125,7 @@ export const useStore = create<State>((set, get) => {
         }
         set({ ethAddress, user })
         console.log(`Authed with Metamask - ${ethAddress}`)
+        get().actions.fetchBalances()
       },
     },
   }
