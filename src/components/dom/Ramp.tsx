@@ -3,9 +3,9 @@ import { RampInstantSDK } from '@ramp-network/ramp-instant-sdk'
 import { useStore } from '@/store'
 
 export const Ramp = () => {
-  const magicUser = useStore((s) => s.magicUser)
+  const user = useStore((s) => s.user)
   const ethAddress = useStore((s) => s.ethAddress)
-  if (!magicUser || !ethAddress) return
+  if (!user || !ethAddress) return
 
   const buy = () => {
     new RampInstantSDK({
@@ -13,7 +13,7 @@ export const Ramp = () => {
       hostLogoUrl: 'https://arcade.city/img/icon.png',
       swapAsset: 'ETH',
       userAddress: ethAddress,
-      userEmailAddress: magicUser.email,
+      userEmailAddress: user.email,
       hostApiKey: process.env.NEXT_PUBLIC_RAMP_PRODUCTION_KEY,
       // url: 'https://ri-widget-staging.firebaseapp.com',
     })

@@ -15,12 +15,12 @@ const GridBackground: ComponentType<{ r3f: boolean }> = dynamic(
 )
 
 const Page = () => {
-  const magicUser = useStore((s) => s.magicUser)
+  const user = useStore((s) => s.user)
   return (
     <>
       <GridBackground r3f />
 
-      {magicUser ? (
+      {user ? (
         <ArcadeUI>
           <Header />
           <Navbar />

@@ -12,10 +12,10 @@ const Plane = ({ x }) => {
 }
 
 export const GridBackground = () => {
-  const magicUser = useStore((s) => s.magicUser)
+  const user = useStore((s) => s.user)
   const { point, spot, x } = useSpring({
     from: { point: 0, spot: 0, x: 0 },
-    to: magicUser
+    to: user
       ? { point: 0.6, spot: 0.4, x: 1 }
       : { point: 0.3, spot: 0.2, x: 1 }, // when in: point: 0.45, spot: 0.3
     config: {

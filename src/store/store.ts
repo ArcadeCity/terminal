@@ -19,7 +19,13 @@ interface SwapProps {
   eth: number
 }
 
+interface User {
+  email: string | null
+  authType: 'magic' | 'metamask'
+}
+
 type State = {
+  user: User | null
   arAddress: string | null
   ethAddress: string | null
   uniswapTx: string | null
@@ -45,6 +51,7 @@ type State = {
 
 export const useStore = create<State>((set, get) => {
   return {
+    user: null,
     arAddress: null,
     ethAddress: null,
     uniswapTx: null,
@@ -73,7 +80,11 @@ export const useStore = create<State>((set, get) => {
       initMagicUser: async (magicUser: MagicUser) => {
         const ethAddress = magicUser.publicAddress
         const uniswap = new Uniswap(eth.provider, ethAddress)
-        set({ ethAddress, magicUser, uniswap })
+        const user: User = {
+          email: magicUser.email,
+          authType: 'magic',
+        }
+        set({ ethAddress, magicUser, uniswap, user })
         try {
           const balances = await eth.fetchBalances(ethAddress)
           set({ balances })
@@ -102,9 +113,11 @@ export const useStore = create<State>((set, get) => {
           method: 'eth_requestAccounts',
         })
         const ethAddress = accounts[0]
-        set({
-          ethAddress,
-        })
+        const user: User = {
+          email: '',
+          authType: 'metamask',
+        }
+        set({ ethAddress, user })
         console.log(`Authed with Metamask - ${ethAddress}`)
       },
     },

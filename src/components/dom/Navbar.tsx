@@ -5,6 +5,7 @@ import { magic } from '@/utilities'
 
 export const Navbar = () => {
   const magicUser = useStore((s) => s.magicUser)
+  const user = useStore((s) => s.user)
   const ethAddress = useStore((s) => s.ethAddress)
 
   const logout = useCallback(() => {
@@ -20,8 +21,8 @@ export const Navbar = () => {
       <a href={`https://etherscan.io/address/${ethAddress}`} target='_blank'>
         <p className='mb-0'>{ethAddress}</p>
       </a>
-      <h6 className='mb-0'>{magicUser.email}</h6>
-      <Button onClick={logout}>Log out</Button>
+      <h6 className='mb-0'>{user.email}</h6>
+      {magicUser && <Button onClick={logout}>Log out</Button>}
     </div>
   )
 }
