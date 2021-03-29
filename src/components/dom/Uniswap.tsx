@@ -33,13 +33,13 @@ export const Uniswap = () => {
     >
       {uniswapTx ? (
         <div className='flex flex-col items-center justify-center'>
-          <Text>Transaction ID:</Text>
-          <Text className='text-xs mb-4'>{uniswapTx}</Text>
+          <p>Transaction ID:</p>
+          <p className='text-xs mb-4'>{uniswapTx}</p>
 
-          <Text className='text-sm'>
+          <p className='text-sm'>
             Check the transaction status on Etherscan. After it succeeds,
             refresh this page to see your updated balances.
-          </Text>
+          </p>
         </div>
       ) : (
         <div className='flex flex-col items-center justify-center'>
