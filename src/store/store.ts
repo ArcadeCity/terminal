@@ -4,7 +4,6 @@ import { Eth } from '@/helpers/eth'
 import { Uniswap } from '@/helpers/uniswap'
 
 const eth = new Eth()
-const uniswap = new Uniswap(eth.provider)
 
 interface MagicUser {
   email: string
@@ -39,6 +38,7 @@ type State = {
   router: any
   events: any
   setEvents: (events: any) => void
+  uniswap: any
 }
 
 export const useStore = create<State>((set, get) => {
@@ -49,6 +49,7 @@ export const useStore = create<State>((set, get) => {
     title: '',
     magicUser: null,
     router: {},
+    uniswap: null,
     events: null,
     setEvents: (events) => {
       set({ events })
@@ -58,13 +59,16 @@ export const useStore = create<State>((set, get) => {
         console.log(`Swapping ${eth} ETH for ARCD`)
         const balances = get().balances
         const ethBalance = parseFloat(balances.ETH)
-        if (eth > ethBalance) {
-          alert(`Not enough ETH. Your balance is ${ethBalance}`)
-          return false
-        }
+        // if (eth > ethBalance) {
+        //   alert(`Not enough ETH. Your balance is ${ethBalance}`)
+        //   return false
+        // }
+        const wat = await get().uniswap.tradePair('ETH', 'ARCD')
+        console.log('wat:', wat)
       },
       initUser: async (magicUser: MagicUser) => {
-        set({ magicUser })
+        const uniswap = new Uniswap(eth.provider, magicUser.publicAddress)
+        set({ magicUser, uniswap })
         try {
           const balances = await eth.fetchBalances(magicUser.publicAddress)
           set({ balances })
