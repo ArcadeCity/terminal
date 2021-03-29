@@ -90,9 +90,11 @@ const StyledTrack = styled.div`
   top: 0;
   bottom: 0;
   background: ${(props) =>
+    // @ts-ignore
     props.index === 2
       ? '#f00'
-      : props.index === 1
+      : // @ts-ignore
+      props.index === 1
       ? 'rgba(0,0,0,0.1)'
       : '#AE30FF'};
   border-radius: 999px;
