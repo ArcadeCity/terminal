@@ -25,8 +25,13 @@ export const LoginBox = ({ useStore }) => {
     }
   }, [])
 
-  const loginMetamask = () => {
+  const loginMetamask = async () => {
     console.log('logging in w metamask')
+    const accounts = await window.ethereum.request({
+      method: 'eth_requestAccounts',
+    })
+    const account = accounts[0]
+    console.log(account)
   }
 
   return (
