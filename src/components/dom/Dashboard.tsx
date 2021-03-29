@@ -1,5 +1,5 @@
 import { ArcadeUI, Blockquote, Button, Card } from '@arcadecity/ui'
-import { Arweave, Checklist, Navbar, Ramp } from '@/components/dom'
+import { Arweave, Checklist, Navbar, Ramp, Uniswap } from '@/components/dom'
 import { Header } from '@/components/layout/_dom'
 import { MyBalances } from '@/components/dom/token/MyBalances'
 import { useStore } from '@/store'
@@ -22,19 +22,19 @@ export const Dashboard = () => {
         </div>
       </div>
 
-      <div className='flex flex-col mt-8 mb-12 items-center'>
+      <div className='flex flex-col my-8 items-center'>
         <Checklist />
-      </div>
 
-      <div className='mt-8'>
-        <MyBalances balances={balances} />
-      </div>
+        <div className='mt-8'>
+          <MyBalances balances={balances} />
+        </div>
 
-      <Arweave />
+        <Uniswap />
+      </div>
 
       <Ramp />
 
-      <div className='flex flex-col my-12 text-center items-center'>
+      <div className='flex flex-col my-8 text-center items-center'>
         <Card title='Export ETH private key' style={{ maxWidth: 800 }}>
           <a
             className='mb-12'
@@ -44,6 +44,10 @@ export const Dashboard = () => {
             <Button>Export key</Button>
           </a>
         </Card>
+      </div>
+
+      <div className='mb-16'>
+        <Arweave />
       </div>
     </ArcadeUI>
   )
