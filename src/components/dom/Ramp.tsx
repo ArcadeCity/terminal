@@ -4,14 +4,15 @@ import { useStore } from '@/store'
 
 export const Ramp = () => {
   const magicUser = useStore((s) => s.magicUser)
-  if (!magicUser) return
+  const ethAddress = useStore((s) => s.ethAddress)
+  if (!magicUser || !ethAddress) return
 
   const buy = () => {
     new RampInstantSDK({
       hostAppName: 'Arcade City',
       hostLogoUrl: 'https://arcade.city/img/icon.png',
       swapAsset: 'ETH',
-      userAddress: magicUser.publicAddress,
+      userAddress: ethAddress,
       userEmailAddress: magicUser.email,
       hostApiKey: process.env.NEXT_PUBLIC_RAMP_PRODUCTION_KEY,
       // url: 'https://ri-widget-staging.firebaseapp.com',

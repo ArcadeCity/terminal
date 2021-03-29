@@ -20,6 +20,8 @@ interface SwapProps {
 }
 
 type State = {
+  arAddress: string | null
+  ethAddress: string | null
   uniswapTx: string | null
   loggingIn: boolean
   actions: {
@@ -35,7 +37,6 @@ type State = {
   } | null
   title: string
   magicUser: MagicUser | null
-  arAddress: string | null
   router: any
   events: any
   setEvents: (events: any) => void
@@ -44,8 +45,9 @@ type State = {
 
 export const useStore = create<State>((set, get) => {
   return {
-    uniswapTx: null,
     arAddress: null,
+    ethAddress: null,
+    uniswapTx: null,
     loggingIn: false,
     balances: null,
     title: '',
@@ -69,10 +71,11 @@ export const useStore = create<State>((set, get) => {
         return wat
       },
       initUser: async (magicUser: MagicUser) => {
-        const uniswap = new Uniswap(eth.provider, magicUser.publicAddress)
+        const ethAddress = get().ethAddress
+        const uniswap = new Uniswap(eth.provider, ethAddress)
         set({ magicUser, uniswap })
         try {
-          const balances = await eth.fetchBalances(magicUser.publicAddress)
+          const balances = await eth.fetchBalances(ethAddress)
           set({ balances })
         } catch (e) {
           console.log(e)

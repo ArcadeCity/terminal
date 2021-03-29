@@ -4,10 +4,11 @@ import { useStore } from '@/store'
 export const Checklist = () => {
   const magicUser = useStore((s) => s.magicUser)
   const arAddress = useStore((s) => s.arAddress)
+  const ethAddress = useStore((s) => s.ethAddress)
   const balances = useStore((s) => s.balances)
 
   const verifiedEmail = magicUser && magicUser.email
-  const ethWalletConnected = magicUser && magicUser.publicAddress
+  const ethWalletConnected = !!ethAddress
   const hasArcd = balances && balances.ARCD > 0
 
   const doneClasses = 'opacity-50 line-through'
