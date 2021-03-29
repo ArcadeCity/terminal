@@ -9,9 +9,13 @@ export const Navbar = () => {
   const ethAddress = useStore((s) => s.ethAddress)
 
   const logout = useCallback(() => {
-    magic.user.logout().then(() => {
-      useStore.setState({ magicUser: null })
-    })
+    if (user.authType === 'magic') {
+      magic.user.logout().then(() => {
+        useStore.setState({ magicUser: null, user: null })
+      })
+    } else {
+      useStore.setState({ magicUser: null, user: null })
+    }
   }, [])
 
   if (!user || !ethAddress) return <></>
@@ -22,7 +26,7 @@ export const Navbar = () => {
         <p className='mb-0'>{ethAddress}</p>
       </a>
       <h6 className='mb-0'>{user.email}</h6>
-      {magicUser && <Button onClick={logout}>Log out</Button>}
+      <Button onClick={logout}>Log out</Button>
     </div>
   )
 }
