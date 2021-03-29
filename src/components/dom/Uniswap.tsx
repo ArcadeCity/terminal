@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import ReactSlider from 'react-slider'
-import { Button, Card, List, Text } from '@arcadecity/ui'
+import { Button, Card, Text } from '@arcadecity/ui'
 import { MyBalances } from '@/components/dom/token/MyBalances'
 import { useStore } from '@/store'
 
@@ -11,11 +11,20 @@ export const Uniswap = () => {
   const balances = useStore((s) => s.balances)
   // const ethWalletConnected = magicUser && magicUser.publicAddress
   // const hasArcd = balances && balances.ARCD > 0
+  const attemptSwap = () => {
+    const ethBalance = parseFloat(balances.ETH)
+    console.log('purchase attempt is', value)
+    console.log('balance is ', ethBalance)
+    if (value > ethBalance) {
+      alert(`Not enough ETH. Your balance is ${ethBalance}`)
+      return false
+    }
+  }
 
   const ethInUsd = balances ? Math.round(value * balances.ethPrice) : '--'
 
   return (
-    <>
+    <div className='mt-16'>
       <MyBalances balances={balances} />
       <Card
         title='Swap ETH for ARCD'
@@ -41,7 +50,7 @@ export const Uniswap = () => {
           renderTrack={Track}
           renderThumb={Thumb}
         />
-        <Button>
+        <Button onClick={attemptSwap}>
           Swap {value} ETH {`(~$${ethInUsd})`} for ARCD
         </Button>
         <p className='my-4'>or</p>
@@ -52,7 +61,7 @@ export const Uniswap = () => {
           <Button>Trade on Uniswap</Button>
         </a>
       </Card>
-    </>
+    </div>
   )
 }
 
