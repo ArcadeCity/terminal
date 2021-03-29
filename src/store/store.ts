@@ -99,7 +99,9 @@ export const useStore = create<State>((set, get) => {
           authType: 'magic',
         }
         set({ ethAddress, magicUser, uniswap, user })
-        get().actions.fetchBalances()
+        setTimeout(() => {
+          get().actions.fetchBalances()
+        }, 500)
       },
       loginEmail: async ({ email }: LoginEmailProps) => {
         set({ loggingIn: true })
@@ -126,7 +128,9 @@ export const useStore = create<State>((set, get) => {
         const uniswap = new Uniswap(eth.provider, ethAddress)
         set({ ethAddress, uniswap, user })
         console.log(`Authed with Metamask - ${ethAddress}`)
-        get().actions.fetchBalances()
+        setTimeout(() => {
+          get().actions.fetchBalances()
+        }, 500)
       },
     },
   }
