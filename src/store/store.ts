@@ -71,9 +71,9 @@ export const useStore = create<State>((set, get) => {
         return wat
       },
       initUser: async (magicUser: MagicUser) => {
-        const ethAddress = get().ethAddress
+        const ethAddress = magicUser.publicAddress
         const uniswap = new Uniswap(eth.provider, ethAddress)
-        set({ magicUser, uniswap })
+        set({ ethAddress, magicUser, uniswap })
         try {
           const balances = await eth.fetchBalances(ethAddress)
           set({ balances })
