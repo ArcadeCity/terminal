@@ -20,7 +20,7 @@ export const LoginBox = ({ useStore }) => {
   const { loginEmail } = useStore((s: ExpectedStore) => s.actions)
   const loggingIn = useStore((s: ExpectedStore) => s.loggingIn)
   useEffect(() => {
-    if (typeof window.ethereum !== 'undefined') {
+    if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
       setMetamask(true)
     }
   }, [])
