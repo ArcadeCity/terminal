@@ -26,9 +26,13 @@ export const Uniswap = () => {
       className='mt-12 w-128 text-center'
       style={{ width: 500 }}
       options={
-        <a href={`https://etherscan.io/tx/${uniswapTx}`} target='_blank'>
-          <Button>View on Etherscan</Button>
-        </a>
+        uniswapTx ? (
+          <a href={`https://etherscan.io/tx/${uniswapTx}`} target='_blank'>
+            <Button>View on Etherscan</Button>
+          </a>
+        ) : (
+          <></>
+        )
       }
     >
       {uniswapTx ? (
