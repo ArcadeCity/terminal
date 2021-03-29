@@ -95,9 +95,14 @@ export class Uniswap {
     //     ...uniswapAbi.abi,
     //     gas: 30000,
     // }
+    const user = useStore.getState().user
+    console.log('USER:', user)
 
-    // @ts-ignore
-    const provider = new ethers.providers.Web3Provider(magic.rpcProvider)
+    const provider =
+      user.authType === 'magic'
+        ? // @ts-ignore
+          new ethers.providers.Web3Provider(magic.rpcProvider)
+        : new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
 
     const contract = new Contract(uniswapRouter, uniswapAbi.abi, signer)
