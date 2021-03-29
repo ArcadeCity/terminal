@@ -14,6 +14,7 @@ export const Uniswap = () => {
   const actions = useStore((s) => s.actions)
   const attemptSwap = async () => {
     setSubmitting(true)
+    // alert('Transaction submitted')
     await actions.swapEthForArcd({ eth: value })
     setSubmitting(false)
   }

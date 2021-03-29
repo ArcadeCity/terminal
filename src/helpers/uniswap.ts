@@ -28,7 +28,7 @@ export class Uniswap {
     this.address = address
   }
 
-  async tradePair(p1: string, p2: string) {
+  async tradePair(p1: string, p2: string, eth: number) {
     // , account: Wallet
     console.log(`Trading ${p1} for ${p2}`)
 
@@ -66,8 +66,12 @@ export class Uniswap {
 
     const route = new Route([pair], WETH[token.chainId])
 
+    const amountIn = ethers.utils.parseEther(eth.toString()).toString()
+    // console.log('AMOUNTIN', amountIn)
+
+    // return
     // const amountIn = '1000000000000000000' // 1 WETH
-    const amountIn = '25000000000000000' // .025 WETH
+    // const amountIn = '25000000000000000' // .025 WETH
 
     const trade = new Trade(
       route,
