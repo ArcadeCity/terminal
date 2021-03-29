@@ -17,22 +17,15 @@ export const LoginBox = ({ useStore }) => {
   const [showMetamaskButton, setMetamask] = useState<boolean>(false)
   const { handleSubmit, register } = useForm()
   const spring = useSpring(mainSpring)
-  const { loginEmail } = useStore((s: ExpectedStore) => s.actions)
+  const { loginEmail, loginMetamask } = useStore(
+    (s: ExpectedStore) => s.actions
+  )
   const loggingIn = useStore((s: ExpectedStore) => s.loggingIn)
   useEffect(() => {
     if (typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask) {
       setMetamask(true)
     }
   }, [])
-
-  const loginMetamask = async () => {
-    console.log('logging in w metamask')
-    const accounts = await window.ethereum.request({
-      method: 'eth_requestAccounts',
-    })
-    const account = accounts[0]
-    console.log(account)
-  }
 
   return (
     <a.div

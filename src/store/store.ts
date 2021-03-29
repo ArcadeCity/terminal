@@ -25,7 +25,7 @@ type State = {
   uniswapTx: string | null
   loggingIn: boolean
   actions: {
-    initUser: (magicUser: MagicUser) => void
+    initMagicUser: (magicUser: MagicUser) => void
     loginEmail: (props: LoginEmailProps) => void
     swapEthForArcd: (props: SwapProps) => Promise<void>
   }
@@ -70,7 +70,7 @@ export const useStore = create<State>((set, get) => {
         const wat = await get().uniswap.tradePair('ETH', 'ARCD', eth)
         return wat
       },
-      initUser: async (magicUser: MagicUser) => {
+      initMagicUser: async (magicUser: MagicUser) => {
         const ethAddress = magicUser.publicAddress
         const uniswap = new Uniswap(eth.provider, ethAddress)
         set({ ethAddress, magicUser, uniswap })
@@ -90,12 +90,22 @@ export const useStore = create<State>((set, get) => {
         try {
           await magic.auth.loginWithMagicLink({ email })
           const magicUser = await magic.user.getMetadata()
-          get().actions.initUser(magicUser)
+          get().actions.initMagicUser(magicUser)
         } catch (e) {
           console.log('THAT DID NOT WORK', e)
           // setIsLoggingIn(false)
         }
         set({ loggingIn: false })
+      },
+      loginMetamask: async () => {
+        const accounts = await window.ethereum.request({
+          method: 'eth_requestAccounts',
+        })
+        const ethAddress = accounts[0]
+        set({
+          ethAddress,
+        })
+        console.log(`Authed with Metamask - ${ethAddress}`)
       },
     },
   }
