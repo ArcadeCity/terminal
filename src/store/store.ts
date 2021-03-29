@@ -1,8 +1,10 @@
 import create from 'zustand'
 import { magic } from '@/utilities'
 import { Eth } from '@/helpers/eth'
+import { Uniswap } from '@/helpers/uniswap'
 
 const eth = new Eth()
+const uniswap = new Uniswap(eth.provider)
 
 interface MagicUser {
   email: string
@@ -14,11 +16,16 @@ interface LoginEmailProps {
   email: string
 }
 
+interface SwapProps {
+  eth: number
+}
+
 type State = {
   loggingIn: boolean
   actions: {
     initUser: (magicUser: MagicUser) => void
     loginEmail: (props: LoginEmailProps) => void
+    swapEthForArcd: (props: SwapProps) => void
   }
   balances: {
     ARCD: number
@@ -47,6 +54,15 @@ export const useStore = create<State>((set, get) => {
       set({ events })
     },
     actions: {
+      swapEthForArcd: async ({ eth }) => {
+        console.log(`Swapping ${eth} ETH for ARCD`)
+        const balances = get().balances
+        const ethBalance = parseFloat(balances.ETH)
+        if (eth > ethBalance) {
+          alert(`Not enough ETH. Your balance is ${ethBalance}`)
+          return false
+        }
+      },
       initUser: async (magicUser: MagicUser) => {
         set({ magicUser })
         try {

@@ -10,16 +10,11 @@ export const Uniswap = () => {
   const [value, setValue] = useState<number>(0.05)
   const magicUser = useStore((s) => s.magicUser)
   const balances = useStore((s) => s.balances)
+  const actions = useStore((s) => s.actions)
   // const ethWalletConnected = magicUser && magicUser.publicAddress
   // const hasArcd = balances && balances.ARCD > 0
-  const attemptSwap = () => {
-    const ethBalance = parseFloat(balances.ETH)
-    console.log('purchase attempt is', value)
-    console.log('balance is ', ethBalance)
-    if (value > ethBalance) {
-      alert(`Not enough ETH. Your balance is ${ethBalance}`)
-      return false
-    }
+  const attemptSwap = async () => {
+    actions.swapEthForArcd({ eth: value })
   }
 
   const ethInUsd = balances ? Math.round(value * balances.ethPrice) : '--'
