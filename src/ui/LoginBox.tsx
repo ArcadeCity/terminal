@@ -1,15 +1,34 @@
+import { useEffect, useState } from 'react'
 import { useSpring } from '@react-spring/core'
 import { a } from '@react-spring/web'
 import styled from 'styled-components'
+import { Button } from '@arcadecity/ui'
 import { mainSpring } from '@/helpers/springs'
 import { Arrow } from '@/helpers/icons'
 import { useForm } from 'react-hook-form'
 
+declare global {
+  interface Window {
+    ethereum: any
+  }
+}
+
 export const LoginBox = ({ useStore }) => {
+  const [showMetamaskButton, setMetamask] = useState<boolean>(false)
   const { handleSubmit, register } = useForm()
   const spring = useSpring(mainSpring)
   const { loginEmail } = useStore((s: ExpectedStore) => s.actions)
   const loggingIn = useStore((s: ExpectedStore) => s.loggingIn)
+  useEffect(() => {
+    if (typeof window.ethereum !== 'undefined') {
+      setMetamask(true)
+    }
+  }, [])
+
+  const loginMetamask = () => {
+    console.log('logging in w metamask')
+  }
+
   return (
     <a.div
       // @ts-ignore
@@ -30,6 +49,11 @@ export const LoginBox = ({ useStore }) => {
             </InputIconCircle>
           </InputContainer>
         </form>
+        {showMetamaskButton && (
+          <button className='mt-6 text-gray-500' onClick={loginMetamask}>
+            Log in with Metamask
+          </button>
+        )}
       </div>
     </a.div>
   )
