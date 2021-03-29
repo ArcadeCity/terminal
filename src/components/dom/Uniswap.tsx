@@ -4,6 +4,7 @@ import ReactSlider from 'react-slider'
 import { Button, Card, Text } from '@arcadecity/ui'
 import { MyBalances } from '@/components/dom/token/MyBalances'
 import { useStore } from '@/store'
+import {} from '@/utilities/'
 
 export const Uniswap = () => {
   const [value, setValue] = useState<number>(0.05)

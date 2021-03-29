@@ -42,6 +42,7 @@
     "@react-three/postprocessing": "^1.5.1",
     "@stablelib/random": "^1.0.0",
     "@uniswap/sdk": "^3.0.3",
+    "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "arweave": "^1.10.13",
     "community-js": "^1.1.36",
     "dag-jose": "^0.3.0",
