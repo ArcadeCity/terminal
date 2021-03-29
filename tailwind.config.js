@@ -10,6 +10,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        amber: '#ffa76c',
         arwes: '#7efcf6',
         arwes2: '#acf9fb',
         bluebell: '#9D98CB',

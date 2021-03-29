@@ -127,7 +127,6 @@ export const useStore = create<State>((set, get) => {
         }
         const uniswap = new Uniswap(eth.provider, ethAddress)
         set({ ethAddress, uniswap, user })
-        console.log(`Authed with Metamask - ${ethAddress}`)
         setTimeout(() => {
           get().actions.fetchBalances()
         }, 500)
