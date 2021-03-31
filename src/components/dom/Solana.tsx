@@ -1,9 +1,30 @@
+import { useCallback } from 'react'
 import styled from 'styled-components'
+import { LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { Button, List } from '@arcadecity/ui'
 import { useStore } from '@/store'
+import { useConnection, useWallet } from '@/contexts'
 
 export const Solana = () => {
   const actions = useStore((s) => s.actions)
+
+  const connection = useConnection()
+  const { publicKey } = useWallet()
+
+  console.log('connection:', connection)
+  console.log('publicKey:', publicKey)
+
+  const airdrop = useCallback(() => {
+    console.log(`Requesting airdrop to ${publicKey}`)
+    if (!publicKey) {
+      return
+    }
+
+    connection.requestAirdrop(publicKey, 2 * LAMPORTS_PER_SOL).then(() => {
+      console.log('ACCOUNT FUNDED!')
+    })
+  }, [publicKey, connection])
+
   const payPlayerDemo = () => {
     actions.payPlayer('metagaia', 50000, 'ARCD')
   }
@@ -26,6 +47,9 @@ export const Solana = () => {
           <li>Arweave (AR)</li>
         </List>
         <Note>You will send 6 USDC and pay a fee of 0.05 USDC.</Note>
+        <Button palette='secondary' onClick={airdrop}>
+          Airdrop
+        </Button>
         <Button palette='secondary' onClick={payPlayerDemo}>
           Send
         </Button>
