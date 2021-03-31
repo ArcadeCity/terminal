@@ -30,6 +30,9 @@ export const Solana = () => {
     const account: Account = await generateAccount(tempMnemonic)
     console.log(account.publicKey.toString())
     setAccount(account)
+
+    const balance = await connection.getBalance(account.publicKey)
+    setBalance(balance)
   }
 
   useEffect(() => {
