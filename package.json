@@ -49,6 +49,7 @@
     "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "antd": "^4.15.0",
     "arweave": "^1.10.13",
+    "bip39": "^3.0.3",
     "community-js": "^1.1.36",
     "dag-jose": "^0.3.0",
     "dids": "^1.0.0",

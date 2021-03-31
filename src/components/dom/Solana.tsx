@@ -3,6 +3,17 @@ import styled from 'styled-components'
 import { Button, Card, List } from '@arcadecity/ui'
 import { PLAYERS, useStore } from '@/store'
 import { Account, Connection, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import * as bip39 from 'bip39'
+import nacl from 'tweetnacl'
+
+const generateAccount = async (mnemonic) => {
+  const seed = await bip39.mnemonicToSeed(mnemonic)
+  const keyPair = nacl.sign.keyPair.fromSeed(seed.slice(0, 32))
+  return new Account(keyPair.secretKey)
+}
+
+// const mnemonic = bip39.generateMnemonic()
+// console.log('Your password:', mnemonic)
 
 export const Solana = () => {
   const actions = useStore((s) => s.actions)
@@ -10,8 +21,20 @@ export const Solana = () => {
   const [connection, setConnection] = useState(
     new Connection('https://testnet.solana.com')
   )
-  const [account, setAccount] = useState(new Account())
+  const [account, setAccount] = useState<Account>()
   const [balance, setBalance] = useState<number>(0)
+
+  const initWallet = async () => {
+    const tempMnemonic =
+      'castle cabin season fatal describe weather update mirror minute club demand sadness'
+    const account: Account = await generateAccount(tempMnemonic)
+    console.log(account.publicKey.toString())
+    setAccount(account)
+  }
+
+  useEffect(() => {
+    initWallet()
+  }, [])
 
   useEffect(() => {
     if (!account || !connection) return
