@@ -26,7 +26,7 @@ export const ENDPOINTS = [
   { name: 'localnet' as ENV, endpoint: 'http://127.0.0.1:8899' },
 ]
 
-const DEFAULT = ENDPOINTS[0].endpoint
+const DEFAULT = ENDPOINTS[1].endpoint
 const DEFAULT_SLIPPAGE = 0.25
 
 interface ConnectionConfig {
@@ -54,10 +54,12 @@ const ConnectionContext = React.createContext<ConnectionConfig>({
 })
 
 export function ConnectionProvider({ children = undefined as any }) {
-  const [endpoint, setEndpoint] = useLocalStorageState(
-    'connectionEndpts',
-    ENDPOINTS[0].endpoint // hmm
-  )
+  // const [endpoint, setEndpoint] = useLocalStorageState(
+  //   'connectionEndpts',
+  //   ENDPOINTS[0].endpoint // hmm
+  // )
+
+  const [endpoint, setEndpoint] = useState(ENDPOINTS[1].endpoint)
 
   const [slippage, setSlippage] = useLocalStorageState(
     'slippage',

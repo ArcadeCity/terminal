@@ -5,6 +5,7 @@ import { Button, List } from '@arcadecity/ui'
 import { useStore } from '@/store'
 import { useConnection, useWallet } from '@/contexts'
 import { ConnectButton } from '@/components/ConnectButton'
+import { Account, Connection } from '@solana/web3.js'
 
 export const Solana = () => {
   const actions = useStore((s) => s.actions)
@@ -12,7 +13,23 @@ export const Solana = () => {
   const connection = useConnection()
   const { publicKey } = useWallet()
 
+  console.log('connection:', connection)
   console.log('publicKey:', publicKey)
+
+  const airdrop2 = async () => {
+    console.log('testing airdrop')
+    const connection = new Connection('https://testnet.solana.com')
+    console.log(connection)
+
+    const payerAccount = new Account()
+    console.log(payerAccount)
+
+    const res = await connection.requestAirdrop(
+      payerAccount.publicKey,
+      1000000000
+    )
+    console.log(res)
+  }
 
   const airdrop = useCallback(() => {
     console.log(`Requesting airdrop to ${publicKey}`)
@@ -47,7 +64,7 @@ export const Solana = () => {
           <li>Arweave (AR)</li>
         </List>
         <Note>You will send 6 USDC and pay a fee of 0.05 USDC.</Note>
-        <Button palette='secondary' onClick={airdrop}>
+        <Button palette='secondary' onClick={airdrop2}>
           Airdrop
         </Button>
         <Button palette='secondary' onClick={payPlayerDemo}>
