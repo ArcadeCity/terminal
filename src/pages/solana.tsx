@@ -34,7 +34,7 @@ const Page = () => {
                 <MarketProvider>
                   <Header />
                   <Navbar />
-                  <div className='-mt-32 flex flex-col h-screen w-screen justify-center items-center'>
+                  <div className='-mt-24 flex flex-col h-screen w-screen justify-center items-center'>
                     <Solana />
                   </div>
                 </MarketProvider>

@@ -44,13 +44,15 @@ export const Solana = () => {
   return (
     <div className='mt-12' style={{ width: 500 }}>
       <Card
-        title={`Your balance: ${balance / LAMPORTS_PER_SOL}`}
+        title={`Your balance`}
         options={
           <Button palette='secondary' onClick={airdrop}>
             Airdrop
           </Button>
         }
-      ></Card>
+      >
+        <h6>{balance / LAMPORTS_PER_SOL} SOL</h6>
+      </Card>
       <Container>
         <h1 className='my-8'>Pay Player</h1>
         <h6>User to pay:</h6>
