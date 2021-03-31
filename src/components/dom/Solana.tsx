@@ -61,7 +61,7 @@ export const Solana = () => {
   }, [account, connection])
 
   const payPlayerDemo = () => {
-    actions.payPlayer('alice', 1.5, 'SOL', account, connection)
+    actions.payPlayer('alice', 0.35, 'SOL', account, connection)
   }
 
   return (
