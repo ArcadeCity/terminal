@@ -6,7 +6,6 @@ import {
   Account,
   Connection,
   LAMPORTS_PER_SOL,
-  PublicKey,
   sendAndConfirmTransaction,
   SystemProgram,
   Transaction,
@@ -14,9 +13,11 @@ import {
 
 const eth = new Eth()
 
-const PLAYERS = {
+export const PLAYERS = {
   alice: {
-    name: 'alice',
+    solPublicKey: new Account().publicKey,
+  },
+  bob: {
     solPublicKey: new Account().publicKey,
   },
 }
@@ -101,10 +102,6 @@ export const useStore = create<State>((set, get) => {
         console.log(`Paying username ${username} ${amount} ${currency}`)
         const player = PLAYERS[username]
         console.log(player)
-
-        connection.onAccountChange(player.solPublicKey, (change) => {
-          console.log(`${player.name} onAccountChange:`, change)
-        })
 
         const transaction = new Transaction().add(
           SystemProgram.transfer({

@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import { Button, Card, List } from '@arcadecity/ui'
-import { useStore } from '@/store'
+import { PLAYERS, useStore } from '@/store'
 import { Account, Connection, LAMPORTS_PER_SOL } from '@solana/web3.js'
 
 export const Solana = () => {
@@ -19,6 +19,13 @@ export const Solana = () => {
     connection.onAccountChange(account.publicKey, (change) => {
       console.log('onAccountChange:', change)
       setBalance(change.lamports)
+    })
+
+    Object.entries(PLAYERS).forEach((player) => {
+      console.log(`${player[0]} onAccountChange handler registered`)
+      connection.onAccountChange(player[1].solPublicKey, (change) => {
+        console.log(`${player[0]} onAccountChange:`, change)
+      })
     })
   }, [account, connection])
 
