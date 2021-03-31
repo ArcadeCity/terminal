@@ -19,6 +19,11 @@ const nextConfig =
           // https://github.com/ethers-io/ethers.js/issues/998#issuecomment-673263070
           config.resolve.alias.http = 'http-browserify'
           config.resolve.alias.https = 'https-browserify'
+          // config.resolve.alias.buffer = true
+          config.resolve.alias.Buffer = false
+          // config.resolve.fallback.Buffer = true
+          // config.resolve.alias.Buffer = 'buffer-browserify'
+          // config.resolve.alias.buffer = 'buffer-browserify'
 
           // if you want to do a custom build to reduce the size of threejs <-- this require webpack and path
           config.plugins.unshift(

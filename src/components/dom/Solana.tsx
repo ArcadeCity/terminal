@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react'
 import { Button, Card } from '@arcadecity/ui'
 import { PLAYERS, useStore } from '@/store'
 import { Account, Connection, LAMPORTS_PER_SOL } from '@solana/web3.js'
+// import { ASSOCIATED_TOKEN_PROGRAM_ID } from '@solana/spl-token'
 import * as bip39 from 'bip39'
 import nacl from 'tweetnacl'
 
@@ -33,6 +34,7 @@ export const Solana = () => {
 
   useEffect(() => {
     initWallet()
+    // console.log('ASSOCIATED_TOKEN_PROGRAM_ID:', ASSOCIATED_TOKEN_PROGRAM_ID)
   }, [])
 
   useEffect(() => {
