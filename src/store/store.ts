@@ -2,15 +2,21 @@ import create from 'zustand'
 import { magic } from '@/utilities'
 import { Eth } from '@/helpers/eth'
 import { Uniswap } from '@/helpers/uniswap'
-import { Account, Connection, LAMPORTS_PER_SOL } from '@solana/web3.js'
+import {
+  Account,
+  Connection,
+  LAMPORTS_PER_SOL,
+  PublicKey,
+  sendAndConfirmTransaction,
+  SystemProgram,
+  Transaction,
+} from '@solana/web3.js'
 
 const eth = new Eth()
 
 const PLAYERS = {
-  metagaia: {
-    solPublicKey: new Account().publicKey,
-  },
   alice: {
+    name: 'alice',
     solPublicKey: new Account().publicKey,
   },
 }
@@ -48,7 +54,9 @@ type State = {
     payPlayer: (
       username: string,
       amount: number,
-      currency: string
+      currency: string,
+      account: Account,
+      connection: Connection
     ) => Promise<void>
     swapEthForArcd: (props: SwapProps) => Promise<void>
   }
@@ -83,10 +91,38 @@ export const useStore = create<State>((set, get) => {
       set({ events })
     },
     actions: {
-      payPlayer: async (username: string, amount: number, currency: string) => {
+      payPlayer: async (
+        username: string,
+        amount: number,
+        currency: string,
+        account: Account,
+        connection: Connection
+      ) => {
         console.log(`Paying username ${username} ${amount} ${currency}`)
         const player = PLAYERS[username]
         console.log(player)
+
+        connection.onAccountChange(player.solPublicKey, (change) => {
+          console.log(`${player.name} onAccountChange:`, change)
+        })
+
+        const transaction = new Transaction().add(
+          SystemProgram.transfer({
+            fromPubkey: account.publicKey,
+            toPubkey: player.solPublicKey,
+            lamports: amount * LAMPORTS_PER_SOL,
+          })
+        )
+
+        console.log('transaction:', transaction)
+
+        const signature = await sendAndConfirmTransaction(
+          connection,
+          transaction,
+          [account]
+        )
+
+        console.log('tx signature:', signature)
       },
       swapEthForArcd: async ({ eth }) => {
         console.log(`Swapping ${eth} ETH for ARCD`)
