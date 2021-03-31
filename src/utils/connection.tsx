@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useLocalStorageState } from './utils'
 import { Account, AccountInfo, Connection, PublicKey } from '@solana/web3.js'
 import React, { useContext, useEffect, useMemo, useRef } from 'react'
