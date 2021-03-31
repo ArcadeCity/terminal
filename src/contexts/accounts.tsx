@@ -308,6 +308,7 @@ function wrapNativeAccount(
   return {
     pubkey: pubkey,
     account,
+    // @ts-ignore
     info: {
       mint: WRAPPED_SOL_MINT,
       owner: pubkey,
