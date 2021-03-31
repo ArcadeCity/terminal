@@ -175,9 +175,9 @@ export const useStore = create<State>((set, get) => {
           authType: 'magic',
         }
         set({ ethAddress, magicUser, uniswap, user })
-        setTimeout(() => {
-          get().actions.fetchBalances()
-        }, 500)
+        // setTimeout(() => {
+        //   get().actions.fetchBalances()
+        // }, 500)
       },
       loginEmail: async ({ email }: LoginEmailProps) => {
         set({ loggingIn: true })
