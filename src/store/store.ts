@@ -2,12 +2,16 @@ import create from 'zustand'
 import { magic } from '@/utilities'
 import { Eth } from '@/helpers/eth'
 import { Uniswap } from '@/helpers/uniswap'
+import { Account, Connection, LAMPORTS_PER_SOL } from '@solana/web3.js'
 
 const eth = new Eth()
 
 const PLAYERS = {
   metagaia: {
-    solAddress: 'testo',
+    solPublicKey: new Account().publicKey,
+  },
+  alice: {
+    solPublicKey: new Account().publicKey,
   },
 }
 

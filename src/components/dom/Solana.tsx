@@ -1,11 +1,8 @@
 import { useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
-import { LAMPORTS_PER_SOL } from '@solana/web3.js'
-import { Button, List } from '@arcadecity/ui'
+import { Button, Card, List } from '@arcadecity/ui'
 import { useStore } from '@/store'
-import { useConnection, useWallet } from '@/contexts'
-import { ConnectButton } from '@/components/ConnectButton'
-import { Account, Connection } from '@solana/web3.js'
+import { Account, Connection, LAMPORTS_PER_SOL } from '@solana/web3.js'
 
 export const Solana = () => {
   const actions = useStore((s) => s.actions)
@@ -34,14 +31,21 @@ export const Solana = () => {
   }, [account, connection])
 
   const payPlayerDemo = () => {
-    actions.payPlayer('metagaia', 50000, 'ARCD')
+    actions.payPlayer('alice', 0.5, 'SOL')
   }
 
   return (
     <div className='mt-12' style={{ width: 500 }}>
-      <h1 className='mb-8'>Pay Player</h1>
-      <h6>Your balance: {balance / LAMPORTS_PER_SOL}</h6>
+      <Card
+        title={`Your balance: ${balance / LAMPORTS_PER_SOL}`}
+        options={
+          <Button palette='secondary' onClick={airdrop}>
+            Airdrop
+          </Button>
+        }
+      ></Card>
       <Container>
+        <h1 className='my-8'>Pay Player</h1>
         <h6>User to pay:</h6>
         <Input placeholder='Search by username' />
         <h6>Amount:</h6>
@@ -56,9 +60,7 @@ export const Solana = () => {
           <li>Arweave (AR)</li>
         </List>
         <Note>You will send 6 USDC and pay a fee of 0.05 USDC.</Note>
-        <Button palette='secondary' onClick={airdrop}>
-          Airdrop
-        </Button>
+
         <Button palette='secondary' onClick={payPlayerDemo}>
           Send
         </Button>
