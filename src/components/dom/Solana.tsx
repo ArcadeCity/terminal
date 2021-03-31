@@ -13,22 +13,37 @@ export const Solana = () => {
   const connection = useConnection()
   const { publicKey } = useWallet()
 
-  console.log('connection:', connection)
+  // console.log('connection:', connection)
   console.log('publicKey:', publicKey)
 
   const airdrop2 = async () => {
     console.log('testing airdrop')
     const connection = new Connection('https://testnet.solana.com')
     console.log(connection)
+    // connection.onSlotChange((change) => {
+    //   console.log('onSlotChange:', change)
+    // })
 
     const payerAccount = new Account()
     console.log(payerAccount)
 
+    connection.onAccountChange(payerAccount.publicKey, (change) => {
+      console.log('onAccountChange:', change)
+    })
+
     const res = await connection.requestAirdrop(
       payerAccount.publicKey,
-      1000000000
+      1 * LAMPORTS_PER_SOL
     )
     console.log(res)
+
+    setTimeout(async () => {
+      const res2 = await connection.requestAirdrop(
+        payerAccount.publicKey,
+        1 * LAMPORTS_PER_SOL
+      )
+      console.log(res2)
+    }, 2000)
   }
 
   const airdrop = useCallback(() => {
