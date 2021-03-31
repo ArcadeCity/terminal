@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { notify } from './notifications'
 import { getDecimalCount, sleep } from './utils'
 import { getSelectedTokenAccountForMint } from './markets'
