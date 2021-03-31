@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
 import { LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { Button, List } from '@arcadecity/ui'
@@ -10,52 +10,28 @@ import { Account, Connection } from '@solana/web3.js'
 export const Solana = () => {
   const actions = useStore((s) => s.actions)
 
-  const connection = useConnection()
-  const { publicKey } = useWallet()
+  const [connection, setConnection] = useState(
+    new Connection('https://testnet.solana.com')
+  )
+  const [account, setAccount] = useState(new Account())
+  const [balance, setBalance] = useState<number>(0)
 
-  // console.log('connection:', connection)
-  console.log('publicKey:', publicKey)
-
-  const airdrop2 = async () => {
-    console.log('testing airdrop')
-    const connection = new Connection('https://testnet.solana.com')
-    console.log(connection)
-    // connection.onSlotChange((change) => {
-    //   console.log('onSlotChange:', change)
-    // })
-
-    const payerAccount = new Account()
-    console.log(payerAccount)
-
-    connection.onAccountChange(payerAccount.publicKey, (change) => {
+  useEffect(() => {
+    if (!account || !connection) return
+    console.log('Registering onAccountChange handler')
+    connection.onAccountChange(account.publicKey, (change) => {
       console.log('onAccountChange:', change)
+      setBalance(change.lamports)
     })
+  }, [account, connection])
 
+  const airdrop = useCallback(async () => {
     const res = await connection.requestAirdrop(
-      payerAccount.publicKey,
+      account.publicKey,
       1 * LAMPORTS_PER_SOL
     )
     console.log(res)
-
-    setTimeout(async () => {
-      const res2 = await connection.requestAirdrop(
-        payerAccount.publicKey,
-        1 * LAMPORTS_PER_SOL
-      )
-      console.log(res2)
-    }, 2000)
-  }
-
-  const airdrop = useCallback(() => {
-    console.log(`Requesting airdrop to ${publicKey}`)
-    if (!publicKey) {
-      return
-    }
-
-    connection.requestAirdrop(publicKey, 2 * LAMPORTS_PER_SOL).then(() => {
-      console.log('ACCOUNT FUNDED!')
-    })
-  }, [publicKey, connection])
+  }, [account, connection])
 
   const payPlayerDemo = () => {
     actions.payPlayer('metagaia', 50000, 'ARCD')
@@ -64,6 +40,7 @@ export const Solana = () => {
   return (
     <div className='mt-12' style={{ width: 500 }}>
       <h1 className='mb-8'>Pay Player</h1>
+      <h6>Your balance: {balance / LAMPORTS_PER_SOL}</h6>
       <Container>
         <h6>User to pay:</h6>
         <Input placeholder='Search by username' />
@@ -79,7 +56,7 @@ export const Solana = () => {
           <li>Arweave (AR)</li>
         </List>
         <Note>You will send 6 USDC and pay a fee of 0.05 USDC.</Note>
-        <Button palette='secondary' onClick={airdrop2}>
+        <Button palette='secondary' onClick={airdrop}>
           Airdrop
         </Button>
         <Button palette='secondary' onClick={payPlayerDemo}>
