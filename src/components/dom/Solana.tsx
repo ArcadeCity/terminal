@@ -4,6 +4,7 @@ import { LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { Button, List } from '@arcadecity/ui'
 import { useStore } from '@/store'
 import { useConnection, useWallet } from '@/contexts'
+import { ConnectButton } from '@/components/ConnectButton'
 
 export const Solana = () => {
   const actions = useStore((s) => s.actions)
@@ -11,7 +12,6 @@ export const Solana = () => {
   const connection = useConnection()
   const { publicKey } = useWallet()
 
-  console.log('connection:', connection)
   console.log('publicKey:', publicKey)
 
   const airdrop = useCallback(() => {

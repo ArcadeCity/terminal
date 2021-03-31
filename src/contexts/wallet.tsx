@@ -1,8 +1,6 @@
 import type { PublicKey } from '@solana/web3.js'
-
 import Wallet from '@project-serum/sol-wallet-adapter'
 import { Transaction } from '@solana/web3.js'
-import { Button, Modal } from 'antd'
 import EventEmitter from 'eventemitter3'
 import React, {
   useCallback,
@@ -14,6 +12,7 @@ import React, {
 import { notify } from './../utils/notifications'
 import { useConnectionConfig } from './connection'
 import { useLocalStorageState } from './../utils/utils'
+import { Button, Card } from '@arcadecity/ui'
 
 const ASSETS_URL =
   'https://raw.githubusercontent.com/solana-labs/oyster/main/assets/wallets/'
@@ -149,10 +148,24 @@ export function WalletProvider({ children = null as any }) {
       }}
     >
       {children}
-      <Modal
+      <Card title='sup now'>
+        {WALLET_PROVIDERS.map((provider) => {
+          const onClick = function () {
+            setProviderUrl(provider.url)
+            setAutoConnect(true)
+            close()
+          }
+          return (
+            <Button key={provider.name} onClick={onClick}>
+              {provider.name}
+            </Button>
+          )
+        })}
+      </Card>
+      {/* <Modal
         title='Select Wallet'
         okText='Connect'
-        visible={isModalVisible}
+        visible={true}
         okButtonProps={{ style: { display: 'none' } }}
         onCancel={close}
         width={400}
@@ -191,7 +204,7 @@ export function WalletProvider({ children = null as any }) {
             </Button>
           )
         })}
-      </Modal>
+      </Modal> */}
     </WalletContext.Provider>
   )
 }
@@ -205,6 +218,7 @@ export function useWallet() {
     select,
     publicKey: wallet?.publicKey,
     connect() {
+      console.log('selecting...')
       select()
       // wallet ? wallet.connect() : select()
     },

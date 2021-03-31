@@ -27,21 +27,21 @@ const Page = () => {
       <GridBackground r3f />
 
       {user ? (
-        <ConnectionProvider>
-          <WalletProvider>
-            <AccountsProvider>
-              <MarketProvider>
-                <ArcadeUI>
+        <ArcadeUI>
+          <ConnectionProvider>
+            <WalletProvider>
+              <AccountsProvider>
+                <MarketProvider>
                   <Header />
                   <Navbar />
                   <div className='-mt-32 flex flex-col h-screen w-screen justify-center items-center'>
                     <Solana />
                   </div>
-                </ArcadeUI>
-              </MarketProvider>
-            </AccountsProvider>
-          </WalletProvider>
-        </ConnectionProvider>
+                </MarketProvider>
+              </AccountsProvider>
+            </WalletProvider>
+          </ConnectionProvider>
+        </ArcadeUI>
       ) : (
         <LoginBox useStore={useStore} />
       )}

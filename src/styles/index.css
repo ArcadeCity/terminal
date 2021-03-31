@@ -24,3 +24,36 @@
     user-select: none; */
   }
 }
+
+.ant-modal-root {
+  @apply rounded !important;
+}
+
+.ant-modal-root button {
+  border: none;
+}
+
+.ant-modal-close {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin-top: -4px !important;
+  box-shadow: none !important;
+}
+
+.ant-modal-body img {
+  border: none;
+  display: inline-block;
+  margin: 5px;
+  padding-right: 10px;
+}
+
+.ant-modal-title {
+  @apply text-arwes !important;
+}
+
+.ant-modal-header,
+.ant-modal-body,
+.ant-modal-footer {
+  background-color: #102622 !important;
+}
