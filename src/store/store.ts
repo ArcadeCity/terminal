@@ -5,6 +5,12 @@ import { Uniswap } from '@/helpers/uniswap'
 
 const eth = new Eth()
 
+const PLAYERS = {
+  metagaia: {
+    solAddress: 'testo',
+  },
+}
+
 interface MagicUser {
   email: string
   issuer: string
@@ -35,6 +41,11 @@ type State = {
     initMagicUser: (magicUser: MagicUser) => void
     loginEmail: (props: LoginEmailProps) => void
     loginMetamask: () => void
+    payPlayer: (
+      username: string,
+      amount: number,
+      currency: string
+    ) => Promise<void>
     swapEthForArcd: (props: SwapProps) => Promise<void>
   }
   balances: {
@@ -68,6 +79,11 @@ export const useStore = create<State>((set, get) => {
       set({ events })
     },
     actions: {
+      payPlayer: async (username: string, amount: number, currency: string) => {
+        console.log(`Paying username ${username} ${amount} ${currency}`)
+        const player = PLAYERS[username]
+        console.log(player)
+      },
       swapEthForArcd: async ({ eth }) => {
         console.log(`Swapping ${eth} ETH for ARCD`)
         const balances = get().balances
