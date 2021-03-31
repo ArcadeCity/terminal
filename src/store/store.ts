@@ -110,7 +110,6 @@ export const useStore = create<State>((set, get) => {
         const referrer = PLAYERS['bob']
         const guild = PLAYERS['guild']
         const profitShare = PLAYERS['profitShare']
-        console.log(recipient)
 
         const transaction = new Transaction().add(
           SystemProgram.transfer({

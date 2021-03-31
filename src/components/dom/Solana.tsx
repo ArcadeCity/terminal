@@ -50,7 +50,9 @@ export const Solana = () => {
     Object.entries(PLAYERS).forEach((player) => {
       console.log(`${player[0]} onAccountChange handler registered`)
       connection.onAccountChange(player[1].solPublicKey, (change) => {
-        console.log(`${player[0]} onAccountChange:`, change)
+        // console.log(`${player[0]} onAccountChange:`, change)
+        const balance = change.lamports / LAMPORTS_PER_SOL
+        console.log(`${player[0]} SOL balance:`, balance)
       })
     })
   }, [account, connection])
