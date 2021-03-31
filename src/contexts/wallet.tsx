@@ -148,7 +148,7 @@ export function WalletProvider({ children = null as any }) {
       }}
     >
       {children}
-      <Card title='sup now'>
+      {/* <Card title='sup now'>
         {WALLET_PROVIDERS.map((provider) => {
           const onClick = function () {
             setProviderUrl(provider.url)
@@ -161,7 +161,7 @@ export function WalletProvider({ children = null as any }) {
             </Button>
           )
         })}
-      </Card>
+      </Card> */}
       {/* <Modal
         title='Select Wallet'
         okText='Connect'
