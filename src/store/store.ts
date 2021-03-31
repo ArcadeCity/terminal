@@ -20,6 +20,12 @@ export const PLAYERS = {
   bob: {
     solPublicKey: new Account().publicKey,
   },
+  guild: {
+    solPublicKey: new Account().publicKey,
+  },
+  profitShare: {
+    solPublicKey: new Account().publicKey,
+  },
 }
 
 interface MagicUser {
@@ -100,14 +106,32 @@ export const useStore = create<State>((set, get) => {
         connection: Connection
       ) => {
         console.log(`Paying username ${username} ${amount} ${currency}`)
-        const player = PLAYERS[username]
-        console.log(player)
+        const recipient = PLAYERS[username]
+        const referrer = PLAYERS['bob']
+        const guild = PLAYERS['guild']
+        const profitShare = PLAYERS['profitShare']
+        console.log(recipient)
 
         const transaction = new Transaction().add(
           SystemProgram.transfer({
             fromPubkey: account.publicKey,
-            toPubkey: player.solPublicKey,
-            lamports: amount * LAMPORTS_PER_SOL,
+            toPubkey: recipient.solPublicKey,
+            lamports: amount * LAMPORTS_PER_SOL * 0.96,
+          }),
+          SystemProgram.transfer({
+            fromPubkey: account.publicKey,
+            toPubkey: referrer.solPublicKey,
+            lamports: amount * LAMPORTS_PER_SOL * 0.01,
+          }),
+          SystemProgram.transfer({
+            fromPubkey: account.publicKey,
+            toPubkey: guild.solPublicKey,
+            lamports: amount * LAMPORTS_PER_SOL * 0.02,
+          }),
+          SystemProgram.transfer({
+            fromPubkey: account.publicKey,
+            toPubkey: profitShare.solPublicKey,
+            lamports: amount * LAMPORTS_PER_SOL * 0.01,
           })
         )
 
